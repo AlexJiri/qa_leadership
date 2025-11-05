@@ -6257,15 +6257,7 @@
       "debate_id": null
     }
   ],
-  "points_criteria": [
-    {
-      "id": 1761912494154,
-      "name": "After Party Conference Presenter",
-      "points": 5,
-      "description": "",
-      "created_at": 1761912494
-    }
-  ],
+  "points_criteria": [],
   "custom_badges": [],
   "kpi_tracking": [],
   "kpi_categories": [
