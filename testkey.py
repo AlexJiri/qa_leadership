@@ -2,7 +2,8 @@ import os
 import requests
 
 # You can put the key directly here for testing:
-api_key = os.getenv("OPENAI_API_KEY") or "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"  # replace if you want
+# IMPORTANT: Never commit API keys to Git! Use environment variables or .env file
+api_key = os.getenv("OPENAI_API_KEY") or "YOUR_API_KEY_HERE"  # Replace with your key for local testing only
 
 headers = {
     "Authorization": f"Bearer {api_key}"
