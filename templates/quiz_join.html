@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Join Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    body{font-family:Arial, sans-serif;background:#f6f7fb;margin:0;padding:24px}
+    .box{max-width:480px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1 style="margin-top:0">Join Quiz</h1>
+    <form method="POST">
+      <label style="display:block;margin-bottom:8px">Nickname</label>
+      <input name="nickname" class="inp" placeholder="Your nickname" style="width:100%" />
+      <div class="row gap mt">
+        <button class="btn primary" type="submit">Join</button>
+        <a class="btn" href="/">Cancel</a>
+      </div>
+    </form>
+    <div class="muted" style="margin-top:12px">Session: <b>{{ sid }}</b></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Backup files - NU comităm backup-urile automate
+data.json.backup.*
+data.json.before_*
+data.json.corrupted.*
+data.json.error.*
+data.json.empty.*
+data.json.recovered
+data.json.backup_recovery
+
+# Recovery scripts (opțional - poți șterge aceste fișiere dacă nu mai sunt necesare)
+# recover_*.py
+# find_*.py
+# restore_*.py
+# check_*.py
+# list_*.py
+# deep_recovery.py
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Environment variables (dacă există)
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.temp
+

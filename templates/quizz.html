@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quizz Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    .wrap{padding:16px;max-width:1100px;margin:0 auto}
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+    @media (max-width: 960px){.grid{grid-template-columns:1fr}}
+    .qitem{border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin-top:12px;background:#fff}
+    .opt{display:flex;gap:8px;align-items:center;margin-top:6px}
+    .badge{display:inline-flex;align-items:center;padding:2px 6px;border-radius:999px;background:#eef0f6;font-size:12px;margin-right:6px;color:#111}
+    .muted{color:#6b7280}
+    .list{display:flex;flex-direction:column;gap:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="card">
+          <div style="margin-bottom: 32px;">
+            <h1 style="margin: 0 0 8px 0; font-size: 32px; font-weight: 700; color: #1f2937;">Quizz</h1>
+            <p style="margin: 0; color: #6b7280; font-size: 16px;">Create and manage quizzes for your meetings</p>
+          </div>
+
+          <div style="background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); border: 1px solid #e5e7eb;">
+            <div class="row gap" style="align-items:center; margin-bottom:16px">
+              <label style="font-weight:600; color:#374151;">Select Quizz:</label>
+              <select id="quizSelect" class="sel" style="min-width:260px" onchange="onSelectQuiz()">
+                <option value="">(New quiz)</option>
+              </select>
+              <button class="btn" onclick="newQuiz()">New</button>
+              <button class="btn danger" onclick="deleteSelectedQuiz()" id="deleteSelectedBtn" disabled>Delete Quizz</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 16px;">
+              <div>
+                <label style="display:block;font-weight:600;color:#374151;margin-bottom:8px;font-size:14px;">Meeting</label>
+                <select id="qzMeeting" class="sel" style="width:100%; padding:14px; border:2px solid #e5e7eb; border-radius:12px; font-size:16px; background:white;">
+                </select>
+              </div>
+              <div>
+                <label style="display:block;font-weight:600;color:#374151;margin-bottom:8px;font-size:14px;">Quizz Title</label>
+                <input id="qzTitle" class="inp" placeholder="QA Monthly Quiz" style="width:100%; padding:14px; border:2px solid #e5e7eb; border-radius:12px; font-size:16px; background:white;" />
+              </div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label style="display:block;font-weight:600;color:#374151;margin-bottom:8px;font-size:14px;">Description</label>
+              <input id="qzDesc" class="inp" placeholder="Optional description" style="width:100%; padding:14px; border:2px solid #e5e7eb; border-radius:12px; font-size:16px; background:white;" />
+            </div>
+
+            <div class="row gap" style="align-items:center;">
+              <label class="chkline"><input id="qzPenalizeWrong" type="checkbox" /><span>Penalize wrong answers</span></label>
+              <span class="muted" id="linkedMeetingBadge" style="display:none">Linked to selected meeting</span>
+            </div>
+          </div>
+
+          <h2 style="margin: 0 0 12px 0; font-size: 20px; font-weight: 700; color: #1f2937;">Questions</h2>
+          <div class="row gap" style="margin-bottom:8px">
+            <select id="newType" class="sel">
+              <option value="single">Single choice</option>
+              <option value="multiple">Multiple choice</option>
+              <option value="order">Ordering</option>
+              <option value="match">Matching</option>
+            </select>
+            <button class="btn" onclick="addQuestion()">+ Add new question</button>
+          </div>
+          <div id="qzQuestions" class="mt"></div>
+          <div class="row gap mt" style="justify-content:flex-start">
+            <button class="btn primary" onclick="saveQuiz()">💾 Save Quizz</button>
+            <button class="btn danger" onclick="deleteSelectedQuiz()" id="deleteSelectedBtn2" disabled>Delete Quizz</button>
+            <span id="saveMsg" class="muted"></span>
+          </div>
+        </div>
+
+        <div class="card mt">
+          <h2 style="margin-top:0">Live Session</h2>
+          <div class="row gap">
+            <button class="btn" onclick="startSession()">▶ Start</button>
+            <button class="btn" onclick="toggleNext()">Next</button>
+            <button class="btn" onclick="revealAnswer()">Reveal</button>
+            <button class="btn danger" onclick="endSession()">⏹ End</button>
+            <button class="btn" onclick="generateJoinQr()">🧾 Join QR</button>
+          </div>
+          <div class="row gap mt">
+            <div id="joinQR"></div>
+            <div>
+              <div>Status: <b id="sessStatus">—</b></div>
+              <div>Current question: <b id="sessIndex">—</b></div>
+              <div>Players joined: <b id="sessPlayers">0</b></div>
+              <div id="timer" class="muted">Time left: <b id="timeLeft">—</b></div>
+            </div>
+          </div>
+          <div class="mt">
+            <h3 style="margin-top:0">Leaderboard</h3>
+            <div id="leaderboard" class="list"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h3 style="margin-top:0">Quizzes</h3>
+          <div class="row gap" style="margin-bottom:8px">
+            <input id="filterQuery" class="inp" placeholder="Search title..." oninput="renderQuizList()" />
+            <select id="sortBy" class="sel" onchange="renderQuizList()">
+              <option value="created_desc">Newest</option>
+              <option value="created_asc">Oldest</option>
+              <option value="title_asc">Title A–Z</option>
+              <option value="title_desc">Title Z–A</option>
+            </select>
+          </div>
+          <div id="listQuizzes" class="list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let QUIZZES=[], CURRENT_ID=null, CURRENT_SESSION_ID=null;
+
+    const $ = (s,r=document)=>r.querySelector(s);
+    const $$ = (s,r=document)=>Array.from(r.querySelectorAll(s));
+    const apiGet = async (u)=>{ const r=await fetch(u); if(!r.ok) throw new Error(await r.text()); return r.json(); };
+    const apiSend = async (u,m,b)=>{ const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined}); if(!r.ok) throw new Error(await r.text()); return r.json(); };
+
+    function renderQuizList(){
+      const box=$('#listQuizzes'); box.innerHTML='';
+      const q = ($('#filterQuery').value||'').toLowerCase();
+      let list = QUIZZES.slice();
+      if(q){ list = list.filter(x => (x.title||'').toLowerCase().includes(q)); }
+      const sort = $('#sortBy')?.value||'created_desc';
+      list.sort((a,b)=>{
+        if(sort==='title_asc') return (a.title||'').localeCompare(b.title||'');
+        if(sort==='title_desc') return (b.title||'').localeCompare(a.title||'');
+        if(sort==='created_asc') return (a.created_at||0)-(b.created_at||0);
+        return (b.created_at||0)-(a.created_at||0);
+      });
+      list.forEach(qz=>{
+        const row=document.createElement('div'); row.className='qitem';
+        row.innerHTML=`<div class="row" style="justify-content:space-between;align-items:flex-start">
+          <div>
+            <div><b>${escapeHtml(qz.title||'Untitled')}</b> ${qz.meeting_id?`<span class='badge'>Meeting #${qz.meeting_id}</span>`:''}</div>
+            <div class="muted" style="font-size:12px">${escapeHtml(qz.description||'')||'—'}</div>
+          </div>
+          <div class="row gap">
+            <select class="sel" onchange="updateQuizMeeting(${qz.id}, this.value)">
+              <option value="">(no meeting)</option>
+            </select>
+            <button class="btn subtle" onclick="loadQuiz(${qz.id})">Edit</button>
+            <button class="btn danger" onclick="deleteQuiz(${qz.id})">Delete</button>
+          </div>
+        </div>`;
+        box.appendChild(row);
+        // populate meeting selector lazily
+        populateMeetingSelect($('select', row), qz.meeting_id);
+      });
+      fillQuizSelect();
+    }
+
+    function qElem(q, idx){
+      const box=document.createElement('div'); box.className='qitem';
+      const tlabel = q.type==='multiple'?'[Multiple]':(q.type==='order'?'[Order]':(q.type==='match'?'[Match]':'[Single]'));
+      const head=document.createElement('div'); head.innerHTML=`<div class="row" style="justify-content:space-between;align-items:center"><div><span class="badge">${tlabel}</span> <b>Q${idx+1}</b></div><div class="row gap"><button class="btn subtle" onclick="moveQ(${idx},-1)">↑</button><button class="btn subtle" onclick="moveQ(${idx},1)">↓</button><button class="btn danger" onclick="removeQ(${idx})">Delete</button></div></div>`; box.appendChild(head);
+      const title=document.createElement('input'); title.className='inp'; title.placeholder='Question text'; title.value=q.text||''; title.oninput=e=>{ q.text=e.target.value; };
+      box.appendChild(title);
+      // per-question settings
+      const settings=document.createElement('div'); settings.className='row gap'; settings.style.marginTop='8px';
+      const pts=document.createElement('input'); pts.className='inp'; pts.type='number'; pts.placeholder='Points'; pts.style.width='140px'; pts.value = q.points!=null? q.points : 1;
+      pts.oninput=e=>{ q.points = +e.target.value || 0; };
+      const tsec=document.createElement('input'); tsec.className='inp'; tsec.type='number'; tsec.placeholder='Time (sec)'; tsec.style.width='140px'; tsec.value = q.time_sec!=null? q.time_sec : 30;
+      tsec.oninput=e=>{ q.time_sec = +e.target.value || 0; };
+      const ppts=document.createElement('input'); ppts.className='inp'; ppts.type='number'; ppts.placeholder='Penalty pts (wrong)'; ppts.style.width='160px'; ppts.value = q.penalty_points!=null? q.penalty_points : 0.5;
+      ppts.oninput=e=>{ q.penalty_points = +e.target.value || 0; };
+      settings.appendChild(pts); settings.appendChild(tsec); settings.appendChild(ppts); box.appendChild(settings);
+
+      // options / answers
+      const area=document.createElement('div'); area.className='mt';
+      if(q.type==='single' || q.type==='multiple'){
+        const opts=document.createElement('div');
+        (q.options||(q.options=[])).forEach((opt, oi)=>{
+          const line=document.createElement('div'); line.className='opt';
+          const inp=document.createElement('input'); inp.className='inp'; inp.style.flex='1'; inp.placeholder='Option'; inp.value=opt||''; inp.oninput=e=>{ q.options[oi]=e.target.value; };
+          const chk=document.createElement('input'); chk.type='checkbox'; chk.checked = q.type==='single' ? (String(q.correct||'')===String(oi)) : (Array.isArray(q.correct)?q.correct.includes(oi):false);
+          chk.onchange=()=>{
+            if(q.type==='single'){ q.correct = oi; $$('input[type="checkbox"]', opts).forEach((c,ci)=>{ if(ci!==oi) c.checked=false; }); }
+            else{
+              const c=new Set(q.correct||[]); if(chk.checked) c.add(oi); else c.delete(oi); q.correct = Array.from(c);
+            }
+          };
+          const del=document.createElement('button'); del.className='btn subtle'; del.textContent='✕'; del.onclick=()=>{ q.options.splice(oi,1); renderQuestions(); };
+          line.appendChild(inp); line.appendChild(chk); line.appendChild(del); opts.appendChild(line);
+        });
+        const add=document.createElement('button'); add.className='btn'; add.textContent='+ Option'; add.onclick=()=>{ (q.options||(q.options=[])).push(''); renderQuestions(); };
+        area.appendChild(opts); area.appendChild(add);
+      } else if(q.type==='order'){
+        const list=document.createElement('div');
+        (q.items||(q.items=[])).forEach((it, ii)=>{
+          const line=document.createElement('div'); line.className='opt';
+          const inp=document.createElement('input'); inp.className='inp'; inp.style.flex='1'; inp.placeholder='Item'; inp.value=it||''; inp.oninput=e=>{ q.items[ii]=e.target.value; };
+          const up=document.createElement('button'); up.className='btn subtle'; up.textContent='↑'; up.onclick=()=>{ if(ii>0){ const t=q.items[ii-1]; q.items[ii-1]=q.items[ii]; q.items[ii]=t; renderQuestions(); } };
+          const down=document.createElement('button'); down.className='btn subtle'; down.textContent='↓'; down.onclick=()=>{ if(ii<q.items.length-1){ const t=q.items[ii+1]; q.items[ii+1]=q.items[ii]; q.items[ii]=t; renderQuestions(); } };
+          const del=document.createElement('button'); del.className='btn subtle'; del.textContent='✕'; del.onclick=()=>{ q.items.splice(ii,1); renderQuestions(); };
+          line.appendChild(inp); line.appendChild(up); line.appendChild(down); line.appendChild(del); list.appendChild(line);
+        });
+        const add=document.createElement('button'); add.className='btn'; add.textContent='+ Item'; add.onclick=()=>{ (q.items||(q.items=[])).push(''); renderQuestions(); };
+        area.appendChild(list); area.appendChild(add);
+        const setCorrect=document.createElement('button'); setCorrect.className='btn mt'; setCorrect.textContent='Set current order as correct'; setCorrect.onclick=()=>{ q.order = (q.items||[]).map((_,i)=>i); alert('Correct order set.'); };
+        area.appendChild(setCorrect);
+      } else if(q.type==='match'){
+        q.left = q.left || ['A1','A2'];
+        q.right = q.right || ['B1','B2'];
+        q.map = q.map || {}; // leftIndex -> rightIndex
+        let pendingLeft = null;
+        const cols=document.createElement('div'); cols.style.display='grid'; cols.style.gridTemplateColumns='1fr 1fr 1fr'; cols.style.gap='12px';
+        const leftCol=document.createElement('div'); const rightCol=document.createElement('div'); const pairsCol=document.createElement('div');
+        pairsCol.innerHTML = '<div class="muted">Correct pairs</div>';
+        function drawPairs(){
+          pairsCol.innerHTML = '<div class="muted">Correct pairs</div>' + (q.left||[]).map((_,li)=>{
+            const rIdx = q.map.hasOwnProperty(li)? q.map[li] : null;
+            const r = (rIdx!=null && (q.right||[])[rIdx]) || '—';
+            return `<div>${q.left[li]||''} ⟶ <b>${r||'—'}</b></div>`;
+          }).join('');
+        }
+        (q.left).forEach((it, i)=>{
+          const row=document.createElement('div'); row.className='opt';
+          const inp=document.createElement('input'); inp.className='inp'; inp.style.flex='1'; inp.placeholder=`Left ${i+1}`; inp.value=it||''; inp.oninput=e=>{ q.left[i]=e.target.value; drawPairs(); };
+          const btn=document.createElement('button'); btn.className='btn subtle'; btn.textContent='Pick'; btn.onclick=()=>{ pendingLeft = i; Array.from(leftCol.querySelectorAll('button')).forEach(b=>b.style.outline='none'); btn.style.outline='2px solid #2563eb'; };
+          const del=document.createElement('button'); del.className='btn subtle'; del.textContent='✕'; del.onclick=()=>{ q.left.splice(i,1); const newMap={}; Object.entries(q.map||{}).forEach(([li,ri])=>{ const n=parseInt(li,10); if(n<i) newMap[n]=ri; else if(n>i) newMap[n-1]=ri; }); q.map=newMap; renderQuestions(); };
+          row.appendChild(inp); row.appendChild(btn); row.appendChild(del); leftCol.appendChild(row);
+        });
+        (q.right).forEach((it, i)=>{
+          const row=document.createElement('div'); row.className='opt';
+          const inp=document.createElement('input'); inp.className='inp'; inp.style.flex='1'; inp.placeholder=`Right ${i+1}`; inp.value=it||''; inp.oninput=e=>{ q.right[i]=e.target.value; drawPairs(); };
+          const btn=document.createElement('button'); btn.className='btn subtle'; btn.textContent='Pair'; btn.onclick=()=>{ if(pendingLeft!=null){ q.map[pendingLeft]=i; pendingLeft=null; Array.from(leftCol.querySelectorAll('button')).forEach(b=>b.style.outline='none'); drawPairs(); } };
+          const del=document.createElement('button'); del.className='btn subtle'; del.textContent='✕'; del.onclick=()=>{ q.right.splice(i,1); const newMap={}; Object.entries(q.map||{}).forEach(([li,ri])=>{ const n=parseInt(li,10); if(ri<i) newMap[n]=ri; else if(ri>i) newMap[n]=ri-1; }); q.map=newMap; renderQuestions(); };
+          row.appendChild(inp); row.appendChild(btn); row.appendChild(del); rightCol.appendChild(row);
+        });
+        const addLeft=document.createElement('button'); addLeft.className='btn'; addLeft.textContent='+ Left'; addLeft.onclick=()=>{ q.left.push(''); renderQuestions(); };
+        const addRight=document.createElement('button'); addRight.className='btn'; addRight.textContent='+ Right'; addRight.onclick=()=>{ q.right.push(''); renderQuestions(); };
+        leftCol.appendChild(addLeft); rightCol.appendChild(addRight);
+        cols.appendChild(leftCol); cols.appendChild(rightCol); cols.appendChild(pairsCol); area.appendChild(cols);
+        drawPairs();
+      }
+      box.appendChild(area);
+      return box;
+    }
+
+    function renderQuestions(){
+      const cont=$('#qzQuestions'); cont.innerHTML='';
+      const quiz = getDraft();
+      (quiz.questions||[]).forEach((q,i)=> cont.appendChild(qElem(q,i)) );
+    }
+
+    function getDraft(){
+      const quiz = window.__DRAFT__ || { title:'', description:'', time_per_question:30, points:1, penalize:false, questions:[], meeting_id:null };
+      const titleEl = $('#qzTitle'); const descEl = $('#qzDesc'); const penEl = $('#qzPenalizeWrong');
+      if(titleEl) quiz.title = titleEl.value.trim();
+      if(descEl) quiz.description = descEl.value.trim();
+      if(penEl) quiz.penalize = penEl.checked;
+      return quiz;
+    }
+
+    function setDraft(quiz){
+      window.__DRAFT__ = JSON.parse(JSON.stringify(quiz||{}));
+      const t=$('#qzTitle'), d=$('#qzDesc'), p=$('#qzPenalizeWrong');
+      if(t) t.value = quiz.title||'';
+      if(d) d.value = quiz.description||'';
+      if(p) p.checked = !!quiz.penalize;
+      const meetSel = $('#qzMeeting'); if(meetSel && meetSel._loaded !== true){
+        populateMeetingSelect(meetSel, quiz.meeting_id, true);
+      } else if(meetSel){ meetSel.value = quiz.meeting_id||''; }
+      if(meetSel){ meetSel.onchange = ()=>{ window.__DRAFT__.meeting_id = meetSel.value? +meetSel.value : null; const b=$('#linkedMeetingBadge'); if(meetSel.value){ if(b){ b.style.display='inline-flex'; b.textContent=`Linked to meeting #${meetSel.value}`; } } else { if(b){ b.style.display='none'; } } }; }
+      renderQuestions();
+    }
+
+    function addQuestion(){
+      const quiz = getDraft();
+      const type = $('#newType').value;
+      const q = { type, text:'', points: 1 };
+      if(type==='single' || type==='multiple'){ q.options=['','']; q.correct = type==='single'?0:[]; }
+      if(type==='order'){ q.items=['','']; q.order=[0,1]; }
+      if(type==='match'){ q.left=['A1','A2']; q.right=['B1','B2']; q.map={}; }
+      (quiz.questions||(quiz.questions=[])).push(q);
+      setDraft(quiz);
+    }
+    function moveQ(i,dir){ const quiz=getDraft(); const j=i+dir; if(j<0||j>=quiz.questions.length) return; const t=quiz.questions[j]; quiz.questions[j]=quiz.questions[i]; quiz.questions[i]=t; setDraft(quiz); }
+    function removeQ(i){ const quiz=getDraft(); quiz.questions.splice(i,1); setDraft(quiz); }
+
+    async function saveQuiz(){
+      const q=getDraft();
+      const payload={
+        id: CURRENT_ID,
+        title: q.title,
+        description: q.description,
+        time_per_question: q.time_per_question,
+        points: q.points,
+        penalize: q.penalize,
+        meeting_id: q.meeting_id || ($('#qzMeeting').value? +$('#qzMeeting').value : null),
+        questions: (q.questions||[]).map(qq=>{
+          if(qq.type==='order'){
+            qq.order = (qq.items||[]).map((_,i)=>i);
+          }
+          return qq;
+        })
+      };
+      if(!payload.title){ alert('Title required'); return; }
+      if(!CURRENT_ID){
+        const res = await apiSend('/api/quizzes','POST',{
+          meeting_id: payload.meeting_id,
+          title: payload.title,
+          status: 'draft',
+          questions: payload.questions
+        });
+        CURRENT_ID = res.id;
+      }else{
+        await apiSend('/api/quizzes','PUT', payload);
+      }
+      $('#saveMsg').textContent='Saved'; setTimeout(()=>$('#saveMsg').textContent='',1500);
+      await loadAll();
+    }
+
+    async function loadAll(){
+      QUIZZES = await apiGet('/api/quizzes');
+      renderQuizList();
+    }
+
+    async function loadQuiz(id){
+      const q = QUIZZES.find(x=> String(x.id)===String(id));
+      if(!q) return;
+      CURRENT_ID = q.id;
+      setDraft({
+        title: q.title||'', description: q.description||'', time_per_question: q.time_per_question||30,
+        points: q.points||1, penalize: !!q.penalize, meeting_id: q.meeting_id||null, questions: (q.questions||[]).map(x=>({...x}))
+      });
+    }
+
+    async function deleteQuiz(id){
+      if(!confirm('Delete this quiz?')) return;
+      await fetch(`/api/quizzes?id=${encodeURIComponent(id)}`, { method:'DELETE' });
+      await loadAll();
+    }
+
+    async function onSelectQuiz(){
+      const v=$('#quizSelect').value; $('#deleteSelectedBtn').disabled = !v; document.getElementById('deleteSelectedBtn2').disabled = !v;
+      if(v){ await loadQuiz(v); } else { newQuiz(); }
+    }
+    function newQuiz(){ CURRENT_ID=null; setDraft({ title:'', description:'', time_per_question:30, points:1, penalize:false, questions:[], meeting_id: null }); $('#deleteSelectedBtn').disabled = true; document.getElementById('deleteSelectedBtn2').disabled = true; }
+    async function deleteSelectedQuiz(){ const v=$('#quizSelect').value; if(!v) return; if(!confirm('Delete selected quiz?')) return; await fetch(`/api/quizzes?id=${encodeURIComponent(v)}`, { method:'DELETE' }); await loadAll(); fillQuizSelect(); newQuiz(); renderQuizList(); }
+
+    // ----- Live Session Controls -----
+    async function ensureSession(){
+      if(CURRENT_SESSION_ID) return CURRENT_SESSION_ID;
+      if(!CURRENT_ID){ alert('Save quiz first'); return null; }
+      const res = await apiSend('/api/quiz-sessions','POST',{ quiz_id: CURRENT_ID, meeting_id: (window.__DRAFT__||{}).meeting_id||null });
+      CURRENT_SESSION_ID = res.id; return CURRENT_SESSION_ID;
+    }
+    async function startSession(){ const sid=await ensureSession(); if(!sid) return; await apiSend(`/api/quiz-sessions/${sid}/control`,'POST',{action:'start'}); pollState(); }
+    async function toggleNext(){ const sid=await ensureSession(); if(!sid) return; await apiSend(`/api/quiz-sessions/${sid}/control`,'POST',{action:'next'}); pollState(); }
+    async function revealAnswer(){ const sid=await ensureSession(); if(!sid) return; await apiSend(`/api/quiz-sessions/${sid}/control`,'POST',{action:'reveal'}); pollState(); }
+    async function endSession(){ const sid=await ensureSession(); if(!sid) return; await apiSend(`/api/quiz-sessions/${sid}/control`,'POST',{action:'end'}); pollState(); }
+    async function generateJoinQr(){ const sid=await ensureSession(); if(!sid) return; const r=await apiSend(`/api/quiz-sessions/${sid}/qr`,'POST',{}); $('#joinQR').innerHTML=`<img src="${r.qr_url}" style="max-width:200px"><div class='muted' style='font-size:12px'><a target='_blank' href='${r.join_url}'>${r.join_url}</a></div>`; }
+
+    async function pollState(){
+      if(!CURRENT_SESSION_ID) return;
+      const st = await apiGet(`/api/quiz-sessions/${CURRENT_SESSION_ID}/state`);
+      $('#sessStatus').textContent = st.status||'-';
+      $('#sessIndex').textContent = (st.current_index>=0? st.current_index+1:'—');
+      $('#sessPlayers').textContent = Object.keys(st.players||{}).length;
+      $('#timeLeft').textContent = (typeof st.time_left_ms==='number')? Math.max(0, Math.ceil(st.time_left_ms/1000))+'s' : '—';
+      $('#timer').style.display = (typeof st.time_left_ms==='number')? 'block':'none';
+      const lb=$('#leaderboard'); lb.innerHTML='';
+      (st.leaderboard||[]).forEach(e=>{ const row=document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.innerHTML=`<div>${escapeHtml(e.nickname||e.pid)}</div><b>${(e.score||0).toFixed(2)}</b>`; lb.appendChild(row); });
+      setTimeout(pollState, 900);
+    }
+
+    function fillQuizSelect(){
+      const sel=$('#quizSelect'); if(!sel) return;
+      sel.innerHTML='<option value="">(New quiz)</option>' + (QUIZZES||[]).map(q=>`<option value="${q.id}">${escapeHtml(q.title||'Untitled')}</option>`).join('');
+    }
+
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c])); }
+
+    async function populateMeetingSelect(selectEl, selected, markLoaded){
+      try{
+        const meetings = await apiGet('/api/meetings');
+        selectEl.innerHTML = '<option value="">(no meeting)</option>';
+        meetings.forEach(m=>{
+          const op=document.createElement('option'); op.value=m.id; op.textContent=`#${m.id} · ${m.title||''}`; if(String(m.id)===String(selected||'')) op.selected=true; selectEl.appendChild(op);
+        });
+        if(markLoaded) selectEl._loaded = true;
+      }catch(e){ /* ignore */ }
+    }
+    async function updateQuizMeeting(id, meetingId){
+      try{ await apiSend('/api/quizzes','PUT',{ id, meeting_id: meetingId? +meetingId : null }); await loadAll(); }catch(e){ alert('Update failed'); }
+    }
+
+    (async function init(){
+      await loadAll();
+      fillQuizSelect();
+      // Prefill meeting correlation
+      const mid = sessionStorage.getItem('quizz_meeting_id');
+      if(mid){ setDraft({ title:'', description:'', time_per_question:30, points:1, penalize:false, questions:[], meeting_id: +mid }); sessionStorage.removeItem('quizz_meeting_id'); }
+      else { setDraft({ title:'', description:'', time_per_question:30, points:1, penalize:false, questions:[], meeting_id: null }); }
+      const d=getDraft(); setDraft(d);
+    })();
+  </script>
+</body>
+</html>

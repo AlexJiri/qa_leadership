@@ -1,0 +1,2503 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <title>Debate · QA Leadership Tool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    .page-wrap{padding:14px}
+    .subnav{display:flex;gap:8px;align-items:center;margin:8px 0}
+    .pilltab button{background:#eef0f6;border:none;border-radius:999px;padding:6px 10px;cursor:pointer}
+    .pilltab button.active{background:#1d2233;color:#fff}
+    .right{margin-left:auto}
+    .field{margin:6px 0}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width: 960px){.grid2{grid-template-columns:1fr}}
+    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    @media (max-width: 960px){.grid3{grid-template-columns:1fr}}
+    .muted-small{font-size:12px;color:#667}
+    .chip-x{display:inline-flex;align-items:center;gap:6px;padding:2px 6px;border-radius:999px;background:#eef0f6;margin:2px 4px 0 0;font-size:12px}
+    .chip-x button{border:none;background:transparent;cursor:pointer;line-height:1}
+    .input-with-suggest{position:relative}
+    .suggest{position:absolute;left:0;right:0;top:100%;z-index:30;background:#fff;border:1px solid #e5e7f1;border-radius:8px;box-shadow:0 8px 20px rgba(16,21,34,.08);display:none;max-height:220px;overflow:auto}
+    .suggest div{padding:6px 8px;cursor:pointer}
+    .suggest div:hover{background:#f5f6fb}
+    .thin-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+    .tbl{width:100%;border-collapse:collapse}
+    .tbl th,.tbl td{border:1px solid #eef0f6;padding:6px 8px;text-align:left;font-size:13px}
+    .tbl th{background:#fafbff}
+    .hidden{display:none}
+    .badge{display:inline-block;padding:2px 6px;border-radius:6px;background:#eef0f6;font-size:12px}
+    .warn{background:#fde68a}
+    .team-card .mem{display:flex;justify-content:space-between;align-items:center;padding:4px 6px;border-radius:8px;border:1px solid #eef0f6;margin:4px 0}
+    .team-card .mem small{color:#667}
+    /* create pipeline */
+    .stepper{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+    .stepper .s{padding:4px 8px;border-radius:999px;background:#eef0f6;font-size:12px}
+    .stepper .s.active{background:#1d2233;color:#fff}
+    /* list */
+    .list .deb-row{border:1px solid #eaedf4;border-radius:10px;padding:8px 10px;margin:6px 0;display:flex;justify-content:space-between;align-items:center;background:#fff}
+    .list .deb-row.active{outline:2px solid #1d2233}
+    
+    /* Flow rounds styling */
+    .flow-rounds-container {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border: 1px solid #e5e7f1;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .flow-rounds-header h3 {
+      margin: 0 0 8px 0;
+      color: #1e40af;
+      font-size: 16px;
+    }
+    
+    .flow-display-container {
+      margin-top: 16px;
+    }
+    
+    .round-section {
+      background: #fff;
+      border: 1px solid #e5e7f1;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    
+    .round-header {
+      background: #1d2233;
+      color: white;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+    }
+    
+    .round-header:hover {
+      background: #2d3748;
+    }
+    
+    .round-header .expand-icon {
+      transition: transform 0.2s ease;
+    }
+    
+    .round-header.expanded .expand-icon {
+      transform: rotate(90deg);
+    }
+    
+    .round-steps {
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .round-steps.expanded {
+      max-height: 1000px;
+    }
+    
+    .round-step {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      border-bottom: 1px solid #f3f4f6;
+      gap: 12px;
+    }
+    
+    .round-step:last-child {
+      border-bottom: none;
+    }
+    
+    .round-step:hover {
+      background: #f9fafb;
+    }
+    
+    .step-number {
+      background: #e5e7f1;
+      color: #374151;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    
+    .step-details {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .step-title {
+      font-weight: 500;
+      color: #111827;
+      min-width: 200px;
+    }
+    
+    .step-duration {
+      color: #6b7280;
+      font-size: 12px;
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    .step-action {
+      color: #6b7280;
+      font-size: 12px;
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    .step-actions {
+      display: flex;
+      gap: 4px;
+    }
+    
+    .step-actions button {
+      background: none;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    
+    .step-actions button:hover {
+      background: #f3f4f6;
+      color: #374151;
+    }
+    
+    .empty-round {
+      padding: 24px;
+      text-align: center;
+      color: #6b7280;
+      font-style: italic;
+    }
+    
+    @keyframes prizeGlow {
+      0% { 
+        box-shadow: 0 4px 12px rgba(245,158,11,0.3), 0 0 20px rgba(245,158,11,0.2); 
+        transform: scale(1) rotate(0deg); 
+      }
+      50% { 
+        box-shadow: 0 6px 16px rgba(245,158,11,0.5), 0 0 30px rgba(245,158,11,0.4); 
+        transform: scale(1.03) rotate(1deg); 
+      }
+      100% { 
+        box-shadow: 0 8px 20px rgba(245,158,11,0.6), 0 0 40px rgba(245,158,11,0.3); 
+        transform: scale(1.02) rotate(0deg); 
+      }
+    }
+    
+    @keyframes winnerPulse {
+      0% { 
+        box-shadow: 0 8px 25px rgba(16,185,129,0.2), 0 0 20px rgba(16,185,129,0.1); 
+        transform: scale(1); 
+      }
+      50% { 
+        box-shadow: 0 12px 35px rgba(16,185,129,0.4), 0 0 30px rgba(16,185,129,0.2); 
+        transform: scale(1.01); 
+      }
+      100% { 
+        box-shadow: 0 16px 45px rgba(16,185,129,0.3), 0 0 25px rgba(16,185,129,0.15); 
+        transform: scale(1); 
+      }
+    }
+    
+    @keyframes winnerBadge {
+      0% { 
+        transform: scale(1) rotate(0deg); 
+        background: #10b981; 
+        box-shadow: 0 2px 8px rgba(16,185,129,0.3); 
+      }
+      25% { 
+        transform: scale(1.08) rotate(-2deg); 
+        background: #059669; 
+        box-shadow: 0 4px 12px rgba(16,185,129,0.5); 
+      }
+      50% { 
+        transform: scale(1.12) rotate(2deg); 
+        background: #047857; 
+        box-shadow: 0 6px 16px rgba(16,185,129,0.6); 
+      }
+      75% { 
+        transform: scale(1.08) rotate(-1deg); 
+        background: #059669; 
+        box-shadow: 0 4px 12px rgba(16,185,129,0.5); 
+      }
+      100% { 
+        transform: scale(1) rotate(0deg); 
+        background: #10b981; 
+        box-shadow: 0 2px 8px rgba(16,185,129,0.3); 
+      }
+    }
+    
+    /* Fireworks effects */
+    .fireworks {
+      position: relative;
+      overflow: visible;
+    }
+    
+    .fireworks::before,
+    .fireworks::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: firework 2s ease-out infinite;
+    }
+    
+    .fireworks::before {
+      background: #f59e0b;
+      top: 50%;
+      left: 50%;
+      animation-delay: 0s;
+    }
+    
+    .fireworks::after {
+      background: #10b981;
+      top: 50%;
+      left: 50%;
+      animation-delay: 0.5s;
+    }
+    
+    @keyframes firework {
+      0% {
+        transform: translate(0, 0) scale(0);
+        opacity: 1;
+      }
+      20% {
+        transform: translate(-20px, -30px) scale(1);
+        opacity: 0.8;
+      }
+      40% {
+        transform: translate(20px, -20px) scale(0.8);
+        opacity: 0.6;
+      }
+      60% {
+        transform: translate(-15px, 25px) scale(1.2);
+        opacity: 0.4;
+      }
+      80% {
+        transform: translate(25px, 15px) scale(0.6);
+        opacity: 0.2;
+      }
+      100% {
+        transform: translate(0, 0) scale(0);
+        opacity: 0;
+      }
+    }
+    
+    /* Prize fireworks */
+    .prize-fireworks {
+      position: relative;
+      overflow: visible;
+    }
+    
+    .prize-fireworks::before,
+    .prize-fireworks::after,
+    .prize-fireworks .spark1,
+    .prize-fireworks .spark2,
+    .prize-fireworks .spark3,
+    .prize-fireworks .spark4 {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: prizeFirework 3s ease-out infinite;
+    }
+    
+    .prize-fireworks::before {
+      background: #fbbf24;
+      top: 50%;
+      left: 50%;
+      animation-delay: 0s;
+    }
+    
+    .prize-fireworks::after {
+      background: #f59e0b;
+      top: 50%;
+      left: 50%;
+      animation-delay: 0.3s;
+    }
+    
+    .prize-fireworks .spark1 {
+      background: #fbbf24;
+      top: 50%;
+      left: 50%;
+      animation-delay: 0.6s;
+    }
+    
+    .prize-fireworks .spark2 {
+      background: #f59e0b;
+      top: 50%;
+      left: 50%;
+      animation-delay: 0.9s;
+    }
+    
+    .prize-fireworks .spark3 {
+      background: #fbbf24;
+      top: 50%;
+      left: 50%;
+      animation-delay: 1.2s;
+    }
+    
+    .prize-fireworks .spark4 {
+      background: #f59e0b;
+      top: 50%;
+      left: 50%;
+      animation-delay: 1.5s;
+    }
+    
+    @keyframes prizeFirework {
+      0% {
+        transform: translate(0, 0) scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      15% {
+        transform: translate(-30px, -40px) scale(1.5) rotate(45deg);
+        opacity: 0.9;
+      }
+      30% {
+        transform: translate(35px, -25px) scale(1.2) rotate(90deg);
+        opacity: 0.7;
+      }
+      45% {
+        transform: translate(-25px, 35px) scale(1.8) rotate(135deg);
+        opacity: 0.5;
+      }
+      60% {
+        transform: translate(40px, 20px) scale(1.1) rotate(180deg);
+        opacity: 0.3;
+      }
+      75% {
+        transform: translate(-20px, -30px) scale(0.8) rotate(225deg);
+        opacity: 0.2;
+      }
+      100% {
+        transform: translate(0, 0) scale(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Team Explosion Animation */
+    @keyframes teamReveal {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) rotate(-10deg);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.1) rotate(5deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+    
+    /* Fireworks Waiting Animation */
+    .firework-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      opacity: 0;
+    }
+    
+    .firework-square {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      opacity: 0;
+    }
+    
+    .firework-container {
+      position: relative;
+      width: 0;
+      height: 0;
+    }
+    
+    /* Dot Explosions - 8 directions */
+    @keyframes explodeDot1 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0); }
+      20% { opacity: 1; transform: translate(0, -60px) scale(1); }
+      100% { opacity: 0; transform: translate(0, -80px) scale(0.5); }
+    }
+    
+    @keyframes explodeDot2 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0); }
+      20% { opacity: 1; transform: translate(42px, -42px) scale(1); }
+      100% { opacity: 0; transform: translate(56px, -56px) scale(0.5); }
+    }
+    
+    @keyframes explodeDot3 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0); }
+      20% { opacity: 1; transform: translate(60px, 0) scale(1); }
+      100% { opacity: 0; transform: translate(80px, 0) scale(0.5); }
+    }
+    
+    @keyframes explodeDot4 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0); }
+      20% { opacity: 1; transform: translate(42px, 42px) scale(1); }
+      100% { opacity: 0; transform: translate(56px, 56px) scale(0.5); }
+    }
+    
+    @keyframes explodeDot5 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0); }
+      20% { opacity: 1; transform: translate(0, 60px) scale(1); }
+      100% { opacity: 0; transform: translate(0, 80px) scale(0.5); }
+    }
+    
+    @keyframes explodeDot6 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0); }
+      20% { opacity: 1; transform: translate(-42px, 42px) scale(1); }
+      100% { opacity: 0; transform: translate(-56px, 56px) scale(0.5); }
+    }
+    
+    @keyframes explodeDot7 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0); }
+      20% { opacity: 1; transform: translate(-60px, 0) scale(1); }
+      100% { opacity: 0; transform: translate(-80px, 0) scale(0.5); }
+    }
+    
+    @keyframes explodeDot8 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0); }
+      20% { opacity: 1; transform: translate(-42px, -42px) scale(1); }
+      100% { opacity: 0; transform: translate(-56px, -56px) scale(0.5); }
+    }
+    
+    /* Square Explosions - 8 directions */
+    @keyframes explodeSquare1 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: translate(0, -60px) scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: translate(0, -80px) scale(0.5) rotate(90deg); }
+    }
+    
+    @keyframes explodeSquare2 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: translate(42px, -42px) scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: translate(56px, -56px) scale(0.5) rotate(90deg); }
+    }
+    
+    @keyframes explodeSquare3 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: translate(60px, 0) scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: translate(80px, 0) scale(0.5) rotate(90deg); }
+    }
+    
+    @keyframes explodeSquare4 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: translate(42px, 42px) scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: translate(56px, 56px) scale(0.5) rotate(90deg); }
+    }
+    
+    @keyframes explodeSquare5 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: translate(0, 60px) scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: translate(0, 80px) scale(0.5) rotate(90deg); }
+    }
+    
+    @keyframes explodeSquare6 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: translate(-42px, 42px) scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: translate(-56px, 56px) scale(0.5) rotate(90deg); }
+    }
+    
+    @keyframes explodeSquare7 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: translate(-60px, 0) scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: translate(-80px, 0) scale(0.5) rotate(90deg); }
+    }
+    
+    @keyframes explodeSquare8 {
+      0% { opacity: 0; transform: translate(0, 0) scale(0) rotate(0deg); }
+      20% { opacity: 1; transform: translate(-42px, -42px) scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: translate(-56px, -56px) scale(0.5) rotate(90deg); }
+    }
+    
+    @keyframes fadeOutFireworks {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <div class="row align-center" style="gap:10px">
+      <a class="btn subtle" href="/">← Back</a>
+      <h1 style="margin:0">Debate</h1>
+      <span class="muted-small">create · pre-live · results</span>
+    </div>
+
+    <!-- select debate + global actions -->
+    <div class="card" style="margin-top:8px">
+      <div class="row align-center" style="gap:8px;flex-wrap:wrap">
+        <select id="selDebate" class="sel" style="min-width:320px">
+          <option value="">(Select an existing debate)</option>
+        </select>
+        <button class="btn" id="btnReload">Reload</button>
+        <button class="btn primary" id="btnNew">+ New debate</button>
+        <button class="btn danger" id="btnDelete" disabled>Delete debate</button>
+        <span class="right muted-small" id="debateStatus"></span>
+      </div>
+    </div>
+
+    <!-- taburi -->
+    <div class="subnav pilltab">
+      <button data-tab="create" class="active">Create</button>
+      <button data-tab="live">Live (pre-start)</button>
+      <button data-tab="results">Results</button>
+    </div>
+
+    <!-- CREATE: pipeline -->
+    <section id="tab-create" class="page active">
+
+      <div class="card">
+        <div class="stepper">
+          <span class="s active" data-cstep="0">1. General</span>
+          <span class="s" data-cstep="1">2. Format</span>
+          <span class="s" data-cstep="2">3. Flow</span>
+          <span class="s" data-cstep="3">4. Scoring rubric</span>
+          <span class="s" data-cstep="4">5. Save</span>
+        </div>
+      </div>
+
+      <!-- Step 1: General -->
+      <div class="card create-step" data-step="0">
+        <h2>General</h2>
+        <div class="field"><input id="afText" class="inp wide" placeholder="Title / Topic (affirmation)" /></div>
+        <div class="field">
+          <select id="afMeeting" class="sel wide"><option value="">(Associated meeting — optional)</option></select>
+        </div>
+        <div class="field"><input id="afPrize" class="inp wide" placeholder="Prize (ex: 300€ for winning team)" /></div>
+        <div class="muted-small">Debate date is automatically taken from the associated meeting (if it exists).</div>
+        <div class="row gap mt">
+          <button class="btn right" id="btnStepNext0">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Format -->
+      <div class="card create-step hidden" data-step="1">
+        <h2>Format</h2>
+        <div class="thin-row" style="flex-wrap:wrap">
+          <label>Teams
+            <input id="fmtTeamCount" type="number" class="inp" value="2" style="width:110px;margin-left:6px">
+          </label>
+          <label>Team size
+            <input id="fmtTeamSize" type="number" class="inp" value="2" style="width:110px;margin-left:6px">
+          </label>
+          <label>Judges
+            <input id="fmtJudgeCount" type="number" class="inp" value="2" style="width:110px;margin-left:6px">
+          </label>
+          <label>Rounds
+            <input id="fmtRoundCount" type="number" class="inp" value="3" min="1" max="10" style="width:110px;margin-left:6px">
+          </label>
+        </div>
+        <div class="muted-small">Limits for randomization/validation. Teams and judges are edited in the <b>Live</b> tab.</div>
+        
+        <!-- Round Definitions -->
+        <div class="mt" id="roundDefinitions" style="display:none">
+          <h3>Round Definitions</h3>
+          <div class="muted-small mb">Define each round with title and description</div>
+          <div id="roundsList"></div>
+          <button class="btn" id="btnAddRound">+ Add Round</button>
+        </div>
+        <div class="row gap mt">
+          <button class="btn" id="btnStepBack1">← Back</button>
+          <button class="btn right" id="btnStepNext1">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Flow -->
+      <div class="card create-step hidden" data-step="2">
+        <h2>Flow (timed steps)</h2>
+        
+        <!-- Round-based Flow Management -->
+        <div class="flow-rounds-container">
+          <div class="flow-rounds-header">
+            <h3>Round-based Flow Management</h3>
+            <div class="muted-small mb">Organize your debate flow by rounds. You can clone entire rounds with all their steps.</div>
+          </div>
+          
+          <!-- Round Selection and Actions -->
+          <div class="field thin-row mb">
+            <select id="flowRoundSelect" class="sel" style="width:150px">
+              <!-- Options will be populated by updateRoundOptions() -->
+            </select>
+            <button class="btn" id="btnCloneRound">📋 Clone Round</button>
+            <button class="btn" id="btnClearRound">🗑️ Clear Round</button>
+            <span class="muted-small" id="roundStepCount">0 steps</span>
+          </div>
+          
+          <!-- Add Step to Selected Round -->
+        <div class="field thin-row">
+          <input id="flowTitle" class="inp" placeholder="Step title" style="min-width:220px">
+          <input id="flowDur" type="number" class="inp" placeholder="Duration (sec)" style="width:140px">
+          <select id="flowAction" class="sel">
+            <option value="none">No action</option>
+            <option value="jury_vote">Jury vote (Complex)</option>
+            <option value="simple_jury_vote">Simple Jury vote</option>
+            <option value="public_vote">Public vote</option>
+            <option value="jury+public">Jury + Public vote (Complex)</option>
+            <option value="simple_jury+public">Simple Jury + Public vote</option>
+          </select>
+          <select id="flowAnimation" class="sel">
+            <option value="none">No animation</option>
+            <option value="vote">Vote</option>
+            <option value="break">Break</option>
+            <option value="brainstorming">Brainstorming</option>
+            <option value="arguments">Arguments</option>
+            <option value="counter_arguments">Counter Arguments</option>
+            <option value="jury_arguments">Jury Arguments</option>
+            <option value="jury_questions">Jury Questions</option>
+            <option value="final_wrapup">Final Wrap Up</option>
+          </select>
+          <button class="btn" id="btnAddFlow">+ Add step</button>
+        </div>
+        </div>
+        
+        <!-- Flow Display by Rounds -->
+        <div class="flow-display-container mt">
+          <div id="flowRoundsDisplay"></div>
+        </div>
+        
+        <div class="muted-small">For voting steps, QR/Link is automatically generated on Save (one per step, common to all judges or public).</div>
+        <div class="row gap mt">
+          <button class="btn" id="btnStepBack2">← Back</button>
+          <button class="btn right" id="btnStepNext2">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Scoring rubric -->
+      <div class="card create-step hidden" data-step="3">
+        <h2>Scoring rubric</h2>
+        <div class="thin-row">
+          <input id="rbKey" class="inp" placeholder="key (ex: clarity)" style="min-width:150px">
+          <input id="rbLabel" class="inp wide" placeholder="Label (ex: Claritate)">
+          <select id="rbType" class="sel" style="width:140px">
+            <option value="general">General criteria</option>
+            <option value="round">Round criteria</option>
+          </select>
+          <select id="rbRound" class="sel" style="width:120px">
+            <option value="1">Round 1</option>
+            <option value="2">Round 2</option>
+            <option value="3">Round 3</option>
+            <option value="4">Round 4</option>
+            <option value="5">Round 5</option>
+          </select>
+          <input id="rbMin" type="number" class="inp" placeholder="0" style="width:90px">
+          <input id="rbMax" type="number" class="inp" placeholder="5" style="width:90px">
+          <button class="btn" id="btnAddCrit">+ Add criterion</button>
+        </div>
+        <table class="tbl mt">
+          <thead><tr><th>Key</th><th>Label</th><th>Type</th><th>Round</th><th>Min</th><th>Max</th><th></th></tr></thead>
+          <tbody id="rbTbody"></tbody>
+        </table>
+        <div class="row gap mt">
+          <button class="btn" id="btnStepBack3">← Back</button>
+          <button class="btn right" id="btnStepNext3">Next →</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Save -->
+      <div class="card create-step hidden" data-step="4">
+        <h2>Save</h2>
+        <div class="muted-small">Review your debate configuration before saving. Press Save to generate links/QRs for voting steps and continue in the Live tab.</div>
+        
+        <!-- Preview Section -->
+        <div class="card mt" style="background:#f8fafc;border:1px solid #e2e8f0">
+          <h3 style="margin:0 0 12px 0;color:#1e40af">📋 Debate Preview</h3>
+          <div id="debatePreview" style="font-size:14px;line-height:1.6">
+            <!-- Preview content will be generated here -->
+          </div>
+        </div>
+        
+        <div class="row gap mt">
+          <button class="btn" id="btnStepBack4">← Back</button>
+          <button class="btn primary" id="btnSave">💾 Save</button>
+          <span id="saveMsg" class="muted-small"></span>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:10px">
+        <h2>Debate list</h2>
+        <div id="debList" class="list"></div>
+      </div>
+    </section>
+
+    <!-- LIVE (pre-start) -->
+    <section id="tab-live" class="page">
+      <div id="liveGuard" class="muted-small">Select or save a debate to continue.</div>
+      <div id="liveArea" class="hidden">
+
+        <div class="card">
+          <h2>Registration</h2>
+          <div class="row gap">
+            <button class="btn" id="btnRegQR">Generate registration QR</button>
+            <a id="regLink" class="btn primary" href="#" target="_blank" style="display:none">Open registration page</a>
+            <button class="btn" id="btnCopyRegLink">Copy link</button>
+            <button class="btn" id="btnEmailReg">Email to meeting attendees</button>
+            <button class="btn" id="btnRegRefresh">Refresh signups</button>
+          </div>
+          <div id="regQR" class="mt"></div>
+          <div id="signupsBox" class="mt muted-small"></div>
+        </div>
+
+        <div class="card mt">
+          <div class="row align-center" style="gap:8px">
+            <h2 style="margin:0">Randomize & Structure</h2>
+            <button class="btn danger right" id="btnRandomize">Randomize teams & judges</button>
+          </div>
+          <div class="muted-small" id="fmtInfo" style="margin-top:6px"></div>
+
+          <div class="grid3" id="structureArea" style="margin-top:8px">
+            <div class="card">
+              <h3 class="section-title">Judges</h3>
+              <div class="input-with-suggest">
+                <input id="judgeInput" class="inp wide" placeholder="Add judge (min 2 letters)..." autocomplete="off" />
+                <div id="judgeSuggest" class="suggest"></div>
+              </div>
+              <div id="judgeList" class="field"></div>
+            </div>
+
+            <div class="card" style="grid-column: span 2;">
+              <h3 class="section-title">Teams</h3>
+              <div id="teamWrap" class="grid2"></div>
+              <div class="muted-small mt">Rename teams and manage members here. Limits are defined in Create.</div>
+            </div>
+          </div>
+
+          <div class="card mt">
+            <h3 class="section-title">Reserves</h3>
+            <div class="muted-small" style="margin-bottom: 8px;">
+              <strong>Advocate reserves:</strong> Members who can join teams if needed<br>
+              <strong>Judge reserves:</strong> Members who can replace judges if needed
+            </div>
+            <div class="input-with-suggest">
+              <input id="reserveInput" class="inp wide" placeholder="Add reserve (min 2 letters)..." autocomplete="off" />
+              <div id="reserveSuggest" class="suggest"></div>
+            </div>
+            <div id="reserveList" class="field"></div>
+            <div id="reserveInfo" class="muted-small mt" style="display: none;"></div>
+          </div>
+
+          <div class="row gap mt">
+            <button class="btn primary" id="btnSaveStructure">Save structure</button>
+            <button class="btn" id="btnStartLive">▶ Start Live Debate (new tab)</button>
+            <span class="muted-small" id="structMsg"></span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="tab-results" class="page">
+      <div id="resGuard" class="muted-small">Select a debate to see results.</div>
+      <div id="resArea" class="hidden">
+        <div id="resBody"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    /* ======= STATE ======= */
+    let MEMBERS = [];
+    let MEETINGS = [];
+    let DEBATES = [];
+    let CURRENT = null;
+    let LAST_SELECTED = "";
+
+    const FORM = {
+      affirmation:"", meeting_id:"", prize:"",
+      rounds:[], /* nefolosit */
+      rubric:[], flow:[],
+      format:{ team_count:2, team_size:2, judge_count:2 }
+    };
+
+    /* ======= HELPERS ======= */
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const apiGet = async (u)=>{ const r=await fetch(u); if(!r.ok) throw new Error(await r.text()); return r.json(); };
+    const apiSend = async (u,m,b)=>{ const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined}); if(!r.ok) throw new Error(await r.text()); return r.json(); };
+    const esc = s => String(s||"").replace(/[&<>"']/g, c => (
+  {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]
+));
+
+    // Helper function to ensure input fields are visible
+    function ensureInputFieldsVisible() {
+      const inputRows = document.querySelectorAll('.thin-row');
+      inputRows.forEach(row => {
+        if(row.querySelector('#rbKey')) { // This is the scoring rubric input row
+          row.style.display = 'flex';
+        }
+      });
+    }
+
+    // Helper function to generate round options HTML
+    function generateRoundOptions(selectedRound) {
+      const roundCount = FORM.format?.round_count || 3;
+      let options = '';
+      
+      for(let i = 1; i <= roundCount; i++) {
+        const selected = (selectedRound === i.toString()) ? 'selected' : '';
+        options += `<option value="${i}" ${selected}>Round ${i}</option>`;
+      }
+      
+      const generalSelected = (selectedRound === 'general') ? 'selected' : '';
+      options += `<option value="general" ${generalSelected}>General</option>`;
+      
+      return options;
+    }
+
+    // Helper function to generate round options HTML for rubric (no general option)
+    function generateRoundOptionsForRubric(selectedRound) {
+      const roundCount = FORM.format?.round_count || 3;
+      let options = '';
+      
+      for(let i = 1; i <= roundCount; i++) {
+        const selected = (selectedRound === i.toString()) ? 'selected' : '';
+        options += `<option value="${i}" ${selected}>Round ${i}</option>`;
+      }
+      
+      return options;
+    }
+
+    // Helper function to update round options in dropdowns
+    function updateRoundOptions() {
+      const roundCount = FORM.format?.round_count || 3;
+      
+      // Update Flow round dropdown (old one)
+      const flowRoundSelect = $('#flowRound');
+      if(flowRoundSelect) {
+        flowRoundSelect.innerHTML = '';
+        for(let i = 1; i <= roundCount; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = `Round ${i}`;
+          flowRoundSelect.appendChild(option);
+        }
+        const generalOption = document.createElement('option');
+        generalOption.value = 'general';
+        generalOption.textContent = 'General';
+        flowRoundSelect.appendChild(generalOption);
+      }
+      
+      // Update new Flow round selection dropdown
+      const flowRoundSelectNew = $('#flowRoundSelect');
+      if(flowRoundSelectNew) {
+        flowRoundSelectNew.innerHTML = '';
+        for(let i = 1; i <= roundCount; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = `Round ${i}`;
+          flowRoundSelectNew.appendChild(option);
+        }
+        const generalOption = document.createElement('option');
+        generalOption.value = 'general';
+        generalOption.textContent = 'General';
+        flowRoundSelectNew.appendChild(generalOption);
+      }
+      
+      // Update Scoring Rubric round dropdown
+      const rbRoundSelect = $('#rbRound');
+      if(rbRoundSelect) {
+        rbRoundSelect.innerHTML = '';
+        for(let i = 1; i <= roundCount; i++) {
+          const option = document.createElement('option');
+          option.value = i;
+          option.textContent = `Round ${i}`;
+          rbRoundSelect.appendChild(option);
+        }
+      }
+      
+      // Update existing rubric entries
+      if(FORM.rubric) {
+        FORM.rubric.forEach(c => {
+          const cRound = parseInt(c.round) || 1;
+          if(cRound > roundCount) {
+            c.round = '1'; // Reset to Round 1 if current round exceeds limit
+          }
+        });
+        renderRubric();
+      }
+      
+      // Update existing flow entries
+      if(FORM.flow) {
+        FORM.flow.forEach(st => {
+          const stRound = st.round;
+          if(stRound && stRound !== 'general') {
+            const roundNum = parseInt(stRound);
+            if(roundNum > roundCount) {
+              st.round = '1'; // Reset to Round 1 if current round exceeds limit
+            }
+          }
+        });
+        renderFlow();
+      }
+    }
+
+    const fmt = s => String(s).padStart(2,'0');
+
+    function byEmail(e){ const x=(e||"").toLowerCase(); return MEMBERS.find(m=>(m.email||"").toLowerCase()===x); }
+    function labelForEmail(e){ const m=byEmail(e); return m? `${m.name||m.email} — ${m.email}` : e; }
+    function studioOf(email){ const m=byEmail(email)||{}; return (m.studio||'').toUpperCase(); }
+
+    function chip(email, onRemove){
+      const d=document.createElement('span'); d.className='chip-x';
+      d.innerHTML = `<span>${esc(labelForEmail(email))} <span class="badge">${esc(studioOf(email)||'—')}</span></span>`;
+      const b=document.createElement('button'); b.innerHTML='✕'; b.onclick=()=>onRemove(email);
+      d.appendChild(b); return d;
+    }
+
+    function attachAutocomplete(input, suggestBox, onPick){
+      let lastQuery="";
+      input.addEventListener('input', ()=>{
+        const q=input.value.trim().toLowerCase();
+        if(q===lastQuery) return; lastQuery=q;
+        if(q.length<2){ suggestBox.style.display='none'; suggestBox.innerHTML=''; return; }
+        const list = MEMBERS.filter(m=>{
+          const n=(m.name||"").toLowerCase(), e=(m.email||"").toLowerCase();
+          return n.includes(q)||e.includes(q);
+        }).slice(0,12);
+        if(!list.length){ suggestBox.style.display='none'; suggestBox.innerHTML=''; return; }
+        suggestBox.innerHTML = list.map(m=>`<div data-email="${esc(m.email)}">${esc(m.name||m.email)} — ${esc(m.email)} <span class="badge">${esc((m.studio||'').toUpperCase()||'—')}</span></div>`).join('');
+        suggestBox.style.display='block';
+      });
+      suggestBox.addEventListener('click', (e)=>{
+        const el=e.target.closest('div[data-email]'); if(!el) return;
+        onPick(el.getAttribute('data-email'));
+        input.value=''; suggestBox.style.display='none'; suggestBox.innerHTML='';
+      });
+      document.addEventListener('click', (e)=>{
+        if(!input.contains(e.target) && !suggestBox.contains(e.target)){
+          suggestBox.style.display='none';
+        }
+      });
+    }
+
+    /* ======= CREATE: pipeline ======= */
+    let createStep = 0;
+    function setCreateStep(i){
+      createStep = Math.max(0, Math.min(4, i));
+      $$('.create-step').forEach(card=>{
+        card.classList.toggle('hidden', Number(card.dataset.step)!==createStep);
+      });
+      $$('.stepper .s').forEach(el=>{
+        el.classList.toggle('active', Number(el.dataset.cstep)===createStep);
+      });
+      if(createStep===0) $('#afText')?.focus();
+      if(createStep===2) $('#flowTitle')?.focus();
+      if(createStep===4) renderDebatePreview(); // Generate preview when reaching save step
+    }
+
+    /* ======= CREATE RENDERERS ======= */
+    function renderFormat(){
+      const f = FORM.format || (FORM.format={team_count:2, team_size:2, judge_count:2, round_count:3});
+      $('#fmtTeamCount').value = f.team_count ?? 2;
+      $('#fmtTeamSize').value  = f.team_size ?? 2;
+      $('#fmtJudgeCount').value= f.judge_count ?? 2;
+      $('#fmtRoundCount').value= f.round_count ?? 3;
+      $('#fmtTeamCount').oninput = e=> FORM.format.team_count = Math.max(1, +e.target.value||2);
+      $('#fmtTeamSize').oninput  = e=> FORM.format.team_size  = Math.max(1, +e.target.value||2);
+      $('#fmtJudgeCount').oninput= e=> FORM.format.judge_count= Math.max(1, +e.target.value||2);
+      $('#fmtRoundCount').oninput= e=> {
+        FORM.format.round_count = Math.max(1, Math.min(10, +e.target.value||3));
+        updateRoundOptions(); // Update dropdowns when round count changes
+        renderRounds(); // Show/hide round definitions
+      };
+      
+      // Initialize rounds if not exists
+      if (!FORM.rounds) FORM.rounds = [];
+      renderRounds();
+    }
+
+    function renderRounds(){
+      const roundCount = FORM.format?.round_count || 0;
+      const roundDefs = $('#roundDefinitions');
+      const roundsList = $('#roundsList');
+      
+      if (roundCount > 0) {
+        roundDefs.style.display = 'block';
+        roundsList.innerHTML = '';
+        
+        for (let i = 1; i <= roundCount; i++) {
+          const round = FORM.rounds.find(r => r.number === i) || { number: i, title: '', description: '' };
+          const roundDiv = document.createElement('div');
+          roundDiv.className = 'card mt';
+          roundDiv.innerHTML = `
+            <div class="row gap">
+              <div style="flex:1;min-width:200px">
+                <label>Round ${i} Title</label>
+                <input class="inp round-title" value="${esc(round.title)}" placeholder="e.g., Feasibility of 24-Month Adoption" data-round="${i}">
+              </div>
+              <div style="flex:3;min-width:400px">
+                <label>Description</label>
+                <textarea class="inp round-desc" placeholder="Focus on whether it is realistic for AI to become the primary source..." data-round="${i}" style="height:60px;resize:vertical;width:100%">${esc(round.description)}</textarea>
+              </div>
+            </div>
+          `;
+          
+          // Add event listeners
+          $('.round-title', roundDiv).oninput = e => {
+            const roundNum = +e.target.dataset.round;
+            let round = FORM.rounds.find(r => r.number === roundNum);
+            if (!round) {
+              round = { number: roundNum, title: '', description: '' };
+              FORM.rounds.push(round);
+            }
+            round.title = e.target.value.trim();
+          };
+          
+          $('.round-desc', roundDiv).oninput = e => {
+            const roundNum = +e.target.dataset.round;
+            let round = FORM.rounds.find(r => r.number === roundNum);
+            if (!round) {
+              round = { number: roundNum, title: '', description: '' };
+              FORM.rounds.push(round);
+            }
+            round.description = e.target.value.trim();
+          };
+          
+          roundsList.appendChild(roundDiv);
+        }
+      } else {
+        roundDefs.style.display = 'none';
+      }
+    }
+
+    function renderFlow(){
+      const container = $('#flowRoundsDisplay');
+      container.innerHTML = '';
+      
+      // Group steps by round
+      const stepsByRound = {};
+      (FORM.flow || []).forEach((step, idx) => {
+        const round = step.round || 'general';
+        if (!stepsByRound[round]) {
+          stepsByRound[round] = [];
+        }
+        stepsByRound[round].push({ ...step, originalIndex: idx });
+      });
+      
+      // Get all rounds based on format.round_count
+      const roundCount = FORM.format?.round_count || 3;
+      const allRounds = [];
+      for (let i = 1; i <= roundCount; i++) {
+        allRounds.push(i.toString());
+      }
+      allRounds.push('general');
+      
+      allRounds.forEach(round => {
+        const steps = stepsByRound[round] || [];
+        const roundSection = document.createElement('div');
+        roundSection.className = 'round-section';
+        
+        const roundName = round === 'general' ? 'General' : `Round ${round}`;
+        const stepCount = steps.length;
+        
+        roundSection.innerHTML = `
+          <div class="round-header ${round === 'general' ? 'general' : ''}" onclick="toggleRound('${round}')">
+            <span>${roundName} (${stepCount} steps)</span>
+            <div class="step-actions">
+              <span class="expand-icon">▶</span>
+              <button onclick="event.stopPropagation(); cloneRound('${round}')" title="Clone this round">📋</button>
+              <button onclick="event.stopPropagation(); clearRound('${round}')" title="Clear this round">🗑️</button>
+            </div>
+          </div>
+          <div class="round-steps" id="round-steps-${round}">
+            ${steps.length === 0 ? 
+              `<div class="empty-round">No steps in this round</div>` :
+              steps.map((step, stepIdx) => {
+                const act = step.action || 'none';
+                let qrHtml = '—';
+                if (step.qr && step.qr.qr_url) {
+                  if ((act === 'jury+public' || act === 'simple_jury+public') && step.qr.jury && step.qr.public) {
+                    qrHtml = `
+                      <div style="display:flex;gap:10px;justify-content:center">
+                        <div style="text-align:center">
+                          <div class="muted-small" style="font-size:10px">Jury</div>
+                          <a href="${esc(step.qr.jury.url)}" target="_blank" style="font-size:10px">open</a><br>
+                          <img src="${esc(step.qr.jury.qr_url)}" style="max-width:80px;border:1px solid #e5e7f1;border-radius:8px">
+                        </div>
+                        <div style="text-align:center">
+                          <div class="muted-small" style="font-size:10px">Public</div>
+                          <a href="${esc(step.qr.public.url)}" target="_blank" style="font-size:10px">open</a><br>
+                          <img src="${esc(step.qr.public.qr_url)}" style="max-width:80px;border:1px solid #e5e7f1;border-radius:8px">
+                        </div>
+                      </div>
+                    `;
+                  } else {
+                    qrHtml = `<a href="${esc(step.qr.url)}" target="_blank">open</a><br><img src="${esc(step.qr.qr_url)}" style="max-width:100px;border:1px solid #e5e7f1;border-radius:8px">`;
+                  }
+                } else if (act==='jury_vote'||act==='simple_jury_vote'||act==='public_vote'||act==='jury+public'||act==='simple_jury+public') {
+                  qrHtml = `<span class="muted-small">Generated after Save</span>`;
+                }
+                
+                return `
+                  <div class="round-step">
+                    <div class="step-number">${stepIdx + 1}</div>
+                    <div class="step-details">
+                      <input class="inp fl-title step-title" value="${esc(step.title||'')}" placeholder="Step title" style="min-width:200px" data-step-index="${step.originalIndex}">
+                      <input class="inp fl-duration step-duration" type="number" value="${step.duration_sec || 0}" placeholder="Duration" style="width:80px" data-step-index="${step.originalIndex}">
+                      <select class="sel fl-action step-action" data-step-index="${step.originalIndex}" style="width:120px">
+              <option value="none" ${act==='none'?'selected':''}>No action</option>
+                        <option value="jury_vote" ${act==='jury_vote'?'selected':''}>Jury vote (Complex)</option>
+                        <option value="simple_jury_vote" ${act==='simple_jury_vote'?'selected':''}>Simple Jury vote</option>
+              <option value="public_vote" ${act==='public_vote'?'selected':''}>Public vote</option>
+                        <option value="jury+public" ${act==='jury+public'?'selected':''}>Jury + Public (Complex)</option>
+                        <option value="simple_jury+public" ${act==='simple_jury+public'?'selected':''}>Simple Jury + Public</option>
+            </select>
+                      <select class="sel fl-animation step-animation" data-step-index="${step.originalIndex}" style="width:140px">
+                        <option value="none" ${(step.animation||'none')==='none'?'selected':''}>No animation</option>
+                        <option value="vote" ${(step.animation||'none')==='vote'?'selected':''}>Vote</option>
+                        <option value="break" ${(step.animation||'none')==='break'?'selected':''}>Break</option>
+                        <option value="brainstorming" ${(step.animation||'none')==='brainstorming'?'selected':''}>Brainstorming</option>
+                        <option value="arguments" ${(step.animation||'none')==='arguments'?'selected':''}>Arguments</option>
+                        <option value="counter_arguments" ${(step.animation||'none')==='counter_arguments'?'selected':''}>Counter Arguments</option>
+                        <option value="jury_arguments" ${(step.animation||'none')==='jury_arguments'?'selected':''}>Jury Arguments</option>
+                        <option value="jury_questions" ${(step.animation||'none')==='jury_questions'?'selected':''}>Jury Questions</option>
+                        <option value="final_wrapup" ${(step.animation||'none')==='final_wrapup'?'selected':''}>Final Wrap Up</option>
+            </select>
+                      ${qrHtml !== '—' ? `<div style="font-size:12px;color:#6b7280">${qrHtml}</div>` : ''}
+                    </div>
+                    <div class="step-actions">
+                      <button onclick="deleteStep(${step.originalIndex})" title="Delete step">🗑️</button>
+                    </div>
+                  </div>
+                `;
+              }).join('')
+            }
+          </div>
+        `;
+        
+        container.appendChild(roundSection);
+      });
+      
+      // Add event listeners for direct editing
+      addStepEditListeners();
+      
+      // Update round step count
+      updateRoundStepCount();
+    }
+    
+    function addStepEditListeners() {
+      // Add listeners for title editing
+      document.querySelectorAll('.fl-title').forEach(input => {
+        input.oninput = (e) => {
+          const stepIndex = parseInt(e.target.dataset.stepIndex);
+          if (FORM.flow && FORM.flow[stepIndex]) {
+            FORM.flow[stepIndex].title = e.target.value.trim();
+          }
+        };
+      });
+      
+      // Add listeners for duration editing
+      document.querySelectorAll('.fl-duration').forEach(input => {
+        input.oninput = (e) => {
+          const stepIndex = parseInt(e.target.dataset.stepIndex);
+          if (FORM.flow && FORM.flow[stepIndex]) {
+            FORM.flow[stepIndex].duration_sec = Math.max(0, +e.target.value || 0);
+          }
+        };
+      });
+      
+      // Add listeners for action editing
+      document.querySelectorAll('.fl-action').forEach(select => {
+        select.onchange = (e) => {
+          const stepIndex = parseInt(e.target.dataset.stepIndex);
+          if (FORM.flow && FORM.flow[stepIndex]) {
+            FORM.flow[stepIndex].action = e.target.value;
+          }
+        };
+      });
+      
+      // Add listeners for animation editing
+      document.querySelectorAll('.fl-animation').forEach(select => {
+        select.onchange = (e) => {
+          const stepIndex = parseInt(e.target.dataset.stepIndex);
+          if (FORM.flow && FORM.flow[stepIndex]) {
+            FORM.flow[stepIndex].animation = e.target.value;
+          }
+        };
+      });
+    }
+    
+    function updateRoundStepCount() {
+      const selectedRound = $('#flowRoundSelect').value;
+      const stepsInRound = (FORM.flow || []).filter(step => (step.round || 'general') === selectedRound);
+      $('#roundStepCount').textContent = `${stepsInRound.length} steps`;
+    }
+    
+    function cloneRound(roundToClone) {
+      const stepsToClone = (FORM.flow || []).filter(step => (step.round || 'general') === roundToClone);
+      if (stepsToClone.length === 0) {
+        alert('No steps to clone in this round');
+        return;
+      }
+        
+      // Find next available round within defined limits
+      const roundCount = FORM.format?.round_count || 3;
+      let targetRound = null;
+      for (let i = 1; i <= roundCount; i++) {
+        const existingSteps = (FORM.flow || []).filter(step => (step.round || 'general') === i.toString());
+        if (existingSteps.length === 0) {
+          targetRound = i.toString();
+          break;
+        }
+      }
+      
+      if (!targetRound) {
+        alert(`No available rounds to clone to. All ${roundCount} rounds have steps.`);
+        return;
+      }
+      
+      // Clone steps to target round
+      stepsToClone.forEach(step => {
+        const clonedStep = {
+          ...step,
+          title: `${step.title} (Copy)`,
+          round: targetRound
+        };
+        FORM.flow.push(clonedStep);
+      });
+      
+      renderFlow();
+      alert(`Cloned ${stepsToClone.length} steps from ${roundToClone === 'general' ? 'General' : `Round ${roundToClone}`} to Round ${targetRound}`);
+    }
+    
+    function clearRound(roundToClear) {
+      if (!confirm(`Are you sure you want to clear all steps in ${roundToClear === 'general' ? 'General' : `Round ${roundToClear}`}?`)) {
+        return;
+      }
+      
+      FORM.flow = (FORM.flow || []).filter(step => (step.round || 'general') !== roundToClear);
+      renderFlow();
+    }
+    
+    
+    function deleteStep(stepIndex) {
+      if (!confirm('Are you sure you want to delete this step?')) {
+        return;
+      }
+      
+      FORM.flow.splice(stepIndex, 1);
+      renderFlow();
+    }
+    
+    function toggleRound(round) {
+      const stepsElement = document.getElementById(`round-steps-${round}`);
+      const headerElement = stepsElement.previousElementSibling;
+      
+      if (stepsElement.classList.contains('expanded')) {
+        stepsElement.classList.remove('expanded');
+        headerElement.classList.remove('expanded');
+      } else {
+        stepsElement.classList.add('expanded');
+        headerElement.classList.add('expanded');
+      }
+    }
+
+    function renderDebatePreview(){
+      const preview = $('#debatePreview');
+      if (!preview) return;
+      
+      const f = FORM.format || {};
+      const rounds = FORM.rounds || [];
+      const flow = FORM.flow || [];
+      const rubric = FORM.rubric || [];
+      
+      let html = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+          <div>
+            <strong>📊 Format:</strong><br>
+            • ${f.team_count || 2} teams, ${f.team_size || 2} members each<br>
+            • ${f.judge_count || 2} judges<br>
+            • ${f.round_count || 3} rounds
+          </div>
+          <div>
+            <strong>📝 Content:</strong><br>
+            • ${flow.length} flow steps<br>
+            • ${rubric.length} scoring criteria<br>
+            • ${rounds.length} round definitions
+          </div>
+        </div>
+      `;
+      
+      // Show rounds if defined
+      if (rounds.length > 0) {
+        html += `<div style="margin-bottom:16px"><strong>🎯 Rounds:</strong><br>`;
+        rounds.forEach(round => {
+          html += `• <strong>Round ${round.number}:</strong> ${round.title || 'Untitled'}<br>`;
+          if (round.description) {
+            html += `  <em style="color:#666;font-size:12px">${round.description.substring(0, 100)}${round.description.length > 100 ? '...' : ''}</em><br>`;
+          }
+        });
+        html += `</div>`;
+      }
+      
+      // Show flow steps grouped by round
+      if (flow.length > 0) {
+        html += `<div style="margin-bottom:16px"><strong>⏱️ Flow Steps:</strong><br>`;
+        const stepsByRound = {};
+        flow.forEach((step, idx) => {
+          const round = step.round || 'general';
+          if (!stepsByRound[round]) stepsByRound[round] = [];
+          stepsByRound[round].push({...step, index: idx + 1});
+        });
+        
+        Object.keys(stepsByRound).sort().forEach(round => {
+          const steps = stepsByRound[round];
+          const roundLabel = round === 'general' ? 'General' : `Round ${round}`;
+          html += `<div style="margin-left:12px;margin-bottom:8px"><strong>${roundLabel}:</strong><br>`;
+          steps.forEach(step => {
+            const action = step.action || 'none';
+            const actionText = action === 'jury_vote' ? 'Jury Vote' : 
+                             action === 'public_vote' ? 'Public Vote' : 
+                             action === 'jury+public' ? 'Jury + Public Vote' : 
+                             action === 'none' ? '' : action.replace('_', ' ');
+            html += `  ${step.index}. ${step.title || `Step ${step.index}`} (${step.duration_sec || 0}s)${actionText ? ` - ${actionText}` : ''}<br>`;
+          });
+          html += `</div>`;
+        });
+        html += `</div>`;
+      }
+      
+      // Show scoring criteria
+      if (rubric.length > 0) {
+        html += `<div><strong>📋 Scoring Criteria:</strong><br>`;
+        rubric.forEach(crit => {
+          const type = crit.type === 'round' ? `Round ${crit.round}` : 'General';
+          html += `• <strong>${crit.key}:</strong> ${crit.label} (${type}) - ${crit.min || 0} to ${crit.max || 5}<br>`;
+        });
+        html += `</div>`;
+      }
+      
+      preview.innerHTML = html;
+    }
+
+    function renderRubric(){
+      const tb=$('#rbTbody'); tb.innerHTML='';
+      
+      // Ensure input fields are visible
+      ensureInputFieldsVisible();
+      
+      (FORM.rubric||[]).forEach((c,idx)=>{
+        const tr=document.createElement('tr');
+        const type = c.type || 'general';
+        const round = c.round || '1';
+        tr.innerHTML = `
+          <td>${esc(c.key)}</td>
+          <td>${esc(c.label)}</td>
+          <td>
+            <select class="sel rb-type">
+              <option value="general" ${type==='general'?'selected':''}>General criteria</option>
+              <option value="round" ${type==='round'?'selected':''}>Round criteria</option>
+            </select>
+          </td>
+          <td>
+            <select class="sel rb-round">
+              ${generateRoundOptionsForRubric(round)}
+            </select>
+          </td>
+          <td>${c.min}</td>
+          <td>${c.max}</td>
+          <td><button class="btn danger">Remove</button></td>`;
+        // Set initial visibility
+        const roundField = $('.rb-round', tr)?.parentElement;
+        if(roundField) {
+          if(type === 'general') {
+            roundField.style.display = 'none';
+          } else {
+            roundField.style.display = 'block';
+          }
+        }
+        
+        $('.rb-type', tr).onchange = e=>{ 
+          c.type=e.target.value; 
+          const roundField = $('.rb-round', tr)?.parentElement;
+          if(roundField) {
+            if(c.type === 'general') {
+              roundField.style.display = 'none';
+            } else {
+              roundField.style.display = 'block';
+            }
+          }
+        };
+        $('.rb-round', tr).onchange = e=>{ c.round=e.target.value; };
+        $('button', tr).onclick = ()=>{ FORM.rubric.splice(idx,1); renderRubric(); };
+        tb.appendChild(tr);
+      });
+    }
+
+    function renderRegistrationBlock(){
+      const box = $('#regQR'); const link = $('#regLink');
+      if(!box || !link) return;
+      const reg = CURRENT?.registration_qr;
+      if(reg && reg.qr_url){
+        box.innerHTML = `<img src="${esc(reg.qr_url)}" alt="registration qr">`;
+        link.href = reg.url; link.style.display='inline-block';
+      }else{
+        box.innerHTML = '';
+        link.style.display='none';
+      }
+    }
+
+    function hydrateFormFromCurrent(){
+      if(!CURRENT){
+        Object.assign(FORM,{
+          affirmation:"", meeting_id:"", prize:"",
+          rounds:[], rubric:[], flow:[],
+          format:{ team_count:2, team_size:2, judge_count:2 }
+        });
+      } else {
+        Object.assign(FORM, JSON.parse(JSON.stringify(CURRENT)));
+      }
+      $('#afText').value = FORM.affirmation||"";
+      $('#afMeeting').value = FORM.meeting_id||"";
+      $('#afPrize').value = FORM.prize||"";
+      renderFormat(); renderFlow(); renderRubric();
+      
+      // Initialize round options and field visibility
+      setTimeout(() => {
+        updateRoundOptions();
+        const roundField = $('#rbRound')?.parentElement;
+        if(roundField) {
+          if($('#rbType').value === 'general') {
+            roundField.style.display = 'none';
+          } else {
+            roundField.style.display = 'block';
+          }
+        }
+      }, 100);
+    
+    // Show the input fields initially
+    setTimeout(() => {
+      ensureInputFieldsVisible();
+    }, 200);
+      updateGuards();
+      renderDebateList();
+      if(CURRENT) buildStructureEditors();
+      buildResults();
+      renderRegistrationBlock();
+
+      // ⇩ fix for registration list (clean + reload without cache)
+      const box = document.getElementById('signupsBox');
+      if (!CURRENT) {
+        if (box) box.innerHTML = '';
+      } else {
+        refreshSignups(); // un singur fetch la schimbarea debate-ului
+      }
+
+      setCreateStep(createStep);
+    }
+
+    function collectTopFields(){
+      FORM.affirmation = $('#afText').value.trim();
+      FORM.meeting_id = $('#afMeeting').value || null;
+      FORM.prize = $('#afPrize').value.trim();
+    }
+
+    /* ======= SIGNUPS (doar manual) ======= */
+    function signupLabel(email){
+      const m = byEmail(email) || {};
+      const st = (m.studio || '').toUpperCase();
+      return `${esc(m.name||email)} — ${esc(email)}${st?` · ${st}`:''}`;
+    }
+    async function refreshSignups(){
+      if(!(CURRENT && CURRENT.id)) return;
+      const box = $('#signupsBox'); if (!box) return;
+      try{
+        // cache-buster
+        const s = await apiGet(`/api/debates/${CURRENT.id}/signups?ts=${Date.now()}`);
+        
+        const groups = {judge:[], advocate:[], any:[], none:[]};
+        Object.entries(s||{}).forEach(([email,info])=>{
+          const c=(info.choice||'none'); (groups[c]||(groups['none'])).push(email);
+        });
+        const sect = k => {
+          const list = (groups[k]||[]).map(e=>`<div>• ${signupLabel(e)}</div>`).join('') || '<div>—</div>';
+          return `<div class="mt"><strong>${k.toUpperCase()}</strong> <span class="badge">${(groups[k]||[]).length}</span>${list}</div>`;
+        };
+        box.innerHTML = sect('judge') + sect('advocate') + sect('any') + sect('none');
+      }catch(e){ console.error(e); box.innerHTML='Error loading registrations.'; }
+    }
+
+    /* ======= STRUCTURE EDITORS ======= */
+    function teamBlock(t){
+      const div=document.createElement('div'); div.className='card team-card'; div.style.marginTop='8px';
+      div.innerHTML = `
+        <div class="thin-row">
+          <input class="inp team-name" placeholder="Team name" value="${esc(t.name||'')}" style="min-width:220px">
+          <button class="btn danger btn-del">Delete team</button>
+        </div>
+        <div class="field">
+          <div class="input-with-suggest">
+            <input class="inp add-mem" placeholder="Add member (min 2 letters)..." autocomplete="off">
+            <div class="suggest"></div>
+          </div>
+          <div class="memchips"></div>
+        </div>`;
+      const nameInp = $('.team-name', div);
+      nameInp.oninput = ()=>{ t.name = nameInp.value.trim(); };
+      $('.btn-del', div).onclick = ()=>{
+        CURRENT.teams = CURRENT.teams.filter(x=>x.id!==t.id);
+        buildStructureEditors();
+      };
+      const chips = $('.memchips', div);
+      const redraw = ()=>{
+        chips.innerHTML='';
+        (t.members||[]).forEach(em=>{
+          const m=byEmail(em)||{};
+          const row=document.createElement('div'); row.className='mem';
+          row.innerHTML = `<span>${esc(m.name||em)} — ${esc(em)} <small class="badge">${esc((m.studio||'').toUpperCase()||'—')}</small></span>
+                           <button class="btn danger">Remove</button>`;
+          $('button', row).onclick = ()=>{ t.members=t.members.filter(x=>x!==em); redraw(); };
+          chips.appendChild(row);
+        });
+      };
+      const input = $('.add-mem', div), suggest = $('.suggest', div);
+      attachAutocomplete(input, suggest, (email)=>{
+        if(!t.members) t.members=[];
+        if(!t.members.includes(email)) t.members.push(email);
+        redraw();
+      });
+      redraw();
+      return div;
+    }
+
+    function buildStructureEditors(){
+      const jWrap = $('#judgeList'); jWrap.innerHTML='';
+      (CURRENT.judges||[]).forEach(em=> jWrap.appendChild(
+        chip(em, (email)=>{ CURRENT.judges = CURRENT.judges.filter(x=>x!==email); buildStructureEditors(); })
+      ));
+      attachAutocomplete($('#judgeInput'), $('#judgeSuggest'), (email)=>{
+        if(!CURRENT.judges) CURRENT.judges=[];
+        if(!CURRENT.judges.includes(email)) CURRENT.judges.push(email);
+        buildStructureEditors();
+      });
+
+      const twrap=$('#teamWrap'); twrap.innerHTML='';
+      const tc=(CURRENT.format?.team_count)||2;
+      while ((CURRENT.teams||[]).length < tc){
+        const id='t'+Math.random().toString(36).slice(2,7);
+        (CURRENT.teams||(CURRENT.teams=[])).push({id,name:'',members:[]});
+      }
+      (CURRENT.teams||[]).slice(0,tc).forEach(t=> twrap.appendChild(teamBlock(t)) );
+
+      const rWrap=$('#reserveList'); rWrap.innerHTML='';
+      const reserves = CURRENT.reserves||[];
+      
+      // Categorize reserves based on initial signup choices
+      const advocateReserves = [];
+      const anyReserves = [];
+      const juryReserves = [];
+      
+      reserves.forEach(email => {
+        const member = MEMBERS.find(m => m.email === email);
+        const studio = member?.studio || 'OTHER';
+        
+        // Get signup choice from CURRENT.signups
+        const signupInfo = CURRENT.signups?.[email];
+        const choice = signupInfo?.choice || 'any';
+        
+        if (choice === 'advocate') {
+          advocateReserves.push({email, studio});
+        } else if (choice === 'judge') {
+          juryReserves.push({email, studio});
+        } else {
+          // 'any' or default
+          anyReserves.push({email, studio});
+        }
+      });
+      
+      // Display advocate reserves
+      if (advocateReserves.length > 0) {
+        const advDiv = document.createElement('div');
+        advDiv.style.cssText = 'margin-bottom: 12px;';
+        advDiv.innerHTML = '<div class="muted-small" style="font-weight: 600; margin-bottom: 4px;">👥 Advocate Reserves:</div>';
+        
+        advocateReserves.forEach(({email, studio}) => {
+          const chipEl = chip(email, (email)=>{ 
+            CURRENT.reserves = (CURRENT.reserves||[]).filter(x=>x!==email); 
+            buildStructureEditors(); 
+          });
+          chipEl.style.cssText += 'margin-right: 6px; margin-bottom: 4px;';
+          chipEl.title = `Studio: ${studio}`;
+          advDiv.appendChild(chipEl);
+        });
+        rWrap.appendChild(advDiv);
+      }
+      
+      // Display any reserves
+      if (anyReserves.length > 0) {
+        const anyDiv = document.createElement('div');
+        anyDiv.style.cssText = 'margin-bottom: 12px;';
+        anyDiv.innerHTML = '<div class="muted-small" style="font-weight: 600; margin-bottom: 4px;">🔄 Any Role Reserves:</div>';
+        
+        anyReserves.forEach(({email, studio}) => {
+          const chipEl = chip(email, (email)=>{ 
+            CURRENT.reserves = (CURRENT.reserves||[]).filter(x=>x!==email); 
+            buildStructureEditors(); 
+          });
+          chipEl.style.cssText += 'margin-right: 6px; margin-bottom: 4px;';
+          chipEl.title = `Studio: ${studio}`;
+          anyDiv.appendChild(chipEl);
+        });
+        rWrap.appendChild(anyDiv);
+      }
+      
+      // Display jury reserves
+      if (juryReserves.length > 0) {
+        const juryDiv = document.createElement('div');
+        juryDiv.style.cssText = 'margin-bottom: 12px;';
+        juryDiv.innerHTML = '<div class="muted-small" style="font-weight: 600; margin-bottom: 4px;">⚖️ Jury Reserves:</div>';
+        
+        juryReserves.forEach(({email, studio}) => {
+          const chipEl = chip(email, (email)=>{ 
+            CURRENT.reserves = (CURRENT.reserves||[]).filter(x=>x!==email); 
+            buildStructureEditors(); 
+          });
+          chipEl.style.cssText += 'margin-right: 6px; margin-bottom: 4px;';
+          chipEl.title = `Studio: ${studio}`;
+          juryDiv.appendChild(chipEl);
+        });
+        rWrap.appendChild(juryDiv);
+      }
+      
+      // Show summary info
+      const infoEl = $('#reserveInfo');
+      if (reserves.length > 0) {
+        infoEl.style.display = 'block';
+        infoEl.innerHTML = `Total reserves: ${reserves.length} (${advocateReserves.length} advocates, ${anyReserves.length} any role, ${juryReserves.length} jury)`;
+      } else {
+        infoEl.style.display = 'none';
+      }
+      attachAutocomplete($('#reserveInput'), $('#reserveSuggest'), (email)=>{
+        if(!CURRENT.reserves) CURRENT.reserves=[];
+        if(!CURRENT.reserves.includes(email)) CURRENT.reserves.push(email);
+        buildStructureEditors();
+      });
+
+      const F = CURRENT.format || {team_count:2,team_size:2,judge_count:2};
+      $('#fmtInfo').textContent = `Expected · Teams: ${F.team_count} × ${F.team_size} · Judges: ${F.judge_count}`;
+    }
+
+    /* ======= SCORES/TOTALS + RESULTS ======= */
+    function computeTotalsFromScores(d){
+      const teams = (d.teams||[]).map(t=>t.id);
+      const totals = {}; teams.forEach(id=>totals[id]=0);
+      const scores = d.scores||{};
+      const jury = scores.jury||{};
+      Object.values(jury).forEach(stepMap=>{
+        Object.values(stepMap||{}).forEach(judgeMap=>{
+          Object.entries(judgeMap||{}).forEach(([teamId, crits])=>{
+            Object.values(crits||{}).forEach(v=> totals[teamId]=(totals[teamId]||0)+(+v||0));
+          });
+        });
+      });
+      const pub = scores.public||{};
+      Object.values(pub).forEach(stepMap=>{
+        if (!stepMap) return;
+        
+        // Find team with most public votes for this step
+        const team_votes = {};
+        Object.entries(stepMap).forEach(([teamId, val]) => {
+          if (teamId === '_voters') return;
+          team_votes[teamId] = +val || 0;
+        });
+        
+        if (Object.keys(team_votes).length > 0) {
+          // Give 1 point to team(s) with most votes for this step only
+          const max_votes = Math.max(...Object.values(team_votes));
+          if (max_votes > 0) {
+            Object.entries(team_votes).forEach(([teamId, votes]) => {
+              if (votes === max_votes) {
+                totals[teamId] = (totals[teamId] || 0) + 1.0;
+              }
+            });
+          }
+        }
+      });
+      return totals;
+    }
+
+    // Voting section toggle function
+    function toggleVotingSection(section) {
+      const content = $(`#${section}Content`);
+      const arrow = $(`#${section}Arrow`);
+      const status = $(`#${section}Status`);
+      
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        arrow.style.transform = 'rotate(180deg)';
+        status.textContent = 'Expanded';
+        status.style.background = '#d1fae5';
+        status.style.color = '#065f46';
+      } else {
+        content.style.display = 'none';
+        arrow.style.transform = 'rotate(0deg)';
+        status.textContent = 'Click to expand';
+        status.style.background = '#e5e7eb';
+        status.style.color = '#6b7280';
+      }
+    }
+
+    function buildResults(){
+      if(!(CURRENT && CURRENT.id)){ $('#resBody').innerHTML=''; return; }
+      const totals = computeTotalsFromScores(CURRENT);
+      const maxVal = Math.max(...Object.values(totals).map(v=>+v||0), 0);
+      const winnerIds = Object.keys(totals).filter(k=> (+(totals[k]||0))===maxVal );
+
+      const meeting = MEETINGS.find(m=> String(m.id)===String(CURRENT.meeting_id));
+      const date = meeting?.date || '';
+      const prize = CURRENT.prize || '';
+
+      let html = `<div class="card">
+        <div style="text-align:center;margin-bottom:24px">
+          <h1 style="font-size:32px;font-weight:bold;color:#1e40af;margin:0 0 8px 0;text-shadow:0 2px 4px rgba(0,0,0,0.1)">${esc(CURRENT.affirmation||'Debate Results')}</h1>
+          <div style="font-size:16px;color:#64748b;margin-bottom:16px">${date ? esc(date) : ''}</div>
+          ${prize ? `<div class="prize-fireworks" style="font-size:20px;font-weight:700;color:#ffffff;background:linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);padding:12px 24px;border-radius:12px;display:inline-block;box-shadow:0 4px 12px rgba(245,158,11,0.3);animation:prizeGlow 2s ease-in-out infinite alternate;text-shadow:0 1px 2px rgba(0,0,0,0.3)">
+            🏆 Prize: ${esc(prize)} 🏆
+            <div class="spark1"></div>
+            <div class="spark2"></div>
+            <div class="spark3"></div>
+            <div class="spark4"></div>
+          </div>` : ''}
+        </div>`;
+      
+      html += `<div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;position:relative">
+        <!-- Fireworks Animation Container -->
+        <div id="fireworksWaiting" style="position:absolute;top:0;left:0;width:100%;height:300px;pointer-events:none;z-index:10;opacity:1;animation:fadeOutFireworks 0.5s ease-out 4.5s forwards">
+          <!-- Firework 1 - Complex Multi-Ring -->
+          <div class="firework-container" style="position:absolute;top:20%;left:20%;animation:fireworkExplode 3s ease-out 0.5s forwards">
+            <!-- Inner Ring (8 dots) -->
+            <div class="firework-dot" style="background:#ff6b6b;animation:explodeDot1 2.5s ease-out 0.6s forwards"></div>
+            <div class="firework-dot" style="background:#4ecdc4;animation:explodeDot2 2.5s ease-out 0.6s forwards"></div>
+            <div class="firework-dot" style="background:#45b7d1;animation:explodeDot3 2.5s ease-out 0.6s forwards"></div>
+            <div class="firework-dot" style="background:#f9ca24;animation:explodeDot4 2.5s ease-out 0.6s forwards"></div>
+            <div class="firework-dot" style="background:#f0932b;animation:explodeDot5 2.5s ease-out 0.6s forwards"></div>
+            <div class="firework-dot" style="background:#eb4d4b;animation:explodeDot6 2.5s ease-out 0.6s forwards"></div>
+            <div class="firework-dot" style="background:#6c5ce7;animation:explodeDot7 2.5s ease-out 0.6s forwards"></div>
+            <div class="firework-dot" style="background:#a29bfe;animation:explodeDot8 2.5s ease-out 0.6s forwards"></div>
+            
+            <!-- Middle Ring (12 dots) -->
+            <div class="firework-dot" style="background:#ff3838;animation:explodeDot1 2.5s ease-out 0.8s forwards;transform:scale(1.2)"></div>
+            <div class="firework-dot" style="background:#ff9f1a;animation:explodeDot2 2.5s ease-out 0.8s forwards;transform:scale(1.2)"></div>
+            <div class="firework-dot" style="background:#2ed573;animation:explodeDot3 2.5s ease-out 0.8s forwards;transform:scale(1.2)"></div>
+            <div class="firework-dot" style="background:#1e90ff;animation:explodeDot4 2.5s ease-out 0.8s forwards;transform:scale(1.2)"></div>
+            <div class="firework-dot" style="background:#ff6348;animation:explodeDot5 2.5s ease-out 0.8s forwards;transform:scale(1.2)"></div>
+            <div class="firework-dot" style="background:#ff4757;animation:explodeDot6 2.5s ease-out 0.8s forwards;transform:scale(1.2)"></div>
+            <div class="firework-dot" style="background:#5352ed;animation:explodeDot7 2.5s ease-out 0.8s forwards;transform:scale(1.2)"></div>
+            <div class="firework-dot" style="background:#ffa502;animation:explodeDot8 2.5s ease-out 0.8s forwards;transform:scale(1.2)"></div>
+            
+            <!-- Outer Ring (16 dots) -->
+            <div class="firework-dot" style="background:#ff9ff3;animation:explodeDot1 2.5s ease-out 1s forwards;transform:scale(1.5)"></div>
+            <div class="firework-dot" style="background:#54a0ff;animation:explodeDot2 2.5s ease-out 1s forwards;transform:scale(1.5)"></div>
+            <div class="firework-dot" style="background:#5f27cd;animation:explodeDot3 2.5s ease-out 1s forwards;transform:scale(1.5)"></div>
+            <div class="firework-dot" style="background:#00d2d3;animation:explodeDot4 2.5s ease-out 1s forwards;transform:scale(1.5)"></div>
+            <div class="firework-dot" style="background:#ff9f43;animation:explodeDot5 2.5s ease-out 1s forwards;transform:scale(1.5)"></div>
+            <div class="firework-dot" style="background:#ee5a24;animation:explodeDot6 2.5s ease-out 1s forwards;transform:scale(1.5)"></div>
+            <div class="firework-dot" style="background:#c44569;animation:explodeDot7 2.5s ease-out 1s forwards;transform:scale(1.5)"></div>
+            <div class="firework-dot" style="background:#f8b500;animation:explodeDot8 2.5s ease-out 1s forwards;transform:scale(1.5)"></div>
+          </div>
+          
+          <!-- Firework 2 - Complex Multi-Ring with Squares -->
+          <div class="firework-container" style="position:absolute;top:30%;right:25%;animation:fireworkExplode 3s ease-out 1s forwards">
+            <!-- Inner Ring (8 squares) -->
+            <div class="firework-square" style="background:#ff9ff3;animation:explodeSquare1 2.5s ease-out 1.1s forwards"></div>
+            <div class="firework-square" style="background:#54a0ff;animation:explodeSquare2 2.5s ease-out 1.1s forwards"></div>
+            <div class="firework-square" style="background:#5f27cd;animation:explodeSquare3 2.5s ease-out 1.1s forwards"></div>
+            <div class="firework-square" style="background:#00d2d3;animation:explodeSquare4 2.5s ease-out 1.1s forwards"></div>
+            <div class="firework-square" style="background:#ff9f43;animation:explodeSquare5 2.5s ease-out 1.1s forwards"></div>
+            <div class="firework-square" style="background:#ee5a24;animation:explodeSquare6 2.5s ease-out 1.1s forwards"></div>
+            <div class="firework-square" style="background:#c44569;animation:explodeSquare7 2.5s ease-out 1.1s forwards"></div>
+            <div class="firework-square" style="background:#f8b500;animation:explodeSquare8 2.5s ease-out 1.1s forwards"></div>
+            
+            <!-- Middle Ring (12 squares) -->
+            <div class="firework-square" style="background:#ff6b6b;animation:explodeSquare1 2.5s ease-out 1.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-square" style="background:#4ecdc4;animation:explodeSquare2 2.5s ease-out 1.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-square" style="background:#45b7d1;animation:explodeSquare3 2.5s ease-out 1.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-square" style="background:#f9ca24;animation:explodeSquare4 2.5s ease-out 1.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-square" style="background:#f0932b;animation:explodeSquare5 2.5s ease-out 1.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-square" style="background:#eb4d4b;animation:explodeSquare6 2.5s ease-out 1.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-square" style="background:#6c5ce7;animation:explodeSquare7 2.5s ease-out 1.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-square" style="background:#a29bfe;animation:explodeSquare8 2.5s ease-out 1.3s forwards;transform:scale(1.3)"></div>
+            
+            <!-- Outer Ring (16 squares) -->
+            <div class="firework-square" style="background:#ff3838;animation:explodeSquare1 2.5s ease-out 1.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ff9f1a;animation:explodeSquare2 2.5s ease-out 1.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#2ed573;animation:explodeSquare3 2.5s ease-out 1.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#1e90ff;animation:explodeSquare4 2.5s ease-out 1.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ff6348;animation:explodeSquare5 2.5s ease-out 1.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ff4757;animation:explodeSquare6 2.5s ease-out 1.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#5352ed;animation:explodeSquare7 2.5s ease-out 1.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ffa502;animation:explodeSquare8 2.5s ease-out 1.5s forwards;transform:scale(1.6)"></div>
+          </div>
+          
+          <!-- Firework 3 - Complex Multi-Ring Mixed -->
+          <div class="firework-container" style="position:absolute;top:40%;left:50%;animation:fireworkExplode 3s ease-out 1.5s forwards">
+            <!-- Inner Ring (8 dots) -->
+            <div class="firework-dot" style="background:#ff3838;animation:explodeDot1 2.5s ease-out 1.6s forwards"></div>
+            <div class="firework-dot" style="background:#ff9f1a;animation:explodeDot2 2.5s ease-out 1.6s forwards"></div>
+            <div class="firework-dot" style="background:#2ed573;animation:explodeDot3 2.5s ease-out 1.6s forwards"></div>
+            <div class="firework-dot" style="background:#1e90ff;animation:explodeDot4 2.5s ease-out 1.6s forwards"></div>
+            <div class="firework-dot" style="background:#ff6348;animation:explodeDot5 2.5s ease-out 1.6s forwards"></div>
+            <div class="firework-dot" style="background:#ff4757;animation:explodeDot6 2.5s ease-out 1.6s forwards"></div>
+            <div class="firework-dot" style="background:#5352ed;animation:explodeDot7 2.5s ease-out 1.6s forwards"></div>
+            <div class="firework-dot" style="background:#ffa502;animation:explodeDot8 2.5s ease-out 1.6s forwards"></div>
+            
+            <!-- Middle Ring (12 squares) -->
+            <div class="firework-square" style="background:#ff6b6b;animation:explodeSquare1 2.5s ease-out 1.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#4ecdc4;animation:explodeSquare2 2.5s ease-out 1.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#45b7d1;animation:explodeSquare3 2.5s ease-out 1.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#f9ca24;animation:explodeSquare4 2.5s ease-out 1.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#f0932b;animation:explodeSquare5 2.5s ease-out 1.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#eb4d4b;animation:explodeSquare6 2.5s ease-out 1.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#6c5ce7;animation:explodeSquare7 2.5s ease-out 1.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#a29bfe;animation:explodeSquare8 2.5s ease-out 1.8s forwards;transform:scale(1.4)"></div>
+            
+            <!-- Outer Ring (16 dots) -->
+            <div class="firework-dot" style="background:#ff9ff3;animation:explodeDot1 2.5s ease-out 2s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#54a0ff;animation:explodeDot2 2.5s ease-out 2s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#5f27cd;animation:explodeDot3 2.5s ease-out 2s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#00d2d3;animation:explodeDot4 2.5s ease-out 2s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#ff9f43;animation:explodeDot5 2.5s ease-out 2s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#ee5a24;animation:explodeDot6 2.5s ease-out 2s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#c44569;animation:explodeDot7 2.5s ease-out 2s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#f8b500;animation:explodeDot8 2.5s ease-out 2s forwards;transform:scale(1.7)"></div>
+          </div>
+          
+          <!-- Firework 4 - Complex Multi-Ring -->
+          <div class="firework-container" style="position:absolute;top:25%;right:15%;animation:fireworkExplode 3s ease-out 2s forwards">
+            <!-- Inner Ring (8 squares) -->
+            <div class="firework-square" style="background:#ff6b6b;animation:explodeSquare1 2.5s ease-out 2.1s forwards"></div>
+            <div class="firework-square" style="background:#4ecdc4;animation:explodeSquare2 2.5s ease-out 2.1s forwards"></div>
+            <div class="firework-square" style="background:#45b7d1;animation:explodeSquare3 2.5s ease-out 2.1s forwards"></div>
+            <div class="firework-square" style="background:#f9ca24;animation:explodeSquare4 2.5s ease-out 2.1s forwards"></div>
+            <div class="firework-square" style="background:#f0932b;animation:explodeSquare5 2.5s ease-out 2.1s forwards"></div>
+            <div class="firework-square" style="background:#eb4d4b;animation:explodeSquare6 2.5s ease-out 2.1s forwards"></div>
+            <div class="firework-square" style="background:#6c5ce7;animation:explodeSquare7 2.5s ease-out 2.1s forwards"></div>
+            <div class="firework-square" style="background:#a29bfe;animation:explodeSquare8 2.5s ease-out 2.1s forwards"></div>
+            
+            <!-- Middle Ring (12 dots) -->
+            <div class="firework-dot" style="background:#ff3838;animation:explodeDot1 2.5s ease-out 2.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#ff9f1a;animation:explodeDot2 2.5s ease-out 2.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#2ed573;animation:explodeDot3 2.5s ease-out 2.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#1e90ff;animation:explodeDot4 2.5s ease-out 2.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#ff6348;animation:explodeDot5 2.5s ease-out 2.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#ff4757;animation:explodeDot6 2.5s ease-out 2.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#5352ed;animation:explodeDot7 2.5s ease-out 2.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#ffa502;animation:explodeDot8 2.5s ease-out 2.3s forwards;transform:scale(1.3)"></div>
+            
+            <!-- Outer Ring (16 squares) -->
+            <div class="firework-square" style="background:#ff9ff3;animation:explodeSquare1 2.5s ease-out 2.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#54a0ff;animation:explodeSquare2 2.5s ease-out 2.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#5f27cd;animation:explodeSquare3 2.5s ease-out 2.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#00d2d3;animation:explodeSquare4 2.5s ease-out 2.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ff9f43;animation:explodeSquare5 2.5s ease-out 2.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ee5a24;animation:explodeSquare6 2.5s ease-out 2.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#c44569;animation:explodeSquare7 2.5s ease-out 2.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#f8b500;animation:explodeSquare8 2.5s ease-out 2.5s forwards;transform:scale(1.6)"></div>
+          </div>
+          
+          <!-- Firework 5 - Complex Multi-Ring -->
+          <div class="firework-container" style="position:absolute;top:35%;left:30%;animation:fireworkExplode 3s ease-out 2.5s forwards">
+            <!-- Inner Ring (8 dots) -->
+            <div class="firework-dot" style="background:#ff9ff3;animation:explodeDot1 2.5s ease-out 2.6s forwards"></div>
+            <div class="firework-dot" style="background:#54a0ff;animation:explodeDot2 2.5s ease-out 2.6s forwards"></div>
+            <div class="firework-dot" style="background:#5f27cd;animation:explodeDot3 2.5s ease-out 2.6s forwards"></div>
+            <div class="firework-dot" style="background:#00d2d3;animation:explodeDot4 2.5s ease-out 2.6s forwards"></div>
+            <div class="firework-dot" style="background:#ff9f43;animation:explodeDot5 2.5s ease-out 2.6s forwards"></div>
+            <div class="firework-dot" style="background:#ee5a24;animation:explodeDot6 2.5s ease-out 2.6s forwards"></div>
+            <div class="firework-dot" style="background:#c44569;animation:explodeDot7 2.5s ease-out 2.6s forwards"></div>
+            <div class="firework-dot" style="background:#f8b500;animation:explodeDot8 2.5s ease-out 2.6s forwards"></div>
+            
+            <!-- Middle Ring (12 squares) -->
+            <div class="firework-square" style="background:#ff6b6b;animation:explodeSquare1 2.5s ease-out 2.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#4ecdc4;animation:explodeSquare2 2.5s ease-out 2.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#45b7d1;animation:explodeSquare3 2.5s ease-out 2.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#f9ca24;animation:explodeSquare4 2.5s ease-out 2.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#f0932b;animation:explodeSquare5 2.5s ease-out 2.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#eb4d4b;animation:explodeSquare6 2.5s ease-out 2.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#6c5ce7;animation:explodeSquare7 2.5s ease-out 2.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#a29bfe;animation:explodeSquare8 2.5s ease-out 2.8s forwards;transform:scale(1.4)"></div>
+            
+            <!-- Outer Ring (16 dots) -->
+            <div class="firework-dot" style="background:#ff3838;animation:explodeDot1 2.5s ease-out 3s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#ff9f1a;animation:explodeDot2 2.5s ease-out 3s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#2ed573;animation:explodeDot3 2.5s ease-out 3s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#1e90ff;animation:explodeDot4 2.5s ease-out 3s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#ff6348;animation:explodeDot5 2.5s ease-out 3s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#ff4757;animation:explodeDot6 2.5s ease-out 3s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#5352ed;animation:explodeDot7 2.5s ease-out 3s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#ffa502;animation:explodeDot8 2.5s ease-out 3s forwards;transform:scale(1.7)"></div>
+          </div>
+          
+          <!-- Firework 6 - Complex Multi-Ring -->
+          <div class="firework-container" style="position:absolute;top:45%;right:35%;animation:fireworkExplode 3s ease-out 3s forwards">
+            <!-- Inner Ring (8 squares) -->
+            <div class="firework-square" style="background:#ff3838;animation:explodeSquare1 2.5s ease-out 3.1s forwards"></div>
+            <div class="firework-square" style="background:#ff9f1a;animation:explodeSquare2 2.5s ease-out 3.1s forwards"></div>
+            <div class="firework-square" style="background:#2ed573;animation:explodeSquare3 2.5s ease-out 3.1s forwards"></div>
+            <div class="firework-square" style="background:#1e90ff;animation:explodeSquare4 2.5s ease-out 3.1s forwards"></div>
+            <div class="firework-square" style="background:#ff6348;animation:explodeSquare5 2.5s ease-out 3.1s forwards"></div>
+            <div class="firework-square" style="background:#ff4757;animation:explodeSquare6 2.5s ease-out 3.1s forwards"></div>
+            <div class="firework-square" style="background:#5352ed;animation:explodeSquare7 2.5s ease-out 3.1s forwards"></div>
+            <div class="firework-square" style="background:#ffa502;animation:explodeSquare8 2.5s ease-out 3.1s forwards"></div>
+            
+            <!-- Middle Ring (12 dots) -->
+            <div class="firework-dot" style="background:#ff6b6b;animation:explodeDot1 2.5s ease-out 3.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#4ecdc4;animation:explodeDot2 2.5s ease-out 3.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#45b7d1;animation:explodeDot3 2.5s ease-out 3.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#f9ca24;animation:explodeDot4 2.5s ease-out 3.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#f0932b;animation:explodeDot5 2.5s ease-out 3.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#eb4d4b;animation:explodeDot6 2.5s ease-out 3.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#6c5ce7;animation:explodeDot7 2.5s ease-out 3.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#a29bfe;animation:explodeDot8 2.5s ease-out 3.3s forwards;transform:scale(1.3)"></div>
+            
+            <!-- Outer Ring (16 squares) -->
+            <div class="firework-square" style="background:#ff9ff3;animation:explodeSquare1 2.5s ease-out 3.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#54a0ff;animation:explodeSquare2 2.5s ease-out 3.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#5f27cd;animation:explodeSquare3 2.5s ease-out 3.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#00d2d3;animation:explodeSquare4 2.5s ease-out 3.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ff9f43;animation:explodeSquare5 2.5s ease-out 3.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ee5a24;animation:explodeSquare6 2.5s ease-out 3.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#c44569;animation:explodeSquare7 2.5s ease-out 3.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#f8b500;animation:explodeSquare8 2.5s ease-out 3.5s forwards;transform:scale(1.6)"></div>
+          </div>
+          
+          <!-- Firework 7 - Complex Multi-Ring -->
+          <div class="firework-container" style="position:absolute;top:15%;left:60%;animation:fireworkExplode 3s ease-out 3.5s forwards">
+            <!-- Inner Ring (8 dots) -->
+            <div class="firework-dot" style="background:#ff6b6b;animation:explodeDot1 2.5s ease-out 3.6s forwards"></div>
+            <div class="firework-dot" style="background:#4ecdc4;animation:explodeDot2 2.5s ease-out 3.6s forwards"></div>
+            <div class="firework-dot" style="background:#45b7d1;animation:explodeDot3 2.5s ease-out 3.6s forwards"></div>
+            <div class="firework-dot" style="background:#f9ca24;animation:explodeDot4 2.5s ease-out 3.6s forwards"></div>
+            <div class="firework-dot" style="background:#f0932b;animation:explodeDot5 2.5s ease-out 3.6s forwards"></div>
+            <div class="firework-dot" style="background:#eb4d4b;animation:explodeDot6 2.5s ease-out 3.6s forwards"></div>
+            <div class="firework-dot" style="background:#6c5ce7;animation:explodeDot7 2.5s ease-out 3.6s forwards"></div>
+            <div class="firework-dot" style="background:#a29bfe;animation:explodeDot8 2.5s ease-out 3.6s forwards"></div>
+            
+            <!-- Middle Ring (12 squares) -->
+            <div class="firework-square" style="background:#ff3838;animation:explodeSquare1 2.5s ease-out 3.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#ff9f1a;animation:explodeSquare2 2.5s ease-out 3.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#2ed573;animation:explodeSquare3 2.5s ease-out 3.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#1e90ff;animation:explodeSquare4 2.5s ease-out 3.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#ff6348;animation:explodeSquare5 2.5s ease-out 3.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#ff4757;animation:explodeSquare6 2.5s ease-out 3.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#5352ed;animation:explodeSquare7 2.5s ease-out 3.8s forwards;transform:scale(1.4)"></div>
+            <div class="firework-square" style="background:#ffa502;animation:explodeSquare8 2.5s ease-out 3.8s forwards;transform:scale(1.4)"></div>
+            
+            <!-- Outer Ring (16 dots) -->
+            <div class="firework-dot" style="background:#ff9ff3;animation:explodeDot1 2.5s ease-out 4s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#54a0ff;animation:explodeDot2 2.5s ease-out 4s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#5f27cd;animation:explodeDot3 2.5s ease-out 4s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#00d2d3;animation:explodeDot4 2.5s ease-out 4s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#ff9f43;animation:explodeDot5 2.5s ease-out 4s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#ee5a24;animation:explodeDot6 2.5s ease-out 4s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#c44569;animation:explodeDot7 2.5s ease-out 4s forwards;transform:scale(1.7)"></div>
+            <div class="firework-dot" style="background:#f8b500;animation:explodeDot8 2.5s ease-out 4s forwards;transform:scale(1.7)"></div>
+          </div>
+          
+          <!-- Firework 8 - Complex Multi-Ring -->
+          <div class="firework-container" style="position:absolute;top:50%;left:70%;animation:fireworkExplode 3s ease-out 4s forwards">
+            <!-- Inner Ring (8 squares) -->
+            <div class="firework-square" style="background:#ff9ff3;animation:explodeSquare1 2.5s ease-out 4.1s forwards"></div>
+            <div class="firework-square" style="background:#54a0ff;animation:explodeSquare2 2.5s ease-out 4.1s forwards"></div>
+            <div class="firework-square" style="background:#5f27cd;animation:explodeSquare3 2.5s ease-out 4.1s forwards"></div>
+            <div class="firework-square" style="background:#00d2d3;animation:explodeSquare4 2.5s ease-out 4.1s forwards"></div>
+            <div class="firework-square" style="background:#ff9f43;animation:explodeSquare5 2.5s ease-out 4.1s forwards"></div>
+            <div class="firework-square" style="background:#ee5a24;animation:explodeSquare6 2.5s ease-out 4.1s forwards"></div>
+            <div class="firework-square" style="background:#c44569;animation:explodeSquare7 2.5s ease-out 4.1s forwards"></div>
+            <div class="firework-square" style="background:#f8b500;animation:explodeSquare8 2.5s ease-out 4.1s forwards"></div>
+            
+            <!-- Middle Ring (12 dots) -->
+            <div class="firework-dot" style="background:#ff6b6b;animation:explodeDot1 2.5s ease-out 4.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#4ecdc4;animation:explodeDot2 2.5s ease-out 4.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#45b7d1;animation:explodeDot3 2.5s ease-out 4.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#f9ca24;animation:explodeDot4 2.5s ease-out 4.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#f0932b;animation:explodeDot5 2.5s ease-out 4.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#eb4d4b;animation:explodeDot6 2.5s ease-out 4.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#6c5ce7;animation:explodeDot7 2.5s ease-out 4.3s forwards;transform:scale(1.3)"></div>
+            <div class="firework-dot" style="background:#a29bfe;animation:explodeDot8 2.5s ease-out 4.3s forwards;transform:scale(1.3)"></div>
+            
+            <!-- Outer Ring (16 squares) -->
+            <div class="firework-square" style="background:#ff3838;animation:explodeSquare1 2.5s ease-out 4.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ff9f1a;animation:explodeSquare2 2.5s ease-out 4.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#2ed573;animation:explodeSquare3 2.5s ease-out 4.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#1e90ff;animation:explodeSquare4 2.5s ease-out 4.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ff6348;animation:explodeSquare5 2.5s ease-out 4.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ff4757;animation:explodeSquare6 2.5s ease-out 4.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#5352ed;animation:explodeSquare7 2.5s ease-out 4.5s forwards;transform:scale(1.6)"></div>
+            <div class="firework-square" style="background:#ffa502;animation:explodeSquare8 2.5s ease-out 4.5s forwards;transform:scale(1.6)"></div>
+          </div>
+        </div>
+      `;
+      
+      (CURRENT.teams||[]).forEach(t=>{
+        const win = winnerIds.includes(t.id);
+        const members = t.members || [];
+        const memberList = members.length > 0 ? members.map(m => {
+          // Use labelForEmail to get full name, then extract just the name part
+          const fullLabel = labelForEmail(m);
+          // Extract name before the " — " separator
+          const name = fullLabel.includes(' — ') ? fullLabel.split(' — ')[0] : fullLabel;
+          return name;
+        }) : ['No members assigned'];
+        
+        html += `<div class="team-explosion-container" style="opacity:0;animation:teamReveal 0.8s ease-out ${3 + Math.random() * 2}s forwards">
+          <div class="${win ? 'fireworks' : ''}" style="background:${win ? 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)' : '#f8fafc'};border:2px solid ${win ? '#10b981' : '#e2e8f0'};border-radius:12px;padding:20px;position:relative;${win ? 'box-shadow:0 8px 25px rgba(16,185,129,0.2);animation:winnerPulse 2s ease-in-out infinite' : ''};min-width:250px;max-width:300px;flex:1">
+            <div style="text-align:center;margin-bottom:16px">
+              <h3 style="margin:0 0 8px 0;font-size:20px;color:${win ? '#065f46' : '#1f2937'};font-weight:bold">${esc(t.name||t.id)}</h3>
+              <div style="display:flex;align-items:center;justify-content:center;gap:8px">
+                <span style="font-size:28px;font-weight:bold;color:${win ? '#059669' : '#6b7280'}">${(totals[t.id]||0).toFixed(1)}</span>
+                ${win ? '<span style="background:#10b981;color:white;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:bold;animation:winnerBadge 1.5s ease-in-out infinite">🏆 WINNER</span>' : ''}
+              </div>
+            </div>
+            <div style="color:${win ? '#047857' : '#6b7280'};font-size:14px;line-height:1.6;text-align:center">
+              ${memberList.map(member => `<div style="margin-bottom:4px;padding:4px 8px;background:rgba(255,255,255,0.5);border-radius:6px">${esc(member)}</div>`).join('')}
+            </div>
+          </div>
+        </div>`;
+      });
+      html += `</div>`;
+
+      const scores = CURRENT.scores||{};
+      const rubric = CURRENT.rubric||[];
+      const flow = CURRENT.flow||[];
+
+      // Jury breakdown - Expandable
+      html += `<div class="mt">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer" onclick="toggleVotingSection('jury')">
+          <div style="display:flex;align-items:center;gap:8px">
+            <h3 style="margin:0;color:#1f2937">Jury breakdown</h3>
+            <span id="juryStatus" class="badge" style="background:#e5e7eb;color:#6b7280">Click to expand</span>
+          </div>
+          <div id="juryArrow" style="font-size:18px;color:#6b7280;transition:transform 0.3s ease">▼</div>
+        </div>
+        <div id="juryContent" style="display:none;padding:16px;background:#ffffff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 8px 8px">`;
+      
+      const jury = scores.jury||{};
+      if(Object.keys(jury).length===0){ html += `<div class="muted-small">—</div>`; }
+      else {
+        Object.entries(jury).forEach(([stepIdx, stepMap])=>{
+          const st = flow[+stepIdx]; const stTitle = st? (st.title||`Step ${(+stepIdx)+1}`): `Step ${(+stepIdx)+1}`;
+          html += `<div class="mt"><strong>${esc(stTitle)}</strong><table class="tbl"><thead><tr><th>Judge</th><th>Team</th>${rubric.map(c=>`<th>${esc(c.label)}</th>`).join('')}<th>Team total</th></tr></thead><tbody>`;
+          Object.entries(stepMap||{}).forEach(([judgeEmail, judgeMap])=>{
+            Object.entries(judgeMap||{}).forEach(([teamId, crits])=>{
+              const t = (CURRENT.teams||[]).find(x=>x.id===teamId);
+              const rowTotal = Object.values(crits||{}).reduce((a,b)=>a+(+b||0),0);
+              html += `<tr><td>${esc(labelForEmail(judgeEmail))}</td><td>${esc(t?.name||teamId)}</td>`+
+                      rubric.map(c=>`<td>${crits?.[c.key]??'—'}</td>`).join('')+
+                      `<td>${rowTotal.toFixed(1)}</td></tr>`;
+            });
+          });
+          html += `</tbody></table></div>`;
+        });
+      }
+      html += `</div></div>`;
+
+      // Public breakdown - Expandable
+      html += `<div class="mt">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer" onclick="toggleVotingSection('public')">
+          <div style="display:flex;align-items:center;gap:8px">
+            <h3 style="margin:0;color:#1f2937">Public votes</h3>
+            <span id="publicStatus" class="badge" style="background:#e5e7eb;color:#6b7280">Click to expand</span>
+          </div>
+          <div id="publicArrow" style="font-size:18px;color:#6b7280;transition:transform 0.3s ease">▼</div>
+        </div>
+        <div id="publicContent" style="display:none;padding:16px;background:#ffffff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 8px 8px">`;
+      
+      const pub = scores.public||{};
+      if(Object.keys(pub).length===0){ html += `<div class="muted-small">—</div>`; }
+      else {
+        Object.entries(pub).forEach(([stepIdx, stepMap])=>{
+          const st = flow[+stepIdx]; const stTitle = st? (st.title||`Step ${(+stepIdx)+1}`): `Step ${(+stepIdx)+1}`;
+          const pv = Object.entries(stepMap||{}).filter(([k])=>k!=='_voters')
+            .map(([team,v])=> `${esc((CURRENT.teams||[]).find(x=>x.id===team)?.name||team)}: ${v}`).join(' · ') || '—';
+          html += `<div>Step ${(+stepIdx)+1} — ${esc(stTitle)}: ${pv}</div>`;
+        });
+      }
+      html += `</div></div>`;
+
+      html += `</div>`;
+      $('#resBody').innerHTML = html;
+    }
+
+    /* ======= GUARDS & LIST ======= */
+    function updateGuards(){
+      const has = !!(CURRENT && CURRENT.id);
+      $('#liveGuard').classList.toggle('hidden', has);
+      $('#liveArea').classList.toggle('hidden', !has);
+      $('#resGuard').classList.toggle('hidden', has);
+      $('#resArea').classList.toggle('hidden', !has);
+      $('#btnDelete').disabled = !has;
+      $('#debateStatus').textContent = has ? (CURRENT.status||'planned') : '';
+    }
+
+    function renderDebateList(){
+      const wrap = $('#debList'); const sel = $('#selDebate');
+      if(!wrap || !sel) return;
+      wrap.innerHTML = '';
+      sel.innerHTML = `<option value="">(Select an existing debate)</option>` +
+        (DEBATES||[]).map(d=>`<option value="${d.id}">${esc(d.affirmation||('Debate '+d.id))}</option>`).join('');
+      if(CURRENT?.id){ sel.value = String(CURRENT.id); }
+      (DEBATES||[]).slice().reverse().forEach(d=>{
+        const row = document.createElement('div'); row.className='deb-row'+(CURRENT&&CURRENT.id===d.id?' active':'');
+        const st = d.status||'planned';
+        row.innerHTML = `<div><strong>${esc(d.affirmation||('Debate '+d.id))}</strong> <span class="muted-small">#${d.id}</span></div>
+                         <div><span class="badge">${esc(st)}</span></div>`;
+        row.onclick = ()=>{ CURRENT = JSON.parse(JSON.stringify(d)); hydrateFormFromCurrent(); switchTab('create'); };
+        wrap.appendChild(row);
+      });
+    }
+
+    /* ======= SAVE / CRUD ======= */
+    async function reloadCurrent(){
+      if(!(CURRENT && CURRENT.id)) return;
+      const list = await apiGet('/api/debates');
+      DEBATES = list || [];
+      const found = DEBATES.find(d=> String(d.id)===String(CURRENT.id));
+      if(found){ CURRENT = found; hydrateFormFromCurrent(); }
+    }
+
+    async function saveDebatePartial(patch){
+      if(!(CURRENT && CURRENT.id)) return;
+      await apiSend('/api/debates','PUT',{ id: CURRENT.id, ...patch });
+      await reloadCurrent();
+    }
+
+    /* ======= TABS ======= */
+    function switchTab(name){
+      $$('.pilltab button').forEach(b=> b.classList.toggle('active', b.dataset.tab===name));
+      $$('.page').forEach(p=> p.classList.toggle('active', p.id===`tab-${name}`));
+      if(name==='results'){ buildResults(); }
+    }
+
+    /* ======= EVENTS ======= */
+    // tabs
+    $$('.pilltab button').forEach(b=> b.addEventListener('click', ()=> switchTab(b.dataset.tab)));
+
+    // pipeline nav
+    $('.stepper')?.addEventListener('click', (e)=>{
+      const s = e.target.closest('.s'); if(!s) return;
+      setCreateStep(+s.dataset.cstep);
+    });
+    $('#btnStepNext0').onclick = ()=>{ collectTopFields(); setCreateStep(1); };
+    $('#btnStepBack1').onclick = ()=> setCreateStep(0);
+    $('#btnStepNext1').onclick = ()=> setCreateStep(2);
+    $('#btnStepBack2').onclick = ()=> setCreateStep(1);
+    $('#btnStepNext2').onclick = ()=> setCreateStep(3);
+    $('#btnStepBack3').onclick = ()=> setCreateStep(2);
+    $('#btnStepNext3').onclick = ()=> { renderDebatePreview(); setCreateStep(4); };
+    $('#btnStepBack4').onclick = ()=> { renderDebatePreview(); setCreateStep(3); };
+
+    // flow add
+    $('#btnAddFlow').onclick = ()=>{
+      const title = $('#flowTitle').value.trim() || `Step ${(FORM.flow?.length||0)+1}`;
+      const dur = Math.max(0, +($('#flowDur').value||0)) || 60;
+      const round = $('#flowRoundSelect').value;
+      const action = $('#flowAction').value;
+      const animation = $('#flowAnimation').value;
+      (FORM.flow||(FORM.flow=[])).push({ title, duration_sec: dur, round, action, animation });
+      $('#flowTitle').value = ''; $('#flowDur').value=''; $('#flowAction').value='none'; $('#flowAnimation').value='none';
+      
+      // Update round options after adding
+      updateRoundOptions();
+      renderFlow();
+    };
+    
+    // Round management buttons
+    $('#btnCloneRound').onclick = ()=>{
+      const roundToClone = $('#flowRoundSelect').value;
+      cloneRound(roundToClone);
+    };
+    
+    $('#btnClearRound').onclick = ()=>{
+      const roundToClear = $('#flowRoundSelect').value;
+      clearRound(roundToClear);
+    };
+    
+    // Update step count when round selection changes
+    $('#flowRoundSelect').onchange = ()=>{
+      updateRoundStepCount();
+    };
+
+    // Show/hide round field based on type
+    $('#rbType').onchange = ()=>{
+      const type = $('#rbType').value;
+      const roundField = $('#rbRound').parentElement;
+      if(type === 'general') {
+        roundField.style.display = 'none';
+      } else {
+        roundField.style.display = 'block';
+      }
+      
+      // Ensure input fields remain visible
+      ensureInputFieldsVisible();
+    };
+    
+
+    // rubric add
+    $('#btnAddCrit').onclick = ()=>{
+      const key=$('#rbKey').value.trim(); const label=$('#rbLabel').value.trim();
+      const type=$('#rbType').value; const round=$('#rbRound').value;
+      const min=+($('#rbMin').value||0); const max=+($('#rbMax').value||0);
+      if(!key || !label) return;
+      (FORM.rubric||(FORM.rubric=[])).push({key,label,type,round,min,max});
+      $('#rbKey').value=''; $('#rbLabel').value=''; $('#rbType').value='general'; $('#rbRound').value='1'; $('#rbMin').value=''; $('#rbMax').value='';
+      
+      // Update round options after adding
+      updateRoundOptions();
+      
+      // Ensure input fields remain visible after adding
+      ensureInputFieldsVisible();
+      
+      // Update round field visibility based on current type
+      const roundField = $('#rbRound').parentElement;
+      if(roundField) {
+        if($('#rbType').value === 'general') {
+          roundField.style.display = 'none';
+        } else {
+          roundField.style.display = 'block';
+        }
+      }
+      
+      renderRubric();
+    };
+
+    // save (create/update)
+    $('#btnSave').onclick = async ()=>{
+      try{
+        collectTopFields();
+        const payload = {
+          affirmation: FORM.affirmation,
+          meeting_id: FORM.meeting_id,
+          prize: FORM.prize,
+          format: FORM.format,
+          flow: FORM.flow,
+          rubric: FORM.rubric,
+          rounds: FORM.rounds||[],
+          judges: CURRENT?.judges||[],
+          teams: CURRENT?.teams||[],
+          reserves: CURRENT?.reserves||[],
+          scores: CURRENT?.scores||{jury:{},public:{}},
+          status: CURRENT?.status||'planned'
+        };
+        let res;
+        if(CURRENT && CURRENT.id){
+          res = await apiSend('/api/debates','PUT', { id: CURRENT.id, ...payload });
+          $('#saveMsg').textContent = 'Saved.';
+          await reloadCurrent();
+        } else {
+          res = await apiSend('/api/debates','POST', payload);
+          LAST_SELECTED = String(res.id);
+          const all = await apiGet('/api/debates'); DEBATES = all||[];
+          CURRENT = DEBATES.find(d=> String(d.id)===LAST_SELECTED) || null;
+          $('#saveMsg').textContent = 'Created.';
+          hydrateFormFromCurrent();
+        }
+        renderFlow(); renderDebateList(); renderRegistrationBlock();
+      }catch(e){ console.error(e); $('#saveMsg').textContent = 'Error at save.'; }
+    };
+
+    // list/select actions
+    $('#btnReload').onclick = async ()=>{
+      await loadAll();
+      hydrateFormFromCurrent();
+    };
+    $('#btnNew').onclick = ()=>{
+      CURRENT = null; hydrateFormFromCurrent(); setCreateStep(0);
+      $('#selDebate').value='';
+    };
+    $('#btnDelete').onclick = async ()=>{
+      if(!(CURRENT&&CURRENT.id)) return;
+      if(!confirm('Delete this debate?')) return;
+      await apiSend(`/api/debates?id=${CURRENT.id}`,'DELETE');
+      CURRENT = null;
+      await loadAll();
+      hydrateFormFromCurrent();
+    };
+    $('#selDebate').addEventListener('change', ()=>{
+      const id = $('#selDebate').value;
+      const d = (DEBATES||[]).find(x=> String(x.id)===String(id));
+      CURRENT = d || null;
+      hydrateFormFromCurrent();
+    });
+
+    // Registration actions
+    $('#btnRegQR').onclick = async ()=>{
+      if(!(CURRENT&&CURRENT.id)) return;
+      const r = await apiSend(`/api/debates/${CURRENT.id}/registration-qr`, 'POST');
+      CURRENT.registration_qr = { url:r.reg_url, qr_url:r.qr_url, ts:r.ts };
+      renderRegistrationBlock();
+    };
+    $('#btnCopyRegLink').onclick = async ()=>{
+      const url = CURRENT?.registration_qr?.url;
+      if(!url){ alert('Generate QR first.'); return; }
+      try{ await navigator.clipboard.writeText(url); alert('Link copied.'); }catch(_){ alert(url); }
+    };
+    $('#btnEmailReg').onclick = ()=>{
+      alert('Email send not implemented in demo. (can be integrated with SMTP/API later)');
+    };
+    $('#btnRegRefresh').onclick = ()=> refreshSignups();
+
+    // Randomize & Structure
+    $('#btnRandomize').onclick = async ()=>{
+      if(!(CURRENT&&CURRENT.id)) return;
+      
+      const btn = $('#btnRandomize');
+      btn.setAttribute('data-original-text', btn.textContent);
+      btn.textContent = 'Randomizing...';
+      btn.classList.add('loading');
+      btn.disabled = true;
+      
+      try {
+        const r = await apiSend(`/api/debates/${CURRENT.id}/randomize`, 'POST');
+        if(r.ok){
+          CURRENT.judges = r.judges||[];
+          CURRENT.teams = r.teams||[];
+          CURRENT.reserves = r.reserves||[];
+          await saveDebatePartial({ judges: CURRENT.judges, teams: CURRENT.teams, reserves: CURRENT.reserves });
+          buildStructureEditors();
+          
+          // Show detailed success message
+          const teamCount = (CURRENT.teams||[]).length;
+          const judgeCount = (CURRENT.judges||[]).length;
+          const reserveCount = (CURRENT.reserves||[]).length;
+          
+          let message = `✅ Randomized successfully!\n\n`;
+          message += `👥 Teams: ${teamCount} teams created\n`;
+          message += `⚖️ Judges: ${judgeCount} judges selected\n`;
+          if (reserveCount > 0) {
+            message += `🔄 Reserves: ${reserveCount} members available as reserves\n`;
+          } else {
+            message += `🔄 Reserves: No reserves (all members assigned)\n`;
+          }
+          
+          alert(message);
+        }else alert(r.error||'Error at randomize');
+      } catch(e) {
+        alert('Error during randomization: ' + e.message);
+      } finally {
+        const originalText = btn.getAttribute('data-original-text');
+        if(originalText) {
+          btn.textContent = originalText;
+          btn.removeAttribute('data-original-text');
+        }
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    };
+    $('#btnSaveStructure').onclick = async ()=>{
+      if(!(CURRENT&&CURRENT.id)) return;
+      await saveDebatePartial({ judges: CURRENT.judges||[], teams: CURRENT.teams||[], reserves: CURRENT.reserves||[] });
+      $('#structMsg').textContent = 'Saved.';
+      setTimeout(()=> $('#structMsg').textContent='', 1200);
+    };
+
+    // Start Live (opens dedicated page + sets status=live)
+    $('#btnStartLive').onclick = async ()=>{
+      if(!(CURRENT&&CURRENT.id)) return;
+      await saveDebatePartial({ status: 'live' });
+      const url = `/live/${CURRENT.id}`;
+      window.open(url, '_blank');
+      // update the status displayed on this page
+      await reloadCurrent();
+      switchTab('results'); // optional: you can stay on live tab if you prefer
+      switchTab('live');
+    };
+
+    /* ======= MEETINGS & MEMBERS ======= */
+    function buildMeetingsSelect(){
+      const sel=$('#afMeeting'); if(!sel) return;
+      const cur = sel.value;
+      sel.innerHTML = `<option value="">(Associated meeting — optional)</option>`+
+        (MEETINGS||[]).map(m=> `<option value="${m.id}">${esc(m.title||('Meeting '+m.id))} — ${esc(m.date||'')}</option>`).join('');
+      if(CURRENT?.meeting_id){ sel.value = String(CURRENT.meeting_id); }
+      else if(cur){ sel.value = cur; }
+    }
+
+    async function loadAll(){
+      [MEMBERS, MEETINGS, DEBATES] = await Promise.all([
+        apiGet('/api/members'),
+        apiGet('/api/meetings'),
+        apiGet('/api/debates')
+      ]);
+      buildMeetingsSelect();
+      renderDebateList();
+      if(LAST_SELECTED){
+        const d = DEBATES.find(x=> String(x.id)===String(LAST_SELECTED));
+        if(d) CURRENT = d;
+      }
+    }
+
+    /* ======= INIT ======= */
+	(async function init(){
+    try{
+      await loadAll();
+
+      // 1) read parameters from URL
+      const qp  = new URLSearchParams(location.search);
+      const did = qp.get('did');
+      const tab = qp.get('tab'); // ex: 'results', 'live', 'create'
+
+      // 2) if we have did, select that debate
+      if (did) {
+        const d = (DEBATES || []).find(x => String(x.id) === String(did));
+        if (d) {
+          CURRENT = d;
+          LAST_SELECTED = String(d.id);
+        }
+      }
+
+      // 3) hydrate UI based on CURRENT
+      hydrateFormFromCurrent();
+
+      // 4) switch tab: if it comes from URL we respect it;
+      //    otherwise, if the debate is finished, we go implicitly to Results
+      if (tab) {
+        switchTab(tab);
+      } else if (CURRENT?.status === 'finished') {
+        switchTab('results');
+      } else {
+        switchTab('create');
+      }
+
+      // optional: only if you're on Create, start from step 0
+      if ($('.pilltab button.active')?.dataset.tab === 'create') {
+        setCreateStep(0);
+      }
+    }catch(e){
+      console.error(e);
+    }
+  })();
+  </script>
+</body>
+</html>

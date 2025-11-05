@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    body{font-family:Arial, sans-serif;background:#f6f7fb;margin:0;padding:24px}
+    .wrap{max-width:800px;margin:0 auto}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px}
+    .opt{display:flex;align-items:center;gap:8px;margin-top:8px}
+    .leader{display:flex;flex-direction:column;gap:8px}
+    .muted{color:#6b7280}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <h2 style="margin:0">Live Quiz</h2>
+        <div class="muted">Session: <b id="sid"></b></div>
+      </div>
+      <div id="status">Waiting for host…</div>
+      <div id="timer" class="muted" style="margin-top:4px;display:none">Time left: <b id="timeLeft">—</b></div>
+      <div id="qbox" style="display:none">
+        <h3 id="qtext" style="margin-top:12px"></h3>
+        <div id="opts"></div>
+        <div class="row gap mt">
+          <button class="btn primary" id="submitBtn" disabled>Submit answer</button>
+        </div>
+        <div id="feedback" class="mt"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SID = '{{ sid }}';
+    const PID = '{{ pid }}';
+    document.getElementById('sid').textContent = SID;
+
+    const $ = (s,r=document)=>r.querySelector(s);
+    const apiGet = async (u)=>{ const r=await fetch(u); if(!r.ok) throw new Error(await r.text()); return r.json(); };
+    const apiSend = async (u,m,b)=>{ const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined}); if(!r.ok) throw new Error(await r.text()); return r.json(); };
+
+    let CURRENT=null, SELECTED=null, CURRENT_TYPE='single';
+    let lastRenderKey = '';
+
+    function buildKey(st){
+      return `${st.status}|${st.current_index}|${st.reveal?1:0}`;
+    }
+
+    function applySelectionUI(){
+      if(CURRENT_TYPE==='single'){
+        const radios = Array.from(document.querySelectorAll('#opts input[type="radio"]'));
+        radios.forEach((el, i)=>{ el.checked = (SELECTED===i); });
+      } else if(CURRENT_TYPE==='multiple'){
+        const checks = Array.from(document.querySelectorAll('#opts input[type="checkbox"]'));
+        checks.forEach((el, i)=>{ el.checked = (SELECTED||new Set()).has(i); });
+      }
+    }
+
+    function renderQuestionUI(st){
+      const q=st.question||{}; CURRENT_TYPE=(q.type||'single');
+      $('#qtext').textContent = q.text||'';
+      const opts=$('#opts'); opts.innerHTML='';
+
+      if(CURRENT_TYPE==='single' || CURRENT_TYPE==='multiple'){
+        if(SELECTED==null) SELECTED = (CURRENT_TYPE==='multiple')? new Set(): null;
+        (q.options||[]).forEach((o, i)=>{
+          const line=document.createElement('label'); line.className='opt';
+          const input=document.createElement('input'); input.type=(CURRENT_TYPE==='single')?'radio':'checkbox'; input.name='opt'; input.onchange=()=>{
+            if(CURRENT_TYPE==='single'){ SELECTED = i; } else { if(input.checked) SELECTED.add(i); else SELECTED.delete(i); }
+            $('#submitBtn').disabled=false;
+          };
+          const span=document.createElement('span'); span.textContent=o||'';
+          line.appendChild(input); line.appendChild(span); opts.appendChild(line);
+        });
+        applySelectionUI();
+      } else if(CURRENT_TYPE==='order'){
+        // arrows-based reorder: always full list
+        const items=(q.items||[]).slice();
+        if(!Array.isArray(SELECTED) || SELECTED.length!==items.length){ SELECTED = items.map((_,i)=>i); }
+        const list=document.createElement('div');
+        SELECTED.forEach((idx, pos)=>{
+          const row=document.createElement('div'); row.className='opt';
+          const label=document.createElement('div'); label.textContent = items[idx]||''; label.style.flex='1';
+          const up=document.createElement('button'); up.className='btn subtle'; up.textContent='↑'; up.onclick=()=>{ if(pos>0){ const t=SELECTED[pos-1]; SELECTED[pos-1]=SELECTED[pos]; SELECTED[pos]=t; renderQuestionUI(st); } };
+          const down=document.createElement('button'); down.className='btn subtle'; down.textContent='↓'; down.onclick=()=>{ if(pos<SELECTED.length-1){ const t=SELECTED[pos+1]; SELECTED[pos+1]=SELECTED[pos]; SELECTED[pos]=t; renderQuestionUI(st); } };
+          row.appendChild(label); row.appendChild(up); row.appendChild(down); list.appendChild(row);
+        });
+        const reset=document.createElement('button'); reset.className='btn subtle'; reset.textContent='Reset'; reset.onclick=()=>{ SELECTED = items.map((_,i)=>i); renderQuestionUI(st); };
+        $('#submitBtn').disabled=false; opts.appendChild(list); opts.appendChild(reset);
+      } else if(CURRENT_TYPE==='match'){
+        // click-to-pair matching
+        const left=(q.left||[]).slice(); const right=(q.right||[]).slice();
+        if(typeof SELECTED!=="object" || Array.isArray(SELECTED)) SELECTED = {};
+        let pendingLeft = null;
+        const grid=document.createElement('div'); grid.style.display='grid'; grid.style.gridTemplateColumns='1fr 1fr 1fr'; grid.style.gap='12px';
+        const colL=document.createElement('div'); const colR=document.createElement('div'); const colPairs=document.createElement('div');
+        colPairs.innerHTML = '<div class="muted">Pairs</div>';
+        left.forEach((lit, li)=>{
+          const btn=document.createElement('button'); btn.className='btn'; btn.textContent=lit||'';
+          btn.style.width='100%';
+          btn.onclick=()=>{ pendingLeft = li; Array.from(colL.querySelectorAll('button')).forEach(b=>b.style.outline='none'); btn.style.outline='2px solid #2563eb'; };
+          colL.appendChild(btn);
+        });
+        right.forEach((rit, ri)=>{
+          const btn=document.createElement('button'); btn.className='btn'; btn.textContent=rit||''; btn.style.width='100%';
+          btn.onclick=()=>{ if(pendingLeft!==null){ SELECTED[pendingLeft]=ri; pendingLeft=null; drawPairs(); $('#submitBtn').disabled = Object.keys(SELECTED).length!==left.length; Array.from(colL.querySelectorAll('button')).forEach(b=>b.style.outline='none'); } };
+          colR.appendChild(btn);
+        });
+        function drawPairs(){
+          colPairs.innerHTML = '<div class="muted">Pairs</div>' + left.map((_,li)=>{
+            const r = SELECTED.hasOwnProperty(li)? right[SELECTED[li]]: '—';
+            return `<div>${left[li]||''} ⟶ <b>${r||'—'}</b></div>`;
+          }).join('');
+        }
+        drawPairs();
+        grid.appendChild(colL); grid.appendChild(colR); grid.appendChild(colPairs); opts.appendChild(grid);
+        $('#submitBtn').disabled = Object.keys(SELECTED).length!==left.length;
+      }
+      $('#feedback').textContent = (st.status==='reveal'?'Revealed. Check your answer.':'');
+    }
+
+    function renderState(st){
+      CURRENT = st;
+      $('#status').textContent = `${st.status?.toUpperCase()||'-'} · Question ${st.current_index>=0? st.current_index+1:'—'}`;
+      const lb=$('#leaderboard'); lb.innerHTML='';
+      (st.leaderboard||[]).forEach(e=>{ const row=document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.innerHTML=`<div>${e.nickname||e.pid}</div><b>${(e.score||0).toFixed(2)}</b>`; lb.appendChild(row); });
+
+      // timer
+      const t = st.time_left_ms; const total = (st.time_total_sec||0)*1000;
+      if(typeof t === 'number'){ $('#timer').style.display='block'; const sec = Math.ceil(t/1000); $('#timeLeft').textContent=`${Math.max(0,sec)}s`; } else { $('#timer').style.display='none'; }
+
+      const key = buildKey(st);
+      if(key !== lastRenderKey){
+        // question or status changed -> rebuild UI
+        if(st.status==='running' || st.status==='reveal'){
+          // reset selection only on question change
+          if(!lastRenderKey || st.current_index !== Number((lastRenderKey.split('|')[1]||'-1'))){ SELECTED = (st.question?.type==='multiple')? new Set(): (st.question?.type==='order'? [] : (st.question?.type==='match'? {} : null)); }
+          $('#qbox').style.display='block';
+          renderQuestionUI(st);
+        } else {
+          $('#qbox').style.display='none';
+        }
+        lastRenderKey = key;
+      } else {
+        // same question: only update timer/leaderboard and keep UI/selection
+        applySelectionUI();
+      }
+    }
+
+    async function poll(){
+      try{
+        const st = await apiGet(`/api/quiz-sessions/${SID}/state`);
+        renderState(st);
+      }catch(_){ /* ignore */ }
+      setTimeout(poll, 800);
+    }
+
+    $('#submitBtn').onclick = async ()=>{
+      if(CURRENT_TYPE==='multiple'){
+        await apiSend(`/api/quiz-sessions/${SID}/submit`, 'POST', { pid: PID, answer: Array.from(SELECTED||[]), penalize_wrong: true });
+      } else if(CURRENT_TYPE==='match'){
+        await apiSend(`/api/quiz-sessions/${SID}/submit`, 'POST', { pid: PID, answer: SELECTED, penalize_wrong: true });
+      } else if(CURRENT_TYPE==='order'){
+        await apiSend(`/api/quiz-sessions/${SID}/submit`, 'POST', { pid: PID, answer: SELECTED, penalize_wrong: true });
+      } else {
+        await apiSend(`/api/quiz-sessions/${SID}/submit`, 'POST', { pid: PID, answer: SELECTED, penalize_wrong: true });
+      }
+      $('#submitBtn').disabled = true;
+      $('#feedback').textContent = 'Answer submitted!';
+    };
+
+    (function init(){ poll(); })();
+  </script>
+</body>
+</html>

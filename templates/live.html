@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Live Debate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    .page-wrap{padding:14px}
+    .live-wrap{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+    @media (max-width: 960px){.live-wrap{grid-template-columns:1fr}}
+    .timer-box{background:#0b1220;color:#fff;border-radius:12px;border:1px solid #1f2937;padding:16px}
+    .clock{font-size:72px;letter-spacing:2px;text-align:center;margin:10px 0}
+    .clock.red{color:#ef4444}
+    .controls .btn{height:36px}
+    
+    /* Animation keyframes */
+    @keyframes stamp {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.2) rotate(-5deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
+      75% { transform: scale(1.15) rotate(-3deg); }
+    }
+    
+    @keyframes coffee {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-5px) rotate(5deg); }
+      50% { transform: translateY(-10px) rotate(0deg); }
+      75% { transform: translateY(-5px) rotate(-5deg); }
+    }
+    
+    @keyframes lightbulb {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      25% { transform: scale(1.1); filter: brightness(1.3); }
+      50% { transform: scale(1.2); filter: brightness(1.5); }
+      75% { transform: scale(1.1); filter: brightness(1.3); }
+    }
+    
+    @keyframes speak {
+      0%, 100% { transform: scale(1) translateX(0px); }
+      25% { transform: scale(1.1) translateX(-3px); }
+      50% { transform: scale(1.2) translateX(3px); }
+      75% { transform: scale(1.1) translateX(-2px); }
+    }
+    
+    @keyframes debate {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.1) rotate(-10deg); }
+      50% { transform: scale(1.2) rotate(10deg); }
+      75% { transform: scale(1.1) rotate(-5deg); }
+    }
+    
+    @keyframes gavel {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.1) rotate(-15deg); }
+      50% { transform: scale(1.2) rotate(15deg); }
+      75% { transform: scale(1.1) rotate(-8deg); }
+    }
+    
+    @keyframes question {
+      0%, 100% { transform: scale(1) translateY(0px); }
+      25% { transform: scale(1.1) translateY(-3px); }
+      50% { transform: scale(1.2) translateY(-6px); }
+      75% { transform: scale(1.1) translateY(-3px); }
+    }
+    
+    @keyframes wrapup {
+      0%, 100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+      25% { transform: scale(1.1) rotate(5deg); filter: brightness(1.3); }
+      50% { transform: scale(1.2) rotate(-5deg); filter: brightness(1.5); }
+      75% { transform: scale(1.1) rotate(3deg); filter: brightness(1.3); }
+    }
+    .qrbox img{max-width:220px;border-radius:10px;border:1px solid #e5e7f1;background:#fff}
+    .score-list .roww{display:flex;justify-content:space-between;border-bottom:1px dashed #e5e7f1;padding:6px 0}
+    .step-pill{display:inline-flex;align-items:center;padding:2px 6px;border-radius:999px;background:#eef0f6;font-size:12px;margin-right:6px;color:#111}
+    .badge{display:inline-flex;align-items:center;padding:2px 6px;border-radius:999px;background:#eef0f6;font-size:12px;margin-right:6px;color:#111}
+    .muted-small{font-size:12px;color:#667}
+    
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- Header with controls -->
+    <div class="row align-center" style="gap:10px">
+      <a class="btn subtle" id="backBtn" href="/debate">← Back to admin</a>
+      <h1 style="margin:0">Live Debate</h1>
+      <span id="statusBadge" class="badge" style="margin-left:6px"></span>
+      <span class="right"></span>
+      <label class="muted-small" style="display:flex;align-items:center;gap:6px">
+        <input id="autoRefreshChk" type="checkbox" checked>
+        Auto-refresh scores (active only when status = LIVE)
+      </label>
+      <button class="btn" id="btnRefresh">Refresh now</button>
+      <button class="btn" id="btnAddTiebreak">+ Add public vote (tie-break)</button>
+      <button class="btn danger" id="btnClearScores">Clear Scores</button>
+      <button class="btn danger" id="btnFinishFlow">Finish Flow</button>
+    </div>
+
+    <!-- Debate Title -->
+    <div id="debInfo" class="mt" style="font-size:20px;font-weight:bold;color:#1e40af;text-shadow:0 1px 2px rgba(0,0,0,0.1)"></div>
+
+    <div class="live-wrap mt">
+      <div class="timer-box">
+        <div class="row align-center" style="gap:8px">
+          <span class="step-pill" id="stepPill">Step</span>
+          <strong id="stepTitle"></strong>
+          <span class="badge" id="stepActionBadge" style="display:none"></span>
+          <span class="right muted-small" id="liveStepInfo"></span>
+        </div>
+        <div class="clock" id="clock">00:00</div>
+        
+        <div class="row gap controls">
+          <button class="btn" id="btnPrev">⟵ Prev</button>
+          <button class="btn primary" id="btnStart">Start</button>
+          <button class="btn" id="btnPause">Pause</button>
+          <button class="btn" id="btnReset">Reset</button>
+          <button class="btn" id="btnNext">Next ⟶</button>
+        </div>
+        <div class="row gap mt">
+          <div class="qrbox" id="stepQRBox">
+            <div id="stepQR" class="mt"></div>
+          </div>
+          <div class="animation-box" id="singleAnimationBox" style="display:none;text-align:center;flex:0 0 auto;min-width:150px;align-self:center">
+            <div id="singleAnimationDisplay"></div>
+          </div>
+          <div class="qrbox" id="dualQRBox" style="display:none;width:100%">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;width:100%;gap:20px">
+              <div style="text-align:center;flex:0 0 auto;min-width:200px">
+                <div style="font-weight:bold;font-size:16px;color:#2563eb;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px">Jury Vote</div>
+                <div id="juryQR"></div>
+              </div>
+              <div class="animation-box" id="dualAnimationBox" style="display:none;text-align:center;flex:0 0 auto;min-width:150px;align-self:center">
+                <div id="dualAnimationDisplay"></div>
+              </div>
+              <div style="text-align:center;flex:0 0 auto;min-width:200px">
+                <div style="font-weight:bold;font-size:16px;color:#dc2626;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px">Public Vote</div>
+                <div id="publicQR"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Live scoreboard</h3>
+        <div id="scoreList" class="score-list"></div>
+        <div class="muted-small mt">Updates automatically while the debate is <b>live</b>. You can press "Refresh now" anytime.</div>
+      </div>
+    </div>
+
+    <!-- Round Information -->
+    <div id="roundInfo" class="mt" style="display:none">
+      <div class="card" style="background:linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);border-left:4px solid #3b82f6">
+        <h3 style="margin:0 0 8px 0;color:#1e40af" id="roundTitle"></h3>
+        <p style="margin:0 0 12px 0;color:#475569;line-height:1.5" id="roundDescription"></p>
+        <div id="roundWorkflow" style="margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0"></div>
+      </div>
+    </div>
+
+    <!-- Flow Preview -->
+    <div id="flowPreview" class="mt" style="display:none">
+      <div class="card">
+        <h3 style="margin:0 0 12px 0;color:#1d2233">Flow Preview</h3>
+        <div id="currentRoundFlow"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const DID = "{{ did }}";
+    let MEMBERS=[], MEETINGS=[], DEBATES=[];
+    let CURRENT=null;
+    let liveIdx=0;
+
+    let left=0, tick=null, ticking=false, audioCtx=null;
+
+    const $ = (s, r=document)=> r.querySelector(s);
+    const $$ = (s, r=document)=> Array.from(r.querySelectorAll(s));
+    const apiGet = async (u)=>{ const r=await fetch(u); if(!r.ok) throw new Error(await r.text()); return r.json(); };
+    const apiSend = async (u,m,b)=>{ const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined}); if(!r.ok) throw new Error(await r.text()); return r.json(); };
+    const esc = s => String(s||"").replace(/[&<>"']/g, c => (
+  {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]
+));
+
+    function getAnimationHTML(animationType) {
+      switch(animationType) {
+        case 'vote':
+          return `
+            <div class="vote-animation" style="font-size:48px;animation:stamp 2s ease-in-out infinite">
+              🗳️
+            </div>
+            <div style="margin-top:10px;font-size:18px;color:#2563eb;font-weight:bold">VOTING TIME</div>
+          `;
+        case 'break':
+          return `
+            <div class="break-animation" style="font-size:48px;animation:coffee 3s ease-in-out infinite">
+              ☕
+            </div>
+            <div style="margin-top:10px;font-size:18px;color:#059669;font-weight:bold">BREAK TIME</div>
+          `;
+        case 'brainstorming':
+          return `
+            <div class="brainstorming-animation" style="font-size:48px;animation:lightbulb 2s ease-in-out infinite">
+              💡
+            </div>
+            <div style="margin-top:10px;font-size:18px;color:#dc2626;font-weight:bold">BRAINSTORMING</div>
+          `;
+        case 'arguments':
+          return `
+            <div class="arguments-animation" style="font-size:48px;animation:speak 2s ease-in-out infinite">
+              🗣️
+            </div>
+            <div style="margin-top:10px;font-size:18px;color:#7c3aed;font-weight:bold">ARGUMENTS</div>
+          `;
+        case 'counter_arguments':
+          return `
+            <div class="counter-arguments-animation" style="font-size:48px;animation:debate 2s ease-in-out infinite">
+              ⚔️
+            </div>
+            <div style="margin-top:10px;font-size:18px;color:#ea580c;font-weight:bold">COUNTER ARGUMENTS</div>
+          `;
+        case 'jury_arguments':
+          return `
+            <div class="jury-arguments-animation" style="font-size:48px;animation:gavel 2s ease-in-out infinite">
+              ⚖️
+            </div>
+            <div style="margin-top:10px;font-size:18px;color:#7c2d12;font-weight:bold">JURY ARGUMENTS</div>
+          `;
+        case 'jury_questions':
+          return `
+            <div class="jury-questions-animation" style="font-size:48px;animation:question 2s ease-in-out infinite">
+              ❓
+            </div>
+            <div style="margin-top:10px;font-size:18px;color:#1e40af;font-weight:bold">JURY QUESTIONS</div>
+          `;
+        case 'final_wrapup':
+          return `
+            <div class="final-wrapup-animation" style="font-size:48px;animation:wrapup 3s ease-in-out infinite">
+              🎯
+            </div>
+            <div style="margin-top:10px;font-size:18px;color:#dc2626;font-weight:bold">FINAL WRAP UP</div>
+            <div style="margin-top:5px;font-size:14px;color:#6b7280;font-style:italic">Closing Statements</div>
+          `;
+        default:
+          return '';
+      }
+    }
+
+    const fmt2 = s => String(s).padStart(2,'0');
+
+    function computeTotalsFromScores(d){
+      const teams = (d.teams||[]).map(t=>t.id);
+      const totals = {}; teams.forEach(id=>totals[id]=0);
+      const scores = d.scores||{};
+      const jury = scores.jury||{};
+      Object.values(jury).forEach(stepMap=>{
+        Object.values(stepMap||{}).forEach(judgeMap=>{
+          Object.entries(judgeMap||{}).forEach(([teamId, crits])=>{
+            if ("default" in crits) {
+              // Simple team choice - give 1 point
+              totals[teamId] = (totals[teamId] || 0) + (+crits["default"] || 0);
+            } else {
+              // Rubric scoring
+              Object.values(crits||{}).forEach(v=> totals[teamId]=(totals[teamId]||0)+(+v||0));
+            }
+          });
+        });
+      });
+      const pub = scores.public||{};
+      Object.values(pub).forEach(stepMap=>{
+        if (!stepMap) return;
+        
+        // Find team with most public votes for this step
+        const team_votes = {};
+        Object.entries(stepMap).forEach(([teamId, val]) => {
+          if (teamId === '_voters') return;
+          team_votes[teamId] = +val || 0;
+        });
+        
+        if (Object.keys(team_votes).length > 0) {
+          // Give 1 point to team(s) with most votes for this step only
+          const max_votes = Math.max(...Object.values(team_votes));
+          if (max_votes > 0) {
+            Object.entries(team_votes).forEach(([teamId, votes]) => {
+              if (votes === max_votes) {
+                totals[teamId] = (totals[teamId] || 0) + 1.0;
+              }
+            });
+          }
+        }
+      });
+      return totals;
+    }
+
+    function drawClock(){
+      const m=Math.floor(left/60), s=left%60;
+      const el = $('#clock');
+      el.textContent = `${fmt2(m)}:${fmt2(s)}`;
+      el.classList.toggle('red', left>0 && left<=10);
+    }
+
+    function renderScoreboard(){
+      if(!(CURRENT && CURRENT.teams)) return;
+      const totals = computeTotalsFromScores(CURRENT);
+      const box = $('#scoreList'); box.innerHTML='';
+      (CURRENT.teams||[]).forEach(t=>{
+        const row=document.createElement('div'); row.className='roww';
+        row.innerHTML=`<span>${esc(t.name||t.id)}</span><strong>${(totals[t.id]||0).toFixed(1)}</strong>`;
+        box.appendChild(row);
+      });
+    }
+
+    function renderFlowPreview(){
+      const wrap = $('#flowPreview'); if(!wrap) return;
+      const arr = CURRENT?.flow||[];
+      wrap.innerHTML = arr.map((st, i)=>{
+        const cur = (i===liveIdx) ? ' <span class="badge">current</span>' : '';
+        const a = st.action==='jury_vote'?' · Jury vote (Complex)': 
+                  st.action==='simple_jury_vote'?' · Simple Jury vote': 
+                  st.action==='public_vote'?' · Public vote': 
+                  st.action==='jury+public'?' · Jury + Public vote (Complex)': 
+                  st.action==='simple_jury+public'?' · Simple Jury + Public vote': '';
+        return `<div>Step ${i+1}: <strong>${esc(st.title||'Untitled')}</strong> · ${+st.duration_sec||0}s${a}${cur}</div>`;
+      }).join('') || '—';
+    }
+
+    function updateStatusUI(){
+      const status = CURRENT?.status || '-';
+      const badgeEl = $('#statusBadge');
+      let label = status.toUpperCase();
+      // subtle visual nuances for badge
+      let style = '';
+      if(status==='live') style = 'background:#d1fae5;color:#065f46;border:1px solid #a7f3d0';
+      else if(status==='finished') style = 'background:#fee2e2;color:#991b1b;border:1px solid #fecaca';
+      else style = 'background:#eef0f6;color:#374151;border:1px solid #e5e7eb';
+      badgeEl.setAttribute('style', badgeEl.getAttribute('style') + ';' + style);
+      badgeEl.textContent = label;
+
+      const auto = $('#autoRefreshChk');
+      if(status==='live'){
+        auto.disabled = false;
+      }else{
+        // disable & stop polling when exiting LIVE
+        auto.checked = false;
+        auto.disabled = true;
+        stopPolling();
+      }
+    }
+
+    function renderHeaderMini(){
+      const meeting = (MEETINGS||[]).find(m=> String(m.id)===String(CURRENT?.meeting_id));
+      const date = meeting?.date || '';
+      $('#debInfo').innerHTML = `<div style="font-size:20px;font-weight:bold;color:#1e40af;margin-bottom:4px">${CURRENT?.affirmation||'Debate'}</div>${date?`<div style="font-size:14px;color:#64748b;font-weight:normal">${date}</div>`:''}`;
+      $('#backBtn').href = `/debate?did=${encodeURIComponent(DID)}${CURRENT?.status==='finished'?'&tab=results':''}`;
+      updateStatusUI();
+    }
+
+    function loadLiveStep(idx, {keepRunning=false, autoplay=false}={}){
+      if(!CURRENT) return;
+      liveIdx = Math.max(0, Math.min((CURRENT.flow||[]).length-1, idx));
+      const st = (CURRENT.flow||[])[liveIdx] || {};
+      $('#liveStepInfo').textContent = `Step ${liveIdx+1}/${(CURRENT.flow||[]).length}`;
+      $('#stepPill').textContent = `Step ${liveIdx+1}`;
+      $('#stepTitle').textContent = st.title || `Step ${liveIdx+1}`;
+      const act = (st.action||'none');
+      
+      // Show round information if step has a round
+      const roundInfo = $('#roundInfo');
+      const roundTitle = $('#roundTitle');
+      const roundDescription = $('#roundDescription');
+      
+      if (st.round && st.round !== 'general' && CURRENT.rounds && CURRENT.rounds.length > 0) {
+        const round = CURRENT.rounds.find(r => r.number === +st.round);
+        if (round && (round.title || round.description)) {
+          roundTitle.textContent = `Round ${st.round} – ${round.title || 'Untitled Round'}`;
+          roundDescription.textContent = round.description || 'No description provided.';
+          roundInfo.style.display = 'block';
+        } else {
+          // Round exists but no title/description defined
+          roundTitle.textContent = `Round ${st.round}`;
+          roundDescription.textContent = 'No title or description defined for this round.';
+          roundInfo.style.display = 'block';
+        }
+        
+        // Show workflow for current round
+        const currentRound = st.round;
+        const stepsInRound = CURRENT.flow.filter(step => (step.round || 'general') === currentRound);
+        const roundWorkflow = $('#roundWorkflow');
+        roundWorkflow.innerHTML = `
+          <div style="font-weight:600;color:#1e40af;margin-bottom:8px;font-size:14px">Workflow:</div>
+          ${stepsInRound.map((step, stepIdx) => {
+            const globalStepIndex = CURRENT.flow.indexOf(step);
+            const isCurrent = globalStepIndex === liveIdx;
+            const act = step.action || 'none';
+            const actionText = act === 'jury_vote' ? 'Jury Vote (Complex)' : 
+                             act === 'simple_jury_vote' ? 'Simple Jury Vote' : 
+                             act === 'public_vote' ? 'Public Vote' : 
+                             act === 'jury+public' ? 'Jury + Public Vote (Complex)' : 
+                             act === 'simple_jury+public' ? 'Simple Jury + Public Vote' : 
+                             act === 'none' ? '' : 
+                             act.replace('_', ' ').replace('+', ' + ');
+            
+            return `
+              <div style="display:flex;align-items:center;padding:4px 0;border-bottom:1px solid #f1f5f9">
+                <span style="background:${isCurrent ? '#1e40af' : '#e2e8f0'};color:${isCurrent ? 'white' : '#475569'};padding:2px 6px;border-radius:4px;font-size:12px;margin-right:8px;min-width:20px;text-align:center">${stepIdx + 1}</span>
+                <span style="flex:1;color:#475569;font-size:14px">${step.title || `Step ${globalStepIndex + 1}`}</span>
+                ${actionText ? `<span style="background:#f1f5f9;color:#475569;padding:2px 6px;border-radius:4px;font-size:12px">${actionText}</span>` : ''}
+                ${isCurrent ? '<span style="background:#1e40af;color:white;padding:2px 6px;border-radius:4px;font-size:12px;margin-left:8px">CURRENT</span>' : ''}
+              </div>
+            `;
+          }).join('')}
+        `;
+      } else if (st.round && st.round === 'general') {
+        // For general steps, show a generic message
+        roundTitle.textContent = 'General Discussion';
+        roundDescription.textContent = 'This step covers general discussion topics not specific to any particular round.';
+        roundInfo.style.display = 'block';
+        
+        // Show workflow for general steps
+        const generalSteps = CURRENT.flow.filter(step => !step.round || step.round === 'general');
+        const roundWorkflow = $('#roundWorkflow');
+        roundWorkflow.innerHTML = `
+          <div style="font-weight:600;color:#1e40af;margin-bottom:8px;font-size:14px">Workflow:</div>
+          ${generalSteps.map((step, stepIdx) => {
+            const globalStepIndex = CURRENT.flow.indexOf(step);
+            const isCurrent = globalStepIndex === liveIdx;
+            const act = step.action || 'none';
+            const actionText = act === 'jury_vote' ? 'Jury Vote (Complex)' : 
+                             act === 'simple_jury_vote' ? 'Simple Jury Vote' : 
+                             act === 'public_vote' ? 'Public Vote' : 
+                             act === 'jury+public' ? 'Jury + Public Vote (Complex)' : 
+                             act === 'simple_jury+public' ? 'Simple Jury + Public Vote' : 
+                             act === 'none' ? '' : 
+                             act.replace('_', ' ').replace('+', ' + ');
+            
+            return `
+              <div style="display:flex;align-items:center;padding:4px 0;border-bottom:1px solid #f1f5f9">
+                <span style="background:${isCurrent ? '#1e40af' : '#e2e8f0'};color:${isCurrent ? 'white' : '#475569'};padding:2px 6px;border-radius:4px;font-size:12px;margin-right:8px;min-width:20px;text-align:center">${stepIdx + 1}</span>
+                <span style="flex:1;color:#475569;font-size:14px">${step.title || `Step ${globalStepIndex + 1}`}</span>
+                ${actionText ? `<span style="background:#f1f5f9;color:#475569;padding:2px 6px;border-radius:4px;font-size:12px">${actionText}</span>` : ''}
+                ${isCurrent ? '<span style="background:#1e40af;color:white;padding:2px 6px;border-radius:4px;font-size:12px;margin-left:8px">CURRENT</span>' : ''}
+              </div>
+            `;
+          }).join('')}
+        `;
+      } else {
+        roundInfo.style.display = 'none';
+      }
+      
+      // Update Flow Preview
+      renderFlowPreview();
+      
+      // Check if current step is jury+public vote (both complex and simple)
+      const flow = CURRENT.flow || [];
+      const showDualQR = act === 'jury+public' || act === 'simple_jury+public';
+      
+      const badge = $('#stepActionBadge');
+      if(act==='none'){ badge.style.display='none'; }
+      else if(showDualQR) { 
+        badge.style.display='inline-block'; 
+        badge.textContent = act === 'simple_jury+public' ? 'Simple Jury + Public vote' : 'Jury + Public vote (Complex)'; 
+      }
+      else { 
+        badge.style.display='inline-block'; 
+        badge.textContent = act==='jury_vote'?'Jury vote (Complex)':
+                           act==='simple_jury_vote'?'Simple Jury vote':
+                           act==='public_vote'?'Public vote':'Unknown action'; 
+      }
+      
+      const stepQRBox = $('#stepQRBox');
+      const dualQRBox = $('#dualQRBox');
+      
+      
+      if(showDualQR) {
+        // Show dual QR box
+        stepQRBox.style.display = 'none';
+        dualQRBox.style.display = 'block';
+        
+        // Show jury QR
+        if(st.qr && st.qr.jury && st.qr.jury.qr_url) {
+          $('#juryQR').innerHTML = `<img src="${esc(st.qr.jury.qr_url)}" alt="jury qr"><div class="muted-small"><a href="${esc(st.qr.jury.url)}" target="_blank">Jury Vote</a></div>`;
+        } else {
+          $('#juryQR').innerHTML = `<div class="muted-small">—</div>`;
+        }
+        
+        // Show public QR
+        if(st.qr && st.qr.public && st.qr.public.qr_url) {
+          $('#publicQR').innerHTML = `<img src="${esc(st.qr.public.qr_url)}" alt="public qr"><div class="muted-small"><a href="${esc(st.qr.public.url)}" target="_blank">Public Vote</a></div>`;
+        } else {
+          $('#publicQR').innerHTML = `<div class="muted-small">—</div>`;
+        }
+      } else {
+        // Show single QR box
+        stepQRBox.style.display = 'block';
+        dualQRBox.style.display = 'none';
+        
+        if(st.qr && st.qr.qr_url && (act==='jury_vote'||act==='simple_jury_vote'||act==='public_vote'||act==='jury+public'||act==='simple_jury+public')){
+          $('#stepQR').innerHTML = `<img src="${esc(st.qr.qr_url)}" alt="qr"><div class="muted-small"><a href="${esc(st.qr.url)}" target="_blank">${esc(st.qr.url)}</a></div>`;
+        } else {
+          $('#stepQR').innerHTML = `<div class="muted-small">—</div>`;
+        }
+      }
+      
+      // Show animation if specified
+      const animation = st.animation || 'none';
+      
+      if (showDualQR) {
+        // For dual QR, show animation in the middle
+        const dualAnimationBox = $('#dualAnimationBox');
+        const dualAnimationDisplay = $('#dualAnimationDisplay');
+        const singleAnimationBox = $('#singleAnimationBox');
+        
+        if (animation && animation !== 'none') {
+          dualAnimationBox.style.display = 'block';
+          dualAnimationDisplay.innerHTML = getAnimationHTML(animation);
+        } else {
+          dualAnimationBox.style.display = 'none';
+        }
+        singleAnimationBox.style.display = 'none';
+      } else {
+        // For single QR, show animation to the right
+        const singleAnimationBox = $('#singleAnimationBox');
+        const singleAnimationDisplay = $('#singleAnimationDisplay');
+        const dualAnimationBox = $('#dualAnimationBox');
+        
+        if (animation && animation !== 'none') {
+          singleAnimationBox.style.display = 'block';
+          singleAnimationDisplay.innerHTML = getAnimationHTML(animation);
+        } else {
+          singleAnimationBox.style.display = 'none';
+        }
+        dualAnimationBox.style.display = 'none';
+      }
+
+      // Calculate duration
+      let dur = Math.max(0, +st.duration_sec||0) || 60;
+      
+      if(!keepRunning){ pauseTimer(); left = dur; drawClock(); }
+      if(autoplay){ startTimer(); }
+      renderFlowPreview();
+    }
+
+    function playTick(){
+      try{
+        if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type='square'; o.frequency.value=880;
+        g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime+0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime+0.1);
+        o.connect(g).connect(audioCtx.destination);
+        o.start(); o.stop(audioCtx.currentTime+0.11);
+      }catch(_){}
+    }
+
+    function startTimer(){
+      if(ticking) return;
+      if(left<=0){
+        const st = (CURRENT.flow||[])[liveIdx] || {};
+        left = Math.max(0, +st.duration_sec||0) || 60;
+      }
+      ticking=true;
+      tick=setInterval(()=>{
+        left=Math.max(0,left-1);
+        if(left<=10 && left>0) playTick();
+        drawClock();
+        if(left<=0){ clearInterval(tick); tick=null; ticking=false; }
+      },1000);
+      drawClock();
+    }
+    function pauseTimer(){ if(tick){ clearInterval(tick); tick=null; } ticking=false; }
+    function resetTimer(){ pauseTimer(); const st=(CURRENT.flow||[])[liveIdx]||{}; left=Math.max(0, +st.duration_sec||0)||60; drawClock(); }
+
+
+    async function loadAll(){
+      [MEMBERS, MEETINGS, DEBATES] = await Promise.all([
+        apiGet('/api/members'), apiGet('/api/meetings'), apiGet('/api/debates')
+      ]);
+      CURRENT = (DEBATES||[]).find(d=> String(d.id)===String(DID)) || null;
+    }
+
+    async function reloadCurrent(){
+      const list = await apiGet('/api/debates'); DEBATES = list||[];
+      const found = DEBATES.find(d=> String(d.id)===String(DID));
+      if(found) CURRENT = found;
+    }
+
+    let pollHandle=null;
+    function maybeStartPolling(){
+      stopPolling();
+      const auto = $('#autoRefreshChk').checked;
+      if(!auto) return;
+      if(!CURRENT || CURRENT.status!=='live') return;
+      pollHandle = setInterval(async ()=>{
+        try{
+          await reloadCurrent();
+          renderHeaderMini();   // here we can detect finished and stop polling
+          renderScoreboard();
+          renderFlowPreview();
+          if(liveIdx >= (CURRENT.flow||[]).length) loadLiveStep((CURRENT.flow||[]).length-1||0);
+        }catch(e){ /* silent */ }
+      }, 2000);
+    }
+    function stopPolling(){ if(pollHandle){ clearInterval(pollHandle); pollHandle=null; } }
+
+    async function addTiebreakIfNeeded(){
+      if(!CURRENT) return;
+      const totals = computeTotalsFromScores(CURRENT);
+      const vals = Object.values(totals).map(v=>+v||0);
+      const maxVal = Math.max(...vals, 0);
+      const winners = Object.keys(totals).filter(k=> (+(totals[k]||0))===maxVal );
+      if(winners.length<=1){
+        const ok = confirm('There is no tie. Do you still want to add a public vote step?');
+        if(!ok) return;
+      }
+      (CURRENT.flow||(CURRENT.flow=[])).push({ title:'Tie-break public vote', duration_sec:60, action:'public_vote' });
+      await apiSend('/api/debates','PUT',{ id: CURRENT.id, flow: CURRENT.flow });
+      await reloadCurrent();
+      loadLiveStep((CURRENT.flow||[]).length-1);
+      renderFlowPreview();
+    }
+
+    async function clearScores(){
+      if(!CURRENT) return;
+      const confirmed = confirm('Are you sure you want to clear all scores? This action cannot be undone.');
+      if(!confirmed) return;
+      
+      await apiSend('/api/debates','PUT',{ id: CURRENT.id, scores: { jury: {}, public: {} } });
+      await reloadCurrent();
+      renderScoreboard();
+    }
+
+    async function finishFlow(){
+      if(!CURRENT) return;
+      await apiSend('/api/debates','PUT',{ id: CURRENT.id, status:'finished' });
+      await reloadCurrent();
+      // Direct redirect to Results in admin
+      window.location.href = `/debate?did=${encodeURIComponent(DID)}&tab=results`;
+    }
+
+    (async function init(){
+      try{
+        await loadAll();
+        const qp = new URLSearchParams(location.search);
+        const autoplay = qp.get('autoplay')==='1';
+
+        renderHeaderMini();
+        liveIdx = 0;
+        loadLiveStep(0, {autoplay});
+        renderScoreboard();
+        renderFlowPreview();
+
+        // start polling only if status=live
+        $('#autoRefreshChk').checked = (CURRENT?.status==='live');
+        $('#autoRefreshChk').disabled = (CURRENT?.status!=='live');
+        maybeStartPolling();
+
+        $('#btnPrev').onclick = ()=> loadLiveStep(liveIdx-1);
+        $('#btnNext').onclick = ()=> loadLiveStep(liveIdx + 1);
+        $('#btnStart').onclick = ()=> startTimer();
+        $('#btnPause').onclick = ()=> pauseTimer();
+        $('#btnReset').onclick = ()=> resetTimer();
+        $('#btnRefresh').onclick = async ()=>{ await reloadCurrent(); renderHeaderMini(); renderScoreboard(); renderFlowPreview(); };
+        $('#btnAddTiebreak').onclick = ()=> addTiebreakIfNeeded();
+        $('#btnClearScores').onclick = ()=> clearScores();
+        $('#btnFinishFlow').onclick = ()=> finishFlow();
+        $('#autoRefreshChk').onchange = ()=> maybeStartPolling();
+
+        document.addEventListener('visibilitychange', ()=>{
+          if(document.hidden) stopPolling(); else maybeStartPolling();
+        });
+
+        document.addEventListener('keydown', (e)=>{
+          if(e.code==='Space'){ e.preventDefault(); ticking?pauseTimer():startTimer(); }
+          if(e.code==='ArrowRight') loadLiveStep(liveIdx+1);
+          if(e.code==='ArrowLeft') loadLiveStep(liveIdx-1);
+          if(e.key==='r' || e.key==='R') resetTimer();
+        });
+
+      }catch(e){
+        console.error(e);
+        alert('Error loading live page.');
+      }
+    })();
+  </script>
+</body>
+</html>

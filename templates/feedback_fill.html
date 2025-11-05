@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Complete feedback</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    /* small adjustments for standalone page */
+    body { background:#f6f8fb; }
+    .wrap { max-width: 760px; margin: 24px auto; padding: 0 12px; }
+    .brand { display:flex; align-items:center; gap:10px; margin-bottom: 10px; }
+    .brand .logo { width: 28px; height: 28px; border-radius: 8px; background:#111827; }
+    .title { margin: 0; }
+    .muted-small { color:#6b7280; font-size: 0.9rem; }
+    .q-card { background:#fff; border:1px solid #eaedf4; border-radius: 12px; padding:16px; margin:12px 0; }
+    .q-title { font-weight:600; margin:0 0 8px 0; }
+    .q-help { color:#6b7280; font-size:0.9rem; margin-top:6px; }
+    .opts { display:flex; flex-direction:column; gap:8px; }
+    .rating-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .submit-row { display:flex; gap:10px; align-items:center; margin-top: 14px; }
+    .center { text-align:center; }
+    .hidden { display:none !important; }
+    .error { color: #ef4444; background: #fef2f2; border: 1px solid #fecaca; padding: 8px 12px; border-radius: 6px; margin: 8px 0; }
+    
+    /* Star rating styles */
+    .star-rating { display:flex; gap:12px; align-items:center; margin-top:8px; }
+    .star { font-size:32px; color:transparent; cursor:pointer; transition:all 0.2s; user-select:none; text-shadow: 0 0 0 #d1d5db; }
+    .star:hover { transform:scale(1.15); text-shadow: 0 0 0 #fbbf24; }
+    .star.active { color:transparent; text-shadow: 0 0 0 #fbbf24; }
+    .star-rating-value { margin-left:16px; font-weight:600; color:#374151; font-size:18px; }
+    .star-rating-scale { color:#6b7280; font-size:14px; margin-left:12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1 class="title">Feedback</h1>
+        <div id="hdrMeta" class="muted-small"></div>
+      </div>
+    </div>
+
+    <div id="loadErr" class="q-card hidden"></div>
+
+    <div id="formCard" class="q-card">
+      <h2 id="formTitle" style="margin-top:0">—</h2>
+      <p id="formDesc" class="muted" style="white-space:pre-wrap"></p>
+
+      <div class="q-card" style="margin-bottom: 16px;">
+        <h4 style="margin-top: 0;">Your Information</h4>
+        <input id="userEmail" class="inp" type="email" placeholder="Enter your email address" required style="width: 100%; margin-bottom: 8px;" />
+        <div class="muted" style="font-size: 0.9rem;">We need your email to verify you're invited to this meeting.</div>
+      </div>
+
+      <div id="questions"></div>
+
+      <div class="submit-row">
+        <button id="btnSubmit" class="btn primary">Submit responses</button>
+        <span id="saveMsg" class="muted"></span>
+      </div>
+    </div>
+
+    <div id="thanksCard" class="q-card center hidden">
+      <h2>Thank you! ✅</h2>
+      <p class="muted">Your response has been recorded.</p>
+      <button class="btn" onclick="restart()">Submit another response</button>
+    </div>
+
+    <p class="muted-small center" style="margin-top:20px">
+      QA Leadership Tool — anonymous form
+    </p>
+  </div>
+
+  <script>
+    /* ===== Helpers ===== */
+    const $ = sel => document.querySelector(sel);
+    const esc = s => String(s||"").replace(/[&<>\"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
+    // Decode HTML entities (fix double-encoding issues)
+    const unesc = s => {
+      if (!s) return "";
+      const txt = document.createElement("textarea");
+      txt.innerHTML = String(s);
+      return txt.value;
+    };
+    const qp = new URLSearchParams(location.search);
+    const FORM_ID = qp.get("id") || qp.get("form_id");
+
+    async function apiGet(url){
+      const r = await fetch(url);
+      if(!r.ok) throw new Error(await r.text());
+      return r.json();
+    }
+    async function apiSend(url, method, body){
+      const r = await fetch(url, {
+        method,
+        headers: { "Content-Type":"application/json" },
+        body: body ? JSON.stringify(body) : undefined
+      });
+      if(!r.ok) throw new Error(await r.text());
+      return r.json();
+    }
+
+    function show(el, on=true){ el.classList.toggle("hidden", !on); }
+
+    function setError(msg){
+      const box = $("#loadErr");
+      box.innerHTML = `<strong>Eroare:</strong> <span class="muted">${esc(msg)}</span>`;
+      show(box, true);
+    }
+
+    function localKey(id){ return `fb_submitted_${id}`; }
+
+    /* ===== Render ===== */
+    function renderForm(form){
+      $("#formTitle").textContent = form.title || "Meeting feedback";
+      $("#formDesc").textContent  = form.description || "";
+      $("#hdrMeta").textContent   = form.meeting_title
+        ? `${form.meeting_title}${form.meeting_date ? " — "+form.meeting_date : ""}`
+        : (form.meeting_date || "");
+
+      const wrap = $("#questions");
+      wrap.innerHTML = "";
+
+      (form.questions || []).forEach(q=>{
+        const card = document.createElement("div");
+        card.className = "q-card";
+        card.dataset.qid = q.id;
+
+        const title = document.createElement("div");
+        title.className = "q-title";
+        const requiredIndicator = q.mandatory ? '<span style="color: #ef4444; font-weight: bold; margin-left: 4px;">*</span>' : '';
+        const decodedTitle = unesc(q.title || "Question");
+        title.innerHTML = esc(decodedTitle) + requiredIndicator; // Decode then escape for security
+        card.appendChild(title);
+
+        if(q.type === "single"){
+          const box = document.createElement("div");
+          box.className = "opts";
+          (q.options || []).forEach((opt,i)=>{
+            const id = `q_${q.id}_${i}`;
+            const line = document.createElement("label");
+            line.className = "chkline";
+            const required = q.mandatory ? 'required' : '';
+            const optValue = esc(opt); // Keep escaped for value attribute (security)
+            const optDisplay = unesc(opt); // Decode HTML entities for display
+            // Create input
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.name = `q_${q.id}`;
+            input.value = optValue;
+            input.id = id;
+            if(required) input.setAttribute('required', '');
+            // Create span for display
+            const span = document.createElement("span");
+            span.textContent = optDisplay; // Use textContent with decoded text
+            line.appendChild(input);
+            line.appendChild(span);
+            box.appendChild(line);
+          });
+          card.appendChild(box);
+        } else if(q.type === "multi"){
+          const box = document.createElement("div");
+          box.className = "opts";
+          const maxAnswers = q.max_answers ? parseInt(q.max_answers, 10) : null;
+          
+          // Add info message if max_answers is set
+          if (maxAnswers) {
+            const infoMsg = document.createElement("div");
+            infoMsg.style.cssText = "font-size: 12px; color: #6b7280; margin-bottom: 12px; padding: 8px; background: #f3f4f6; border-radius: 6px;";
+            infoMsg.id = `maxInfo_${q.id}`;
+            infoMsg.textContent = `You can select up to ${maxAnswers} option${maxAnswers > 1 ? 's' : ''}`;
+            box.appendChild(infoMsg);
+          }
+          
+          (q.options || []).forEach((opt,i)=>{
+            const id = `q_${q.id}_${i}`;
+            const line = document.createElement("label");
+            line.className = "chkline";
+            const required = q.mandatory ? 'required' : '';
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = `q_${q.id}[]`;
+            checkbox.value = esc(opt);
+            checkbox.id = id;
+            if(required) checkbox.setAttribute('required', '');
+            
+            // Add change handler to limit selections
+            if (maxAnswers) {
+              checkbox.addEventListener('change', function() {
+                const checkedBoxes = document.querySelectorAll(`input[name="q_${q.id}[]"]:checked`);
+                const checkedCount = checkedBoxes.length;
+                
+                if (checkedCount > maxAnswers) {
+                  // Uncheck the last checked box
+                  this.checked = false;
+                  alert(`You can select a maximum of ${maxAnswers} option${maxAnswers > 1 ? 's' : ''}`);
+                } else {
+                  // Update info message
+                  const infoMsg = document.getElementById(`maxInfo_${q.id}`);
+                  if (infoMsg) {
+                    const remaining = maxAnswers - checkedCount;
+                    if (remaining > 0) {
+                      infoMsg.textContent = `You can select up to ${maxAnswers} option${maxAnswers > 1 ? 's' : ''} (${remaining} remaining)`;
+                      infoMsg.style.color = '#6b7280';
+                    } else {
+                      infoMsg.textContent = `Maximum ${maxAnswers} option${maxAnswers > 1 ? 's' : ''} selected`;
+                      infoMsg.style.color = '#f59e0b';
+                    }
+                  }
+                }
+              });
+            }
+            
+            line.appendChild(checkbox);
+            const span = document.createElement("span");
+            span.textContent = unesc(opt); // Decode HTML entities for display
+            line.appendChild(span);
+            box.appendChild(line);
+          });
+          card.appendChild(box);
+        } else if(q.type === "rating"){
+          const min = Number.isFinite(q.min) ? Number(q.min) : 1;
+          const max = Number.isFinite(q.max) ? Number(q.max) : 5;
+          const row = document.createElement("div");
+          row.className = "rating-row";
+          
+          // Create star rating container
+          const starContainer = document.createElement("div");
+          starContainer.className = "star-rating";
+          starContainer.id = `starContainer_${q.id}`;
+          
+          // Create hidden input to store the value
+          const hiddenInput = document.createElement("input");
+          hiddenInput.type = "hidden";
+          hiddenInput.id = `rate_${q.id}`;
+          hiddenInput.value = "0"; // Default to 0 stars
+          if(q.mandatory) hiddenInput.required = true;
+          
+          // Create stars
+          for(let i = min; i <= max; i++) {
+            const star = document.createElement("span");
+            star.className = "star";
+            star.innerHTML = "★";
+            star.dataset.value = i;
+            star.onclick = () => {
+              const value = parseInt(star.dataset.value);
+              hiddenInput.value = value;
+              
+              // Update star display
+              const stars = starContainer.querySelectorAll('.star');
+              stars.forEach((s, index) => {
+                s.classList.toggle('active', index + min <= value);
+              });
+              
+              // Update value display
+              const valueDisplay = starContainer.querySelector('.star-rating-value');
+              if(valueDisplay) valueDisplay.textContent = value;
+            };
+            starContainer.appendChild(star);
+          }
+          
+          // Add value display
+          const valueDisplay = document.createElement("span");
+          valueDisplay.className = "star-rating-value";
+          valueDisplay.textContent = ""; // Empty by default
+          starContainer.appendChild(valueDisplay);
+          
+          // Add scale info
+          const scaleInfo = document.createElement("span");
+          scaleInfo.className = "star-rating-scale";
+          scaleInfo.textContent = `(${min}–${max})`;
+          starContainer.appendChild(scaleInfo);
+          
+          row.appendChild(hiddenInput);
+          row.appendChild(starContainer);
+          card.appendChild(row);
+        } else if(q.type === "rating_presenter"){
+          const min = Number.isFinite(q.min) ? Number(q.min) : 1;
+          const max = Number.isFinite(q.max) ? Number(q.max) : 5;
+          const presenters = q.presenters || [];
+          
+          if(presenters.length === 0){
+            const p = document.createElement("div");
+            p.className = "muted";
+            p.textContent = "No presenters selected for rating.";
+            card.appendChild(p);
+          } else {
+            const presenterContainer = document.createElement("div");
+            presenterContainer.style.cssText = "display: flex; flex-direction: column; gap: 16px; margin-top: 12px;";
+            
+            presenters.forEach(presenter => {
+              const presenterCard = document.createElement("div");
+              presenterCard.style.cssText = "padding: 16px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px;";
+              
+              const presenterTitle = document.createElement("div");
+              presenterTitle.style.cssText = "font-weight: 600; color: #374151; margin-bottom: 12px; font-size: 14px;";
+              presenterTitle.textContent = `🎤 ${unesc(presenter)}`; // Decode HTML entities for display
+              presenterCard.appendChild(presenterTitle);
+              
+              const starContainer = document.createElement("div");
+              starContainer.className = "star-rating";
+              starContainer.id = `starContainer_${q.id}_${presenter}`;
+              
+              // Create hidden input to store the value for this presenter
+              const hiddenInput = document.createElement("input");
+              hiddenInput.type = "hidden";
+              hiddenInput.id = `rate_${q.id}_${presenter}`;
+              hiddenInput.value = "0";
+              hiddenInput.dataset.presenter = presenter;
+              if(q.mandatory) hiddenInput.required = true;
+              
+              // Create stars
+              for(let i = min; i <= max; i++) {
+                const star = document.createElement("span");
+                star.className = "star";
+                star.innerHTML = "★";
+                star.dataset.value = i;
+                star.onclick = () => {
+                  const value = parseInt(star.dataset.value);
+                  hiddenInput.value = value;
+                  
+                  // Update star display for this presenter only
+                  const stars = starContainer.querySelectorAll('.star');
+                  stars.forEach((s, index) => {
+                    s.classList.toggle('active', index + min <= value);
+                  });
+                  
+                  // Update value display
+                  const valueDisplay = starContainer.querySelector('.star-rating-value');
+                  if(valueDisplay) valueDisplay.textContent = value;
+                };
+                starContainer.appendChild(star);
+              }
+              
+              // Add value display
+              const valueDisplay = document.createElement("span");
+              valueDisplay.className = "star-rating-value";
+              valueDisplay.textContent = "";
+              starContainer.appendChild(valueDisplay);
+              
+              // Add scale info
+              const scaleInfo = document.createElement("span");
+              scaleInfo.className = "star-rating-scale";
+              scaleInfo.textContent = `(${min}–${max})`;
+              starContainer.appendChild(scaleInfo);
+              
+              presenterCard.appendChild(hiddenInput);
+              presenterCard.appendChild(starContainer);
+              presenterContainer.appendChild(presenterCard);
+            });
+            
+            card.appendChild(presenterContainer);
+          }
+        } else if(q.type === "text"){
+          const ta = document.createElement("textarea");
+          ta.className = "inp";
+          ta.placeholder = "Response...";
+          ta.id = `tx_${q.id}`;
+          if(q.mandatory) ta.required = true;
+          card.appendChild(ta);
+        } else {
+          const p = document.createElement("div");
+          p.className = "muted";
+          p.textContent = "Unknown question type.";
+          card.appendChild(p);
+        }
+
+        wrap.appendChild(card);
+      });
+    }
+
+    function collectAnswers(form){
+      const answers = [];
+      const errors = [];
+      
+      (form.questions||[]).forEach(q=>{
+        let hasAnswer = false;
+        let value = null;
+        
+        if(q.type === "single"){
+          const val = document.querySelector(`input[name="q_${q.id}"]:checked`)?.value;
+          if(val!=null) {
+            hasAnswer = true;
+            value = String(val);
+          }
+        } else if(q.type === "multi"){
+          const vals = Array.from(document.querySelectorAll(`input[name="q_${q.id}[]"]:checked`)).map(i=>i.value);
+          if(vals.length) {
+            hasAnswer = true;
+            value = vals;
+            
+            // Validate max_answers limit
+            const maxAnswers = q.max_answers ? parseInt(q.max_answers, 10) : null;
+            if (maxAnswers && vals.length > maxAnswers) {
+              errors.push(`Question "${q.title || 'Untitled'}" allows a maximum of ${maxAnswers} selection${maxAnswers > 1 ? 's' : ''}, but you selected ${vals.length}`);
+            }
+          }
+          
+          // Check if mandatory
+          if(q.mandatory && (!vals || vals.length === 0)) {
+            errors.push(`Question "${q.title || 'Untitled'}" is required`);
+          }
+        } else if(q.type === "rating"){
+          const el = document.getElementById(`rate_${q.id}`);
+          if(el && el.value && el.value !== "0") {
+            hasAnswer = true;
+            value = Number(el.value);
+          }
+        } else if(q.type === "rating_presenter"){
+          const presenters = q.presenters || [];
+          const presenterRatings = {};
+          let hasAnyRating = false;
+          
+          presenters.forEach(presenter => {
+            const el = document.getElementById(`rate_${q.id}_${presenter}`);
+            if(el && el.value && el.value !== "0") {
+              presenterRatings[presenter] = Number(el.value);
+              hasAnyRating = true;
+            }
+          });
+          
+          if(hasAnyRating) {
+            hasAnswer = true;
+            value = presenterRatings; // Store as object { "presenter1": 4, "presenter2": 5 }
+          }
+          
+          // Check if mandatory: at least one presenter must be rated
+          if(q.mandatory && !hasAnyRating) {
+            errors.push(`Question "${q.title || 'Untitled'}" is required (rate at least one presenter)`);
+          }
+        } else if(q.type === "text"){
+          const el = document.getElementById(`tx_${q.id}`);
+          const v = (el?.value||"").trim();
+          if(v) {
+            hasAnswer = true;
+            value = v;
+          }
+        }
+        
+        // Check if mandatory question is answered
+        if(q.mandatory && !hasAnswer) {
+          errors.push(`Question "${q.title || 'Untitled'}" is required`);
+        }
+        
+        if(hasAnswer) {
+          answers.push({ question_id:q.id, type:q.type, value: value });
+        }
+      });
+      
+      return { answers, errors };
+    }
+
+    /* ===== Flow ===== */
+    let FORM_DATA = null;
+
+    async function load(){
+      if(!FORM_ID){
+        setError("Missing ?id parameter in address.");
+        show($("#formCard"), false);
+        return;
+      }
+
+      try{
+        // try direct endpoint; if it doesn't exist, fallback to ?id=
+        let form = null;
+        try {
+          form = await apiGet(`/api/feedback/forms/${encodeURIComponent(FORM_ID)}`);
+        } catch(e){
+          const f2 = await apiGet(`/api/feedback/forms?id=${encodeURIComponent(FORM_ID)}`);
+          form = (Array.isArray(f2) ? f2[0] : (f2.form || f2)) || null;
+        }
+        if(!form) throw new Error("Form not found.");
+        FORM_DATA = form;
+        renderForm(form);
+
+        // soft blocking if already submitted from this device
+        if(localStorage.getItem(localKey(FORM_ID))){
+          $("#saveMsg").textContent = "You have already submitted a response from this device.";
+        }
+      }catch(e){
+        show($("#formCard"), false);
+        setError(e.message || "Could not load form.");
+      }
+    }
+
+    async function submit(){
+      $("#saveMsg").textContent = "";
+      if(!FORM_DATA) return;
+      
+      const email = document.getElementById("userEmail").value.trim();
+      if(!email){
+        $("#saveMsg").innerHTML = '<div class="error">Please enter your email address.</div>';
+        return;
+      }
+      
+      const result = collectAnswers(FORM_DATA);
+      const answers = result.answers;
+      const errors = result.errors;
+      
+      if(errors.length > 0){
+        $("#saveMsg").innerHTML = `<div class="error">${errors.join("; ")}</div>`;
+        return;
+      }
+      
+      if(!answers.length){
+        $("#saveMsg").innerHTML = '<div class="error">Add at least one response.</div>';
+        return;
+      }
+
+      const payload = {
+        email: email,
+        answers: answers.reduce((acc, ans) => {
+          acc[ans.question_id] = ans.value;
+          return acc;
+        }, {})
+      };
+
+      const btn = $("#btnSubmit");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+      try{
+        await apiSend(`/api/feedback/forms/${encodeURIComponent(FORM_ID)}/responses`, "POST", payload);
+        localStorage.setItem(localKey(FORM_ID), "1");
+        show($("#formCard"), false);
+        show($("#thanksCard"), true);
+      }catch(e){
+        $("#saveMsg").textContent = "Error submitting. Please try again.";
+      }finally{
+        btn.disabled = false;
+        btn.textContent = "Submit responses";
+      }
+    }
+
+    function restart(){
+      // Allow submitting a new response from the same device (UI only).
+      show($("#thanksCard"), false);
+      show($("#formCard"), true);
+      $("#saveMsg").textContent = "";
+      // don't clear local lock (admin can decide to keep one response / device)
+    }
+
+    $("#btnSubmit").onclick = submit;
+    load();
+  </script>
+</body>
+</html>
