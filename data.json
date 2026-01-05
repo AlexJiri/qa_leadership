@@ -74,7 +74,9 @@
       "name": "Catalin Pruteanu",
       "email": "catalinpr@playtika.com",
       "studio": "CC",
-      "status": "active"
+      "status": "inactive",
+      "clan_lead": false,
+      "external": false
     },
     {
       "name": "Claudiu Razvan Niculaescu",
@@ -258,9 +260,17 @@
       "name": "Cristinel Mezdrea",
       "email": "cristinelm@playtika.com",
       "studio": "CC",
-      "status": "active",
+      "status": "inactive",
       "clan_lead": false,
       "external": true
+    },
+    {
+      "name": "Andreea Puiu",
+      "email": "andreeao@playtika.com",
+      "studio": "CC",
+      "status": "active",
+      "clan_lead": false,
+      "external": false
     }
   ],
   "kpis": [
@@ -1986,7 +1996,7 @@
         },
         {
           "email": "valerium@playtika.com",
-          "name": "",
+          "name": "Valeriu Matache",
           "present": true
         },
         {
@@ -2182,6 +2192,404 @@
       ],
       "matched_kpis": [],
       "types": []
+    },
+    {
+      "id": 1763718397879,
+      "title": "QA Clan Session: TestCon indepth top voted topics",
+      "date": "2025-11-25",
+      "topic": "How to Steal AI's Job / Value, Money, and Costs: The Ultimate Common Language for the Testing Strategy",
+      "participants": [
+        {
+          "email": "alexandragh@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "alexandrudr@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "alexandru.dumitrescu@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "alexandruj@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "pavelal@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "ancao@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "andreeao@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "andreimu@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "bogdanio@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "bogdanpo@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "catalindu@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "cataling@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "cosmind@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "cristianpa@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "cristianst@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "dani@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "florentinb@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "florianm@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "grigoreb@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "horiap@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "ionutav@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "iuliai@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "mariusn@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "lucian.bangala@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "ilie.luciana@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "mario.sanda@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "mariusp@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "nicoleta.ciodaru@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "octavianc@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "akopilov@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "radua@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "robertc@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "valerium@playtika.com",
+          "name": "",
+          "present": true
+        },
+        {
+          "email": "vladimirz@playtika.com",
+          "name": "",
+          "present": true
+        }
+      ],
+      "agenda": [
+        {
+          "start": "15:00",
+          "end": "15:10",
+          "title": "Welcome & QR Attendance",
+          "ownerEmail": "",
+          "ownerName": ""
+        },
+        {
+          "start": "15:10",
+          "end": "15:30",
+          "title": "How to Steal AI's Job testCon presentation",
+          "ownerEmail": "nicoleta.ciodaru@playtika.com",
+          "ownerName": "Nicoleta Ciodaru"
+        },
+        {
+          "start": "15:30",
+          "end": "15:50",
+          "title": "Value, Money, and Costs: The Ultimate Common Language for the Testing Strategy",
+          "ownerEmail": "nicoleta.ciodaru@playtika.com",
+          "ownerName": "Nicoleta Ciodaru"
+        },
+        {
+          "start": "15:50",
+          "end": "16:00",
+          "title": "Live QR Feedback",
+          "ownerEmail": "",
+          "ownerName": ""
+        }
+      ],
+      "matched_kpis": [],
+      "types": []
+    },
+    {
+      "id": 1763718659827,
+      "title": "Wrap-Up & Roadmap Retrospective",
+      "date": "2025-12-15",
+      "topic": "Wrap-Up & Roadmap Retrospective & create roadmap for the next year",
+      "participants": [
+        {
+          "email": "alexandragh@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "alexandrudr@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "alexandru.dumitrescu@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "alexandruj@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "pavelal@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "ancao@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "andreeao@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "andreimu@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "bogdanio@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "bogdanpo@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "catalindu@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "cataling@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "catalinpr@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "cosmind@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "cristianpa@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "cristianst@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "dani@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "florentinb@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "florianm@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "grigoreb@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "horiap@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "ionutav@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "iuliai@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "mariusn@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "lucian.bangala@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "ilie.luciana@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "mario.sanda@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "mariusp@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "nicoleta.ciodaru@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "octavianc@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "akopilov@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "radua@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "robertc@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "valerium@playtika.com",
+          "name": "",
+          "present": false
+        },
+        {
+          "email": "vladimirz@playtika.com",
+          "name": "",
+          "present": false
+        }
+      ],
+      "agenda": [],
+      "matched_kpis": [],
+      "types": [
+        "debate"
+      ]
     }
   ],
   "feedback": [],
@@ -2647,79 +3055,42 @@
           "title": "Research & Implementation"
         }
       ]
+    },
+    {
+      "id": 1765205417703,
+      "affirmation": "Wrap-Up & Roadmap Retrospective & create roadmap for the next year",
+      "meeting_id": 1763718659827,
+      "prize": "",
+      "judges": [],
+      "teams": [],
+      "reserves": [],
+      "flow": [],
+      "rubric": [],
+      "scores": {
+        "jury": {},
+        "public": {}
+      },
+      "status": "draft",
+      "format": {
+        "team_count": 2,
+        "team_size": 2,
+        "judge_count": 2
+      },
+      "rounds": [],
+      "signups": {},
+      "created_at": 1765205417,
+      "live": {
+        "active": false,
+        "started_at": null
+      },
+      "registration_qr": {
+        "url": "http://localhost:5000/debates/1765205417703/register",
+        "qr_url": "/static/qr_reg_1765205417703_1765205646524.png?v=1765205646524",
+        "ts": 1765205646524
+      }
     }
   ],
   "feedback_forms": [
-    {
-      "id": 1756999073738,
-      "meeting_id": "1756110676386",
-      "title": "test alex",
-      "description": "",
-      "questions": [
-        {
-          "id": "q_nu8ob3w",
-          "type": "single",
-          "title": "Question",
-          "options": [
-            "Yes",
-            "No"
-          ]
-        },
-        {
-          "id": "q_bt5bm6a",
-          "type": "multi",
-          "title": "Question",
-          "options": [
-            "Yes",
-            "No"
-          ]
-        },
-        {
-          "id": "q_cjk8zm4",
-          "type": "rating",
-          "title": "How would you rate the meeting (1–5)?",
-          "options": [],
-          "min": 1,
-          "max": 5
-        },
-        {
-          "id": "q_uo1oza7",
-          "type": "text",
-          "title": "Question",
-          "options": []
-        }
-      ],
-      "responses": {
-        "alexandruj@playtika.com": {
-          "ts": 1757317946,
-          "answers": {
-            "q_nu8ob3w": "Yes",
-            "q_bt5bm6a": [
-              "Yes"
-            ],
-            "q_cjk8zm4": 5,
-            "q_uo1oza7": "ad"
-          }
-        },
-        "alexandragh@playtika.com": {
-          "ts": 1757317877,
-          "answers": {
-            "q_nu8ob3w": "No",
-            "q_bt5bm6a": [
-              "Yes"
-            ],
-            "q_cjk8zm4": 5,
-            "q_uo1oza7": "response 2"
-          }
-        }
-      },
-      "created_at": 1756999073,
-      "qr": {
-        "url": "http://localhost:5000/feedback/1756999073738",
-        "qr_url": "/static/qr_fb_1756999073738_1757080647042.png?v=1757080647042",
-        "ts": 1757080647042
-      }
-    },
     {
       "id": 1757004543952,
       "meeting_id": "1755514426369",
@@ -3799,2461 +4170,2929 @@
       },
       "created_at": 1762165709,
       "qr": {
-        "url": "http://macintosh-customized-oclc-occurring.trycloudflare.com/feedback/1762165709633",
-        "qr_url": "/static/qr_fb_1762165709633_1762174468304.png?v=1762174468304",
-        "ts": 1762174468304
+        "url": "http://localhost:5000/feedback/1762165709633",
+        "qr_url": "/static/qr_fb_1762165709633_1763720690259.png?v=1763720690259",
+        "ts": 1763720690259
+      }
+    },
+    {
+      "id": 1762856980095,
+      "meeting_id": "1757322360819",
+      "title": "Clan debate Session Feedback",
+      "description": "",
+      "questions": [
+        {
+          "id": "q_9tlfusb",
+          "type": "rating",
+          "title": "How much did you like this session ?",
+          "options": [],
+          "min": 1,
+          "max": 5,
+          "mandatory": true
+        },
+        {
+          "id": "q_nzbqmn8",
+          "type": "single",
+          "title": "Would you like to have another debate in the future ?",
+          "options": [
+            "Yes",
+            "No",
+            "Maybe"
+          ],
+          "mandatory": true
+        },
+        {
+          "id": "q_dcu8lwt",
+          "type": "single",
+          "title": "If we host another debate, how likely are you to participate ?",
+          "options": [
+            "Very likely",
+            "Likely",
+            "Not sure",
+            "Unlikely",
+            "Very unlikely"
+          ],
+          "mandatory": true
+        },
+        {
+          "id": "q_t1rlct9",
+          "type": "text",
+          "title": "Do you have any topic suggestions for the next session ?",
+          "options": [],
+          "mandatory": false
+        }
+      ],
+      "responses": {
+        "horiap@playtika.com": {
+          "ts": 1762857063,
+          "answers": {
+            "q_9tlfusb": 4,
+            "q_nzbqmn8": "Maybe",
+            "q_dcu8lwt": "Not sure",
+            "q_t1rlct9": "I've tried coming up with some topics but nothing comes to mind (and I refuse to ChatGPT this). I do have a question I would like the CLAN leaders to address which is, why are we debating ? What is the point of it ? High level decisions are being made regardless of whatever we yapp during a debate or who debated better. So, besides us becoming better thinkers, speakers and debaters, what exactly are we looking for here ?"
+          }
+        },
+        "alexandruj@playtika.com": {
+          "ts": 1762857092,
+          "answers": {
+            "q_9tlfusb": 5,
+            "q_nzbqmn8": "Yes",
+            "q_dcu8lwt": "Not sure"
+          }
+        },
+        "lucian.bangala@playtika.com": {
+          "ts": 1762857138,
+          "answers": {
+            "q_9tlfusb": 4,
+            "q_nzbqmn8": "Yes",
+            "q_dcu8lwt": "Very likely",
+            "q_t1rlct9": "Automation learning roadmap for QAs, essential courses to take, advice and even practice"
+          }
+        },
+        "vladimirz@playtika.com": {
+          "ts": 1762857163,
+          "answers": {
+            "q_9tlfusb": 5,
+            "q_nzbqmn8": "Yes",
+            "q_dcu8lwt": "Very likely"
+          }
+        },
+        "catalinpr@playtika.com": {
+          "ts": 1762857177,
+          "answers": {
+            "q_9tlfusb": 5,
+            "q_nzbqmn8": "Yes",
+            "q_dcu8lwt": "Very likely"
+          }
+        },
+        "ionutav@playtika.com": {
+          "ts": 1762857192,
+          "answers": {
+            "q_9tlfusb": 4,
+            "q_nzbqmn8": "Maybe",
+            "q_dcu8lwt": "Not sure"
+          }
+        },
+        "florianm@playtika.com": {
+          "ts": 1762857220,
+          "answers": {
+            "q_9tlfusb": 4,
+            "q_nzbqmn8": "Yes",
+            "q_dcu8lwt": "Likely",
+            "q_t1rlct9": "It would be nice and useful if the audience/public can ask 1-2 questions."
+          }
+        },
+        "claudiac@playtika.com": {
+          "ts": 1762857251,
+          "answers": {
+            "q_9tlfusb": 5,
+            "q_nzbqmn8": "Yes",
+            "q_dcu8lwt": "Very likely"
+          }
+        },
+        "alexandragh@playtika.com": {
+          "ts": 1762857266,
+          "answers": {
+            "q_9tlfusb": 5,
+            "q_nzbqmn8": "Yes",
+            "q_dcu8lwt": "Very likely",
+            "q_t1rlct9": "something about the shift left initiatives and the QA role as a result of these changes. what the future looks like for QAs. what would make a good QA."
+          }
+        },
+        "nicoleta.ciodaru@playtika.com": {
+          "ts": 1762857310,
+          "answers": {
+            "q_9tlfusb": 3,
+            "q_nzbqmn8": "Maybe",
+            "q_dcu8lwt": "Not sure"
+          }
+        },
+        "catalindu@playtika.com": {
+          "ts": 1762857340,
+          "answers": {
+            "q_9tlfusb": 5,
+            "q_nzbqmn8": "Yes",
+            "q_dcu8lwt": "Very likely",
+            "q_t1rlct9": "is AI impacting testing creativity?"
+          }
+        }
+      },
+      "created_at": 1762856980,
+      "qr": {
+        "url": "http://localhost:5000/feedback/1762856980095",
+        "qr_url": "/static/qr_fb_1762856980095_1762856980361.png?v=1762856980361",
+        "ts": 1762856980361
       }
     }
   ],
   "quizzes": [],
   "points_entries": [
     {
-      "id": 1761911844125,
+      "id": 1764077775515,
       "member_email": "alexandragh@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844132,
+      "id": 1764077775527,
       "member_email": "alexandrudr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844138,
+      "id": 1764077775549,
       "member_email": "alexandru.dumitrescu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844145,
+      "id": 1764077775561,
       "member_email": "alexandruj@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844152,
+      "id": 1764077775575,
       "member_email": "pavelal@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844159,
+      "id": 1764077775590,
       "member_email": "ancao@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844165,
+      "id": 1764077775603,
       "member_email": "andreimu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844172,
+      "id": 1764077775614,
       "member_email": "catalindu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844178,
+      "id": 1764077775625,
       "member_email": "catalinpr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844185,
+      "id": 1764077775637,
       "member_email": "claudiun@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844192,
+      "id": 1764077775649,
       "member_email": "cosmind@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844200,
+      "id": 1764077775660,
       "member_email": "cristianpa@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844206,
+      "id": 1764077775672,
       "member_email": "dani@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844214,
+      "id": 1764077775683,
       "member_email": "florianm@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844222,
+      "id": 1764077775695,
       "member_email": "ionutav@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844229,
+      "id": 1764077775707,
       "member_email": "mariusn@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844241,
+      "id": 1764077775718,
       "member_email": "lucian.bangala@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844247,
+      "id": 1764077775730,
       "member_email": "ilie.luciana@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844254,
+      "id": 1764077775741,
       "member_email": "mario.sanda@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844261,
+      "id": 1764077775753,
       "member_email": "nicoleta.ciodaru@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844268,
+      "id": 1764077775765,
       "member_email": "octavianc@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844275,
+      "id": 1764077775777,
       "member_email": "akopilov@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844282,
+      "id": 1764077775789,
       "member_email": "sergiug@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844289,
+      "id": 1764077775800,
       "member_email": "vladimirz@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Testcase Creation Tools using AI",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844296,
+      "id": 1764077775813,
       "member_email": "alexandragh@playtika.com",
       "points": 15,
       "reason": "Presented: Internal ToolKit Presentation in Testcase Creation Tools using AI",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844303,
+      "id": 1764077775824,
       "member_email": "alexandruj@playtika.com",
       "points": 15,
       "reason": "Presented: Tool Comparison: Internal vs Testomat vs Others in Testcase Creation Tools using AI",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1755514426369,
       "debate_id": null
     },
     {
-      "id": 1761911844310,
+      "id": 1764077775836,
       "member_email": "alexandragh@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844318,
+      "id": 1764077775851,
       "member_email": "alexandrudr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844325,
+      "id": 1764077775865,
       "member_email": "alexandruj@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844333,
+      "id": 1764077775878,
       "member_email": "claudiac@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844340,
+      "id": 1764077775890,
       "member_email": "ancao@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844348,
+      "id": 1764077775902,
       "member_email": "andreimu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844355,
+      "id": 1764077775914,
       "member_email": "bogdanio@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844363,
+      "id": 1764077775926,
       "member_email": "cataling@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844371,
+      "id": 1764077775938,
       "member_email": "catalinpr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844379,
+      "id": 1764077775950,
       "member_email": "cosmind@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844388,
+      "id": 1764077775962,
       "member_email": "florianm@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844395,
+      "id": 1764077775973,
       "member_email": "grigoreb@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844403,
+      "id": 1764077775984,
       "member_email": "ionutav@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844414,
+      "id": 1764077775998,
       "member_email": "mariusn@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077775,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844425,
+      "id": 1764077776011,
       "member_email": "lucian.bangala@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844436,
+      "id": 1764077776023,
       "member_email": "mario.sanda@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844445,
+      "id": 1764077776035,
       "member_email": "octavianc@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844457,
+      "id": 1764077776048,
       "member_email": "akopilov@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844468,
+      "id": 1764077776060,
       "member_email": "radua@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844476,
+      "id": 1764077776071,
       "member_email": "sergiug@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844483,
+      "id": 1764077776083,
       "member_email": "alexandruj@playtika.com",
       "points": 15,
       "reason": "Presented: Welcome & Session Goals in AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844491,
+      "id": 1764077776096,
       "member_email": "mariusn@playtika.com",
       "points": 15,
       "reason": "Presented: Debate Instructions in AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844500,
+      "id": 1764077776113,
       "member_email": "cataling@playtika.com",
       "points": 15,
       "reason": "Presented: Presentation: AI-Driven Review of Product Requirement, Documents and User Stories in AI-Driven Review of Product Requirement, Documents and User Stories",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1756110676386,
       "debate_id": null
     },
     {
-      "id": 1761911844508,
+      "id": 1764077776125,
       "member_email": "alexandragh@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844515,
+      "id": 1764077776137,
       "member_email": "alexandruj@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844525,
+      "id": 1764077776150,
       "member_email": "bogdanpo@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844533,
+      "id": 1764077776164,
       "member_email": "claudiac@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844540,
+      "id": 1764077776178,
       "member_email": "andreimu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844548,
+      "id": 1764077776191,
       "member_email": "bogdanio@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844555,
+      "id": 1764077776204,
       "member_email": "catalindu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844562,
+      "id": 1764077776217,
       "member_email": "catalinpr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844570,
+      "id": 1764077776229,
       "member_email": "cosmind@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844578,
+      "id": 1764077776241,
       "member_email": "cristianpa@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844586,
+      "id": 1764077776254,
       "member_email": "cristianst@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844593,
+      "id": 1764077776267,
       "member_email": "dani@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844601,
+      "id": 1764077776280,
       "member_email": "florentinb@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844609,
+      "id": 1764077776293,
       "member_email": "florianm@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844616,
+      "id": 1764077776305,
       "member_email": "grigoreb@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844624,
+      "id": 1764077776318,
       "member_email": "horiap@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844632,
+      "id": 1764077776330,
       "member_email": "ionutav@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844640,
+      "id": 1764077776342,
       "member_email": "iuliai@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844648,
+      "id": 1764077776354,
       "member_email": "mariusn@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844656,
+      "id": 1764077776366,
       "member_email": "lucian.bangala@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844664,
+      "id": 1764077776379,
       "member_email": "ilie.luciana@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844672,
+      "id": 1764077776391,
       "member_email": "mariusp@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844680,
+      "id": 1764077776404,
       "member_email": "nicoleta.ciodaru@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844689,
+      "id": 1764077776416,
       "member_email": "octavianc@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844697,
+      "id": 1764077776428,
       "member_email": "akopilov@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844705,
+      "id": 1764077776441,
       "member_email": "vladimirz@playtika.com",
       "points": 5,
       "reason": "Attended meeting: QA Clan Debate",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844712,
+      "id": 1764077776453,
       "member_email": "alexandruj@playtika.com",
       "points": 15,
       "reason": "Presented: Check In & Debate Format short presentation in QA Clan Debate",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1757322360819,
       "debate_id": null
     },
     {
-      "id": 1761911844720,
+      "id": 1764077776467,
       "member_email": "alexandruj@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844729,
+      "id": 1764077776479,
       "member_email": "alexandrui@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844737,
+      "id": 1764077776492,
       "member_email": "alexandragh@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844745,
+      "id": 1764077776504,
       "member_email": "alexandrudr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844753,
+      "id": 1764077776517,
       "member_email": "alexandru.dumitrescu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844761,
+      "id": 1764077776531,
       "member_email": "pavelal@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844769,
+      "id": 1764077776546,
       "member_email": "claudiac@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844777,
+      "id": 1764077776560,
       "member_email": "ancao@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844785,
+      "id": 1764077776574,
       "member_email": "andreimu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844793,
+      "id": 1764077776589,
       "member_email": "bogdanio@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844802,
+      "id": 1764077776602,
       "member_email": "catalindu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844810,
+      "id": 1764077776615,
       "member_email": "cataling@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844819,
+      "id": 1764077776630,
       "member_email": "catalinpr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844828,
+      "id": 1764077776644,
       "member_email": "claudiun@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844837,
+      "id": 1764077776658,
       "member_email": "cristianst@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844845,
+      "id": 1764077776671,
       "member_email": "florentinb@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844855,
+      "id": 1764077776685,
       "member_email": "florianm@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844863,
+      "id": 1764077776701,
       "member_email": "horiap@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844872,
+      "id": 1764077776715,
       "member_email": "ionutav@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844883,
+      "id": 1764077776731,
       "member_email": "mariusn@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844892,
+      "id": 1764077776747,
       "member_email": "lucian.bangala@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844901,
+      "id": 1764077776762,
       "member_email": "ilie.luciana@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844911,
+      "id": 1764077776776,
       "member_email": "nicoleta.ciodaru@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844920,
+      "id": 1764077776791,
       "member_email": "octavianc@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844929,
+      "id": 1764077776804,
       "member_email": "radua@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844940,
+      "id": 1764077776818,
       "member_email": "vladimirz@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844949,
+      "id": 1764077776832,
       "member_email": "sergiug@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844959,
+      "id": 1764077776847,
       "member_email": "stefanen@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Test less but smart! AI integration in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844966,
+      "id": 1764077776863,
       "member_email": "alexandruj@playtika.com",
       "points": 15,
       "reason": "Presented: AI IN QA in Test less but smart! AI integration in QA",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844977,
+      "id": 1764077776881,
       "member_email": "alexandragh@playtika.com",
       "points": 15,
       "reason": "Presented: AI Internal Test Case Generator in Test less but smart! AI integration in QA",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759742174037,
       "debate_id": null
     },
     {
-      "id": 1761911844987,
+      "id": 1764077776896,
       "member_email": "alexandragh@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911844996,
+      "id": 1764077776914,
       "member_email": "alexandrudr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911844,
+      "added_at": 1764077776,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845007,
+      "id": 1764077776930,
       "member_email": "alexandru.dumitrescu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077776,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845016,
+      "id": 1764077776946,
       "member_email": "alexandruj@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077776,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845025,
+      "id": 1764077776961,
       "member_email": "ancao@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077776,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845033,
+      "id": 1764077776977,
       "member_email": "andreimu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077776,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845042,
+      "id": 1764077776994,
       "member_email": "catalindu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077776,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845051,
+      "id": 1764077777011,
       "member_email": "cataling@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845059,
+      "id": 1764077777028,
       "member_email": "claudiun@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845068,
+      "id": 1764077777043,
       "member_email": "cosmind@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845076,
+      "id": 1764077777058,
       "member_email": "cristianpa@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845086,
+      "id": 1764077777073,
       "member_email": "cristianst@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845095,
+      "id": 1764077777087,
       "member_email": "dani@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845104,
+      "id": 1764077777102,
       "member_email": "florianm@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845113,
+      "id": 1764077777115,
       "member_email": "horiap@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845122,
+      "id": 1764077777129,
       "member_email": "ionutav@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845131,
+      "id": 1764077777142,
       "member_email": "iuliai@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845139,
+      "id": 1764077777155,
       "member_email": "mariusn@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845148,
+      "id": 1764077777167,
       "member_email": "lucian.bangala@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845157,
+      "id": 1764077777181,
       "member_email": "ilie.luciana@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845166,
+      "id": 1764077777194,
       "member_email": "mario.sanda@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845176,
+      "id": 1764077777208,
       "member_email": "mariusp@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845186,
+      "id": 1764077777223,
       "member_email": "nicoleta.ciodaru@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845195,
+      "id": 1764077777237,
       "member_email": "octavianc@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845204,
+      "id": 1764077777250,
       "member_email": "akopilov@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845214,
+      "id": 1764077777263,
       "member_email": "vladimirz@playtika.com",
       "points": 5,
       "reason": "Attended meeting: How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845223,
+      "id": 1764077777276,
       "member_email": "mariusn@playtika.com",
       "points": 15,
       "reason": "Presented: FFR: data sanity & load test in How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845232,
+      "id": 1764077777289,
       "member_email": "ionutav@playtika.com",
       "points": 15,
       "reason": "Presented: WSOP Release Processes in How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845241,
+      "id": 1764077777302,
       "member_email": "cristianpa@playtika.com",
       "points": 15,
       "reason": "Presented: Kibana query, client logs and dashboards in How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845250,
+      "id": 1764077777314,
       "member_email": "dani@playtika.com",
       "points": 15,
       "reason": "Presented: Charles general role & negative scenarios in How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845262,
+      "id": 1764077777328,
       "member_email": "ilie.luciana@playtika.com",
       "points": 15,
       "reason": "Presented: Web mapping specific branch in How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845271,
+      "id": 1764077777341,
       "member_email": "alexandragh@playtika.com",
       "points": 15,
       "reason": "Presented: Manual QA processes in CC in How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845281,
+      "id": 1764077777353,
       "member_email": "claudiun@playtika.com",
       "points": 15,
       "reason": "Presented: Postman usability, tips and tricks from CC Slot Machines in How we do it? Process & TOOLS Sharing Between Studios",
       "criteria": "presentation",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759748062736,
       "debate_id": null
     },
     {
-      "id": 1761911845291,
+      "id": 1764077777366,
       "member_email": "alexandragh@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845301,
+      "id": 1764077777378,
       "member_email": "alexandruj@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845310,
+      "id": 1764077777392,
       "member_email": "pavelal@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845319,
+      "id": 1764077777406,
       "member_email": "claudiac@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845330,
+      "id": 1764077777419,
       "member_email": "ancao@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845339,
+      "id": 1764077777433,
       "member_email": "andreimu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845349,
+      "id": 1764077777446,
       "member_email": "catalinpr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845359,
+      "id": 1764077777460,
       "member_email": "claudiun@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845369,
+      "id": 1764077777473,
       "member_email": "cosmind@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845379,
+      "id": 1764077777486,
       "member_email": "cristianpa@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845389,
+      "id": 1764077777499,
       "member_email": "dani@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845399,
+      "id": 1764077777513,
       "member_email": "horiap@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845408,
+      "id": 1764077777526,
       "member_email": "ionutav@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845423,
+      "id": 1764077777539,
       "member_email": "mariusn@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845436,
+      "id": 1764077777551,
       "member_email": "mario.sanda@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845447,
+      "id": 1764077777565,
       "member_email": "nicoleta.ciodaru@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845457,
+      "id": 1764077777579,
       "member_email": "octavianc@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845467,
+      "id": 1764077777593,
       "member_email": "sergiug@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845477,
+      "id": 1764077777606,
       "member_email": "stefanen@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845487,
+      "id": 1764077777620,
       "member_email": "vladimirz@playtika.com",
       "points": 5,
       "reason": "Attended meeting: Automation in QA",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759751298721,
       "debate_id": null
     },
     {
-      "id": 1761911845496,
+      "id": 1764077777650,
       "member_email": "alexandragh@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845505,
+      "id": 1764077777664,
       "member_email": "alexandrudr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845515,
+      "id": 1764077777679,
       "member_email": "alexandru.dumitrescu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845526,
+      "id": 1764077777693,
       "member_email": "alexandruj@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845536,
+      "id": 1764077777707,
       "member_email": "claudiac@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845546,
+      "id": 1764077777721,
       "member_email": "ancao@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845557,
+      "id": 1764077777735,
       "member_email": "andreimu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845567,
+      "id": 1764077777748,
       "member_email": "bogdanio@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845581,
+      "id": 1764077777761,
       "member_email": "catalindu@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845598,
+      "id": 1764077777794,
       "member_email": "cataling@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845613,
+      "id": 1764077777808,
       "member_email": "catalinpr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845629,
+      "id": 1764077777825,
       "member_email": "claudiun@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845641,
+      "id": 1764077777839,
       "member_email": "cristianpa@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845659,
+      "id": 1764077777855,
       "member_email": "cristianst@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845677,
+      "id": 1764077777871,
       "member_email": "dani@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845695,
+      "id": 1764077777887,
       "member_email": "florianm@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845712,
+      "id": 1764077777903,
       "member_email": "grigoreb@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845722,
+      "id": 1764077777918,
       "member_email": "ionutav@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845735,
+      "id": 1764077777935,
       "member_email": "iuliai@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845745,
+      "id": 1764077777951,
       "member_email": "mariusn@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845755,
+      "id": 1764077777968,
       "member_email": "lucian.bangala@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845766,
+      "id": 1764077777981,
       "member_email": "ilie.luciana@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845776,
+      "id": 1764077777996,
       "member_email": "mario.sanda@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077777,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845787,
+      "id": 1764077778009,
       "member_email": "nicoleta.ciodaru@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077778,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845797,
+      "id": 1764077778026,
       "member_email": "octavianc@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077778,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845806,
+      "id": 1764077778041,
       "member_email": "akopilov@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077778,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845816,
+      "id": 1764077778055,
       "member_email": "radua@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077778,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845826,
+      "id": 1764077778070,
       "member_email": "sergiug@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077778,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845837,
+      "id": 1764077778085,
       "member_email": "stefanen@playtika.com",
       "points": 5,
       "reason": "Attended meeting: AI in QA: From Vision to Execution",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1761911845,
+      "added_at": 1764077778,
       "meeting_id": 1759752466171,
       "debate_id": null
     },
     {
-      "id": 1761911845848,
-      "member_email": "dani@playtika.com",
-      "points": 5,
-      "reason": "Participated in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
-      "criteria": "debate_participant",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "meeting_id": null,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845858,
-      "member_email": "horiap@playtika.com",
-      "points": 5,
-      "reason": "Participated in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
-      "criteria": "debate_participant",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "meeting_id": null,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845868,
-      "member_email": "ilie.luciana@playtika.com",
-      "points": 5,
-      "reason": "Participated in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
-      "criteria": "debate_participant",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "meeting_id": null,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845877,
-      "member_email": "nicoleta.ciodaru@playtika.com",
-      "points": 5,
-      "reason": "Participated in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
-      "criteria": "debate_participant",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "meeting_id": null,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845888,
-      "member_email": "akopilov@playtika.com",
-      "points": 5,
-      "reason": "Jury member in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
-      "criteria": "debate_participant",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "meeting_id": null,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845899,
-      "member_email": "catalinpr@playtika.com",
-      "points": 5,
-      "reason": "Jury member in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
-      "criteria": "debate_participant",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "meeting_id": null,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845910,
-      "member_email": "claudiac@playtika.com",
-      "points": 5,
-      "reason": "Jury member in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
-      "criteria": "debate_participant",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "meeting_id": null,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845919,
-      "member_email": "cosmind@playtika.com",
-      "points": 5,
-      "reason": "Jury member in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
-      "criteria": "debate_participant",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "meeting_id": null,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845930,
-      "member_email": "catalindu@playtika.com",
-      "points": 0,
-      "reason": "Won debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years (badge only, prize already awarded)",
-      "criteria": "debate_winner",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845941,
-      "member_email": "alexandragh@playtika.com",
-      "points": 0,
-      "reason": "Won debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years (badge only, prize already awarded)",
-      "criteria": "debate_winner",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845953,
-      "member_email": "grigoreb@playtika.com",
-      "points": 0,
-      "reason": "Won debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years (badge only, prize already awarded)",
-      "criteria": "debate_winner",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1761911845965,
-      "member_email": "vladimirz@playtika.com",
-      "points": 0,
-      "reason": "Won debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years (badge only, prize already awarded)",
-      "criteria": "debate_winner",
-      "added_by": "system",
-      "added_at": 1761911845,
-      "debate_id": 1757324198830
-    },
-    {
-      "id": 1762173056695,
-      "member_email": "florentinb@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173056,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173065537,
-      "member_email": "alexandruj@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173065,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173067472,
-      "member_email": "catalinpr@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173067,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173067999,
-      "member_email": "dani@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173067,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173070485,
-      "member_email": "cosmind@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173070,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173074461,
-      "member_email": "robertc@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173074,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173075551,
-      "member_email": "lucian.bangala@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173075,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173076121,
-      "member_email": "octavianc@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173076,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173077067,
+      "id": 1764077778101,
       "member_email": "alexandragh@playtika.com",
       "points": 5,
       "reason": "Attended meeting: TestCon - brief overview",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1762173077,
+      "added_at": 1764077778,
       "meeting_id": 1762165072340,
       "debate_id": null
     },
     {
-      "id": 1762173078154,
-      "member_email": "radua@playtika.com",
+      "id": 1764077778116,
+      "member_email": "valerium@playtika.com",
       "points": 5,
       "reason": "Attended meeting: TestCon - brief overview",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1762173078,
+      "added_at": 1764077778,
       "meeting_id": 1762165072340,
       "debate_id": null
     },
     {
-      "id": 1762173078959,
-      "member_email": "ilie.luciana@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173078,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173079970,
-      "member_email": "bogdanio@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173079,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173081661,
-      "member_email": "andreimu@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173081,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173085375,
-      "member_email": "bogdanpo@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173085,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173089677,
-      "member_email": "ionutav@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173089,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173089836,
-      "member_email": "mariusn@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173089,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173094351,
+      "id": 1764077778130,
       "member_email": "alexandrudr@playtika.com",
       "points": 5,
       "reason": "Attended meeting: TestCon - brief overview",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1762173094,
+      "added_at": 1764077778,
       "meeting_id": 1762165072340,
       "debate_id": null
     },
     {
-      "id": 1762173097548,
-      "member_email": "nicoleta.ciodaru@playtika.com",
+      "id": 1764077778145,
+      "member_email": "alexandruj@playtika.com",
       "points": 5,
       "reason": "Attended meeting: TestCon - brief overview",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1762173097,
+      "added_at": 1764077778,
       "meeting_id": 1762165072340,
       "debate_id": null
     },
     {
-      "id": 1762173102708,
-      "member_email": "grigoreb@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173102,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173122736,
-      "member_email": "ancao@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173122,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173163624,
-      "member_email": "horiap@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173163,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173172228,
-      "member_email": "catalindu@playtika.com",
-      "points": 5,
-      "reason": "Attended meeting: TestCon - brief overview",
-      "criteria": "meeting_attendance",
-      "added_by": "system",
-      "added_at": 1762173172,
-      "meeting_id": 1762165072340,
-      "debate_id": null
-    },
-    {
-      "id": 1762173272833,
+      "id": 1764077778160,
       "member_email": "pavelal@playtika.com",
       "points": 5,
       "reason": "Attended meeting: TestCon - brief overview",
       "criteria": "meeting_attendance",
       "added_by": "system",
-      "added_at": 1762173272,
+      "added_at": 1764077778,
       "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778173,
+      "member_email": "ancao@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778187,
+      "member_email": "andreimu@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778202,
+      "member_email": "bogdanio@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778217,
+      "member_email": "bogdanpo@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778231,
+      "member_email": "catalindu@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778248,
+      "member_email": "catalinpr@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778265,
+      "member_email": "cosmind@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778281,
+      "member_email": "dani@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778296,
+      "member_email": "florentinb@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778312,
+      "member_email": "grigoreb@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778327,
+      "member_email": "horiap@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778342,
+      "member_email": "ionutav@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778358,
+      "member_email": "mariusn@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778372,
+      "member_email": "lucian.bangala@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778388,
+      "member_email": "ilie.luciana@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778405,
+      "member_email": "nicoleta.ciodaru@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778419,
+      "member_email": "octavianc@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778434,
+      "member_email": "radua@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778449,
+      "member_email": "robertc@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: TestCon - brief overview",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778464,
+      "member_email": "alexandruj@playtika.com",
+      "points": 15,
+      "reason": "Presented: welcome & attendance in TestCon - brief overview",
+      "criteria": "presentation",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778480,
+      "member_email": "dani@playtika.com",
+      "points": 15,
+      "reason": "Presented: Code Without Caution: AI's Path to the Next Digital Disaster, Value,Large Action Models Are Coming For Your Testing Frameworks! - Large Action Models (LAMs), the upgrade to Large Language Models (LLMs). Money, and Costs: The Ultimate Common Language for the Testing Strategy, in TestCon - brief overview",
+      "criteria": "presentation",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778498,
+      "member_email": "nicoleta.ciodaru@playtika.com",
+      "points": 15,
+      "reason": "Presented: Measuring Performance with Functional Tests: A Low-Effort Approach for High Impact, Shifting Left & Speeding Up: A QA-Led Transformation in TestCon - brief overview",
+      "criteria": "presentation",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": 1762165072340,
+      "debate_id": null
+    },
+    {
+      "id": 1764077778514,
+      "member_email": "dani@playtika.com",
+      "points": 5,
+      "reason": "Participated in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
+      "criteria": "debate_participant",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": null,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778530,
+      "member_email": "horiap@playtika.com",
+      "points": 5,
+      "reason": "Participated in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
+      "criteria": "debate_participant",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": null,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778545,
+      "member_email": "ilie.luciana@playtika.com",
+      "points": 5,
+      "reason": "Participated in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
+      "criteria": "debate_participant",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": null,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778560,
+      "member_email": "nicoleta.ciodaru@playtika.com",
+      "points": 5,
+      "reason": "Participated in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
+      "criteria": "debate_participant",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": null,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778577,
+      "member_email": "akopilov@playtika.com",
+      "points": 5,
+      "reason": "Jury member in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
+      "criteria": "debate_participant",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": null,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778593,
+      "member_email": "catalinpr@playtika.com",
+      "points": 5,
+      "reason": "Jury member in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
+      "criteria": "debate_participant",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": null,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778609,
+      "member_email": "claudiac@playtika.com",
+      "points": 5,
+      "reason": "Jury member in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
+      "criteria": "debate_participant",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": null,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778625,
+      "member_email": "cosmind@playtika.com",
+      "points": 5,
+      "reason": "Jury member in debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years",
+      "criteria": "debate_participant",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "meeting_id": null,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778640,
+      "member_email": "catalindu@playtika.com",
+      "points": 0,
+      "reason": "Won debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years (badge only, prize already awarded)",
+      "criteria": "debate_winner",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778655,
+      "member_email": "alexandragh@playtika.com",
+      "points": 0,
+      "reason": "Won debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years (badge only, prize already awarded)",
+      "criteria": "debate_winner",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778671,
+      "member_email": "grigoreb@playtika.com",
+      "points": 0,
+      "reason": "Won debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years (badge only, prize already awarded)",
+      "criteria": "debate_winner",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077778687,
+      "member_email": "vladimirz@playtika.com",
+      "points": 0,
+      "reason": "Won debate: AI‑powered test‑case creation tools should replace the majority of manually authored test cases within the next two years (badge only, prize already awarded)",
+      "criteria": "debate_winner",
+      "added_by": "system",
+      "added_at": 1764077778,
+      "debate_id": 1757324198830
+    },
+    {
+      "id": 1764077792728,
+      "member_email": "alexandragh@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792744,
+      "member_email": "alexandruj@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792761,
+      "member_email": "pavelal@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792779,
+      "member_email": "ancao@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792796,
+      "member_email": "andreeao@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792814,
+      "member_email": "andreimu@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792830,
+      "member_email": "bogdanio@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792846,
+      "member_email": "bogdanpo@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792862,
+      "member_email": "catalindu@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792877,
+      "member_email": "cataling@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792894,
+      "member_email": "cosmind@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792910,
+      "member_email": "cristianst@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792935,
+      "member_email": "florentinb@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792960,
+      "member_email": "grigoreb@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077792980,
+      "member_email": "ionutav@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077792,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793003,
+      "member_email": "mariusn@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793020,
+      "member_email": "lucian.bangala@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793037,
+      "member_email": "ilie.luciana@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793053,
+      "member_email": "nicoleta.ciodaru@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793069,
+      "member_email": "octavianc@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793085,
+      "member_email": "akopilov@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793101,
+      "member_email": "robertc@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793120,
+      "member_email": "valerium@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764077793137,
+      "member_email": "vladimirz@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764077793,
+      "meeting_id": 1763718397879,
+      "debate_id": null
+    },
+    {
+      "id": 1764078365121,
+      "member_email": "cristianpa@playtika.com",
+      "points": 5,
+      "reason": "Attended meeting: QA Clan Session: TestCon indepth top voted topics",
+      "criteria": "meeting_attendance",
+      "added_by": "system",
+      "added_at": 1764078365,
+      "meeting_id": 1763718397879,
       "debate_id": null
     }
   ],
@@ -6742,6 +7581,40 @@
         "ts": 1761828989802
       },
       "q_started_at": 1761829135946
+    },
+    {
+      "id": 1765204978005,
+      "quiz_id": 1765204972234,
+      "meeting_id": 1763718659827,
+      "status": "finished",
+      "phase": "question",
+      "current_index": 0,
+      "reveal": false,
+      "players": {
+        "1765204987583": {
+          "nickname": "alex",
+          "score": 0
+        },
+        "1765204996794": {
+          "nickname": "LEO",
+          "score": 0
+        },
+        "1765205059730": {
+          "nickname": "afgea",
+          "score": 0
+        }
+      },
+      "answers": {
+        "1": {},
+        "2": {}
+      },
+      "created_at": 1765204978005,
+      "join_qr": {
+        "url": "http://localhost:5000/quiz/1765204978005/join",
+        "qr_url": "/static/qr_quiz_1765204978005_1765204978438.png?v=1765204978438",
+        "ts": 1765204978438
+      },
+      "q_started_at": 1765205086953
     }
   ]
 }

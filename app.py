@@ -2059,6 +2059,37 @@ def rewards_leaderboard():
             # Combine: debate_winner entries first (all of them), then other recent entries
             member_points[email]["recent_entries"] = debate_winner_entries + other_entries
         
+        # Calculate attendance percentage for each member based on meeting invitations
+        # Only count completed meetings (not scheduled/future meetings)
+        meetings = data.get("meetings", [])
+        for email in member_points:
+            invited_count = 0
+            attended_count = 0
+            
+            for meeting in meetings:
+                # Only count completed meetings (exclude scheduled/future meetings)
+                if not isFinished(meeting):
+                    continue
+                    
+                participants = meeting.get("participants", [])
+                for participant in participants:
+                    participant_email = (participant.get("email") or "").strip().lower()
+                    if participant_email == email:
+                        invited_count += 1
+                        if participant.get("present", False):
+                            attended_count += 1
+                        break  # Found this member in this meeting, move to next meeting
+            
+            # Calculate attendance percentage
+            if invited_count > 0:
+                attendance_percentage = round((attended_count / invited_count) * 100, 1)
+            else:
+                attendance_percentage = 0.0
+            
+            member_points[email]["attendance_percentage"] = attendance_percentage
+            member_points[email]["meetings_invited"] = invited_count
+            member_points[email]["meetings_attended"] = attended_count
+        
         # Convert to list and sort by total points
         leaderboard = list(member_points.values())
         leaderboard.sort(key=lambda x: x["total_points"], reverse=True)

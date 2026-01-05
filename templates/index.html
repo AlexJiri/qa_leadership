@@ -307,6 +307,24 @@
     }
 
     /* Badge Styles */
+    .member-attendance {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .attendance-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #f0f9ff;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
     .member-badges {
       display: flex;
       flex-wrap: wrap;
@@ -6907,12 +6925,20 @@
             else if (rankTier === 4) rankColorClass = 'silver-rank';
             else if (rankTier === 5) rankColorClass = 'bronze-rank';
             
+            // Calculate attendance display
+            const attendancePct = member.attendance_percentage || 0;
+            const attendanceIcon = attendancePct >= 100 ? '✅' : attendancePct >= 80 ? '🟢' : attendancePct >= 50 ? '🟡' : '🔴';
+            const attendanceDisplay = member.meetings_invited > 0 
+              ? `<span class="attendance-badge" title="Attendance: ${member.meetings_attended || 0}/${member.meetings_invited} meetings">${attendanceIcon} ${attendancePct}%</span>`
+              : '';
+            
             return `
               <div class="leaderboard-item ${rankClass}" onclick="showMemberDetails('${member.email}')">
                 <div class="rank ${rankColorClass}">${globalIndex + 1}</div>
                 <div class="member-info">
                   <div class="member-name">${member.name}</div>
                   <div class="member-email">${member.email}</div>
+                  ${attendanceDisplay ? `<div class="member-attendance">${attendanceDisplay}</div>` : ''}
                   <div class="member-badges">${badges}</div>
                 </div>
                 <div class="points">${member.total_points} pts</div>
